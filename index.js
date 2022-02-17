@@ -16,5 +16,15 @@ app.get('/', (req, res) => {
         ]
     })
 })
+app.get('/home', (req, res) => {
+    res.render('index', {
+        service: [
+            { title: 'Web design', desciption: 'I am building a good user exprirence' },
+            { title: 'Web Developer', desciption: 'I am building a good user exprirence' },
+            { title: 'SEO', desciption: 'I am building a good user exprirence' },
+            { title: 'UI/UX', desciption: 'I am building a good user exprirence' },
+        ]
+    })
+})
 
 app.listen(process.env.PORT || 3000);
