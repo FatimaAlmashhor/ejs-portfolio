@@ -16,5 +16,5 @@ app.get('/', (req, res) => {
         ]
     })
 })
-
+app.use('/dashboard', require('./routes/dashboard'))
 app.listen(process.env.PORT || 3000);
