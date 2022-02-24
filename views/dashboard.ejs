@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<% include('head') %> 
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="/css/dashboard.css">
-<body>
+<% include('head') %>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <body>
     <!-- Canvas -->
-<canvas class="orb-canvas"></canvas>
-<!-- Overlay -->
-<%- include('slidebar')  %> 
-<div class="overlay flex p-0 relative">
-  <!-- Overlay inner wrapper -->
-  <div class="overlay__inner">
-    <!-- Title -->
-    <h1 class="overlay__title">
-      Hey, 
-      <span class="text-gradient">Fatima</span> Nice to back?
-    </h1>
-    <!-- Description -->
-    <p class="overlay__description">
-      Start build up your portfolio.
-    </p>
-    <!-- Buttons -->
-    <!-- <div class="overlay__btns">
+    <canvas class="orb-canvas"></canvas>
+    <!-- Overlay -->
+    <%- include('slidebar') %>
+      <div class="overlay flex p-0 relative">
+        <!-- Overlay inner wrapper -->
+        <div class="overlay__inner">
+          <!-- Title -->
+          <h1 class="overlay__title">
+            Hey,
+            <span class="text-gradient">Fatima</span> Nice to back?
+          </h1>
+          <!-- Description -->
+          <p class="overlay__description">
+            Start build up your portfolio.
+          </p>
+          <%- include('../components/'+currentPage) %>
+            <!-- Buttons -->
+            <!-- <div class="overlay__btns">
 
       <button class="overlay__btn overlay__btn--transparent">
         <a href="https://georgefrancis.dev/writing/create-a-generative-landing-page-and-webgl-powered-background/" target="_blank">
@@ -35,8 +37,9 @@
         <span class="overlay__btn-emoji">🎨</span>
       </button>
     </div> -->
-  </div>
-</div>
-<script type="module" src="/js/gassyAnimation.js"></script>
-</body>
+        </div>
+      </div>
+      <script type="module" src="/js/gassyAnimation.js"></script>
+  </body>
+
 </html>
