@@ -51,9 +51,9 @@
   }
   
   .overlay {
-    width: 100%;
-    max-width: 85vw;
-    max-height: 640px;
+    /* width: 100%; */
+    /* max-width: 85vw; */
+    /* max-height: 640px; */
 
     display: flex;
     align-items: center;
@@ -61,12 +61,11 @@
     box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
     border-radius: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.125);
-    overflow: hidden;
 
 }
   
   .overlay__inner {
-    padding: 2rem 3rem;
+    /* padding: 2rem 3rem; */
   }
   
   .overlay__title {
@@ -153,7 +152,7 @@
   
   @media only screen and (max-width: 1140px) {
     .overlay {
-      padding: 2rem 2rem;
+      /* padding: 2rem 2rem; */
     }
   }
   
@@ -163,7 +162,7 @@
     }
   
     .overlay {
-      padding: 4rem;
+      /* padding: 4rem; */
       height: auto;
     }
   
@@ -182,7 +181,7 @@
   
   @media only screen and (max-width: 600px) {
     .overlay {
-      padding: 1.5rem;
+      /* padding: 1.5rem; */
     }
   
     .overlay__btns {

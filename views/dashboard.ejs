@@ -8,17 +8,15 @@
     <!-- Canvas -->
     <canvas class="orb-canvas"></canvas>
     <!-- Overlay -->
-    <%- include('slidebar') %>
-      <div class="overlay flex p-0 ml-28 relative">
-        <!-- Overlay inner wrapper -->
-        <div class="overlay__inner  w-full">
-          <div x-data="{showSkills:false} ">
-            <%- include('../components/'+currentPage) %>
-              <!-- Modal toggle -->
-              <%- include('../components/skillsModals') %>
-          </div>
-          <!-- Buttons -->
-          <!-- <div class="overlay__btns">
+
+    <!-- skill scation -->
+    <div x-data="{showSkills:false , editSkill : false}" class="skill_saction w-search ">
+      <%- include('../components/'+currentPage) %>
+        <!-- Modal toggle -->
+        <%- include('../components/skillsModals') %>
+    </div>
+    <!-- Buttons -->
+    <!-- <div class="overlay__btns">
 
       <button class="overlay__btn overlay__btn--transparent">
         <a href="https://georgefrancis.dev/writing/create-a-generative-landing-page-and-webgl-powered-background/" target="_blank">
@@ -32,22 +30,12 @@
         <span class="overlay__btn-emoji">🎨</span>
       </button>
     </div> -->
-        </div>
-      </div>
-      <script type="module" src="/js/gassyAnimation.js"></script>
-      <!-- <script type="module">
-        const skillModal = document.querySelector('#skill_modal')
-        const skillModalBtn = document.querySelector('#skill_modal_btn')
-        const closeBtn = document.querySelectorAll('.close_btn')
-        closeBtn.forEach(e => {
-          e.addEventListener('click', () => {
 
-          })
-        })
-        skillModalBtn.addEventListener('click', () => {
-          skillModal.classList.toggle('hidden')
-        })
-      </script> -->
+    <script type="module" src="/js/gassyAnimation.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   </body>
 
 </html>

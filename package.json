@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "pre:css":"npx tailwindcss -i ./public/css/main.css -o ./dist/css/main.css --watch" ,
+    "pre:css":"npx tailwindcss -i ./public/css/main.css -o ./dist/css/tailwind.css --watch" ,
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-production": "ng build --prod"
   },

@@ -8,12 +8,61 @@
         <ion-icon name="add-outline"></ion-icon>
     </div>
 </div>
+<div class="w-full  flex flex-row flex-wrap">
+    <% for( let index=0; index < data.length; index++ ) { %>
+        <div class="overlay flex p-0  relative m-2">
+            <!-- Overlay inner wrapper -->
+            <div class="overlay__inner  min-w-fit p-2">
+                <div x-data="{dropdownSkills: false}" class="relative w-full">
+                    <div class="w-full flex justify-between  my-5 px-3  py-1">
+                        <div class="">
+                            <h3>
+                                <%= data[index].skill_name %>
+                            </h3>
+                        </div>
+                        <div class="cursor-pointer" @click="dropdownSkills = ! dropdownSkills">
+                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                        </div>
+                    </div>
 
-<div class="w-full flex justify-between border-b-2 my-5 p-3 border-gray-200">
-    <div class="">
-        <h3>C++</h3>
-    </div>
-    <div class="cursor-pointer">
-        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-    </div>
+                    <!-- Dropdown list -->
+                    <div x-show="dropdownSkills"
+                        class="absolute z-50 right-0 py-2 mt-0 bg-white bg-gray-100 rounded-md shadow-xl w-44">
+                        <a @click="showSkills=true"
+                            class="block px-4 py-2 text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
+                            Edit
+                        </a>
+
+                        <a href="/dashboard/skills/delete/
+                        <%= data[index].id  %>
+                        " data-id-delete="
+                            <%= data[index].id  %>
+                            "
+                            class="block px-4 py-2 text-sm text-red-600 text-gray-700 hover:bg-gray-400 hover:text-white">
+                            Delete
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <% } %>
 </div>
+<script>
+    const deleteBtn = document.querySelectorAll('[data-id-delete]')
+    deleteBtn.forEach(element => {
+        element.addEventListener('click', () => onClickDelete(element))
+    })
+    async function onClickDelete(e) {
+        var id = e.getAttribute('data-id-delete').replace(/ /g, "");
+        await fetch(`http://localhost:3000/dashboard/skills/delete/${id}`, {
+            method: 'DELETE',
+
+        }).then(result => {
+            return result.json();
+        }).then(re => {
+
+        });
+    }
+</script>
