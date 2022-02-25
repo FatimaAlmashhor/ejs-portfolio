@@ -15,23 +15,73 @@
                 </button>
             </div>
             <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/skills" method="post">
-                <h3 class="text-xl font-medium text-gray-900 dark:text-white">Create a new skill</h3>
+                </template>
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white">Create skill</h3>
                 <div>
                     <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">your
                         skill</label>
-                    <input type="skill" name="skill" id="skill"
+                    <input type="skill" name="skill" id="skill" x-text="skill_name" x-model="skill_name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Java" required>
                 </div>
                 <div>
                     <label for="typeOfSkill"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Type of skill</label>
-                    <input type="text" name="typeOfSkill" id="typeOfSkill" placeholder="programming"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Type of
+                        skill</label>
+                    <input type="text" name="typeOfSkill" id="typeOfSkill" x-text="skill_type" x-model="skill_type"
+                        placeholder="programming"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                 </div>
-                <button type="submit"
-                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+
+                <template x-if="!newModel">
+                    <button type="button" @click="editSkill()"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</button>
+                </template>
+                <template x-if="newModel">
+                    <button type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                </template>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    const dotenv = require('dotenv')
+
+    function editme() {
+        return {
+            is_loading: false,
+            skill_name: '',
+            Skill_type: '',
+            async editSkill() {
+                this.showSkills = true
+                this.is_loading = true;
+
+                const data = {
+                    'skill_name': this.skill_name,
+                    'skill_type': this.skill_type
+                }
+
+                console.log('check me first ', data);
+                await fetch(`/dashboard/skills/edit/${this.skill_id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    mode: 'cors',
+                    cache: 'default',
+                    body: JSON.stringify(data),
+                })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        console.log(data);
+                    }).catch((error) => {
+                        console.error('Error:', error);
+                    });;
+            }
+        }
+    }
+</script>

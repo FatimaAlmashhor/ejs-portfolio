@@ -8,7 +8,8 @@ route.get('/', async (req, res) => {
     allSkills = skills;
     res.render('dashboard', {
         currentPage: 'skills',
-        data: skills
+        data: skills,
+        formInfo: {}
     })
     console.log('here the skills');
 });
@@ -29,6 +30,7 @@ route.post('/', async (req, res) => {
                 res.render('dashboard', {
                     currentPage: 'skills',
                     data: allSkills,
+                    formInfo: {}
                 })
                 res.end()
             }
@@ -49,13 +51,14 @@ route.get('/delete/:skill_id', async (req, res) => {
 
                 var html = ejs.render(
                     'skills.ejs',
+
                     { data: newSkills }
                 );
-                console.log('the delete done');
                 // res.json({
                 //     currentPage: 'skills',
                 //     data: newSkills,
                 // })
+
                 res.redirect('/dashboard/skills')
 
 
@@ -69,45 +72,50 @@ route.get('/delete/:skill_id', async (req, res) => {
 });
 
 // get one only 
-route.get('/dashboard/skills/edit/:skill_id', async (req, res) => {
+route.get('/:skill_id', async (req, res) => {
     try {
-        var skills = await Skills.findById(req.params.skill_id.replace(/ /g, ""), (err, result) => {
+        await Skills.findById(req.params.skill_id.replace(/ /g, ""), (err, result) => {
             if (!err) {
-                console.log({ result });
+                // res.render('dashboard', {
+                //     currentPage: 'skills',
+                //     data: allSkills,
+                //     formInfo: {
+                //         skill_name: result.skill_name,
+                //         skill_type: result.skill_type,
+
+                //     }
+                // })
+                res.json({
+                    formInfo: {
+                        skill_name: result.skill_name,
+                        skill_type: result.skill_type,
+                    }
+                })
             }
-        })
+        }).clone()
 
         // res.redirect('/dashboard/skills')
     } catch (error) {
         console.log(error);
     }
 });
-route.get('/edit/:skill_id', async (req, res) => {
+route.put('/edit/:skill_id', async (req, res) => {
     try {
+        console.log('[body]', req.body.skill_name);
         await Skills.updateOne({
             _id: req.params.skill_id.replace(/ /g, "")
         },
             {
                 skill_name: req.body.skill_name,
-                skill_type: req.body.typeOfSkill
+                skill_type: req.body.skill_type
             },
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    var newSkills = allSkills.filter(element => element._id !== req.params.skill_id.replace(/ /g, ""))
-
-                    var html = ejs.render(
-                        'skills.ejs',
-                        { data: newSkills }
-                    );
-                    console.log('the delete done');
-                    // res.json({
-                    //     currentPage: 'skills',
-                    //     data: newSkills,
-                    // })
-                    res.redirect('/dashboard/skills')
-
-
+                    // var newSkills = allSkills.filter(element => element._id !== req.params.skill_id.replace(/ /g, ""))
+                    console.log('[result]', result);
+                    // res.redirect('/dashboard/skills')
+                    res.json({ m: 'd' })
                     res.end()
                 }
             }).clone()
@@ -116,6 +124,11 @@ route.get('/edit/:skill_id', async (req, res) => {
         console.log({ error });
     }
 });
+
+
+
+
+// not working
 route.delete('/delete/:skill_id', async (req, res) => {
     try {
         await Skills.deleteOne({
@@ -135,7 +148,6 @@ route.delete('/delete/:skill_id', async (req, res) => {
                         'skills.ejs',
                         { data: newSkills }
                     );
-                    console.log('the delete done');
                     // res.json({
                     //     currentPage: 'skills',
                     //     data: newSkills,
