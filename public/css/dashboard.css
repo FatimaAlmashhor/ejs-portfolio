@@ -52,7 +52,7 @@
   
   .overlay {
     width: 100%;
-    max-width: 1140px;
+    max-width: 85vw;
     max-height: 640px;
 
     display: flex;
@@ -66,7 +66,6 @@
 }
   
   .overlay__inner {
-    max-width: 36rem;
     padding: 2rem 3rem;
   }
   
