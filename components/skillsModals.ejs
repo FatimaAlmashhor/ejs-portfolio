@@ -1,5 +1,5 @@
 <div id="skill_modal" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
+    class="hidden overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50 justify-center items-center h-search w-screan flex justify-center items-center md:h-full md:inset-0">
     <div class="relative px-4 w-full max-w-md h-full md:h-auto">
 
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -15,18 +15,17 @@
                 </button>
             </div>
             <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/skills" method="post">
-                <h3 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white">Create a new skill</h3>
                 <div>
-                    <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
-                        email</label>
+                    <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">your
+                        skill</label>
                     <input type="skill" name="skill" id="skill"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Java" required>
                 </div>
                 <div>
                     <label for="typeOfSkill"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
-                        password</label>
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Type of skill</label>
                     <input type="text" name="typeOfSkill" id="typeOfSkill" placeholder="programming"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         required="">
