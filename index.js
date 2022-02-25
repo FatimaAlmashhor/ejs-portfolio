@@ -19,10 +19,12 @@ app.get('/', (req, res) => {
         ]
     })
 })
+
 app.use('/dashboard', require('./routes/dashboard'))
 app.use('/auth', require('./routes/auth'))
 
 main().catch(err => console.log(err));
+
 
 async function main() {
     await mongoose.connect('mongodb://localhost:27017/protfolioApp',
