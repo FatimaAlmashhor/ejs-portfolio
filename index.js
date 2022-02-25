@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose')
 
 app.set('view engine', 'ejs');
+// app.set('views', ['views', 'components'])
 app.use('/style', express.static('dist/css'))
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));

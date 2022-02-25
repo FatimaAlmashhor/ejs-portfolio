@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<% include('head') %>
-  <script src="https://cdn.tailwindcss.com"></script>
+<%- include('head') %>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <link rel="stylesheet" href="/css/dashboard.css">
 
   <body>
@@ -12,15 +12,13 @@
       <div class="overlay flex p-0 ml-28 relative">
         <!-- Overlay inner wrapper -->
         <div class="overlay__inner  w-full">
-          <!-- Title -->
-
-          <%- include('../components/'+currentPage) %>
-            <!-- Modal toggle -->
-
-
-            <%- include('../components/skillsModals') %>
-              <!-- Buttons -->
-              <!-- <div class="overlay__btns">
+          <div x-data="{showSkills:false} ">
+            <%- include('../components/'+currentPage) %>
+              <!-- Modal toggle -->
+              <%- include('../components/skillsModals') %>
+          </div>
+          <!-- Buttons -->
+          <!-- <div class="overlay__btns">
 
       <button class="overlay__btn overlay__btn--transparent">
         <a href="https://georgefrancis.dev/writing/create-a-generative-landing-page-and-webgl-powered-background/" target="_blank">
@@ -37,19 +35,19 @@
         </div>
       </div>
       <script type="module" src="/js/gassyAnimation.js"></script>
-      <script type="module">
+      <!-- <script type="module">
         const skillModal = document.querySelector('#skill_modal')
         const skillModalBtn = document.querySelector('#skill_modal_btn')
         const closeBtn = document.querySelectorAll('.close_btn')
-        closeBtn.forEach(e=>{
-          e.addEventListener('click' , ()=>{
-            
+        closeBtn.forEach(e => {
+          e.addEventListener('click', () => {
+
           })
         })
         skillModalBtn.addEventListener('click', () => {
           skillModal.classList.toggle('hidden')
         })
-      </script>
+      </script> -->
   </body>
 
 </html>

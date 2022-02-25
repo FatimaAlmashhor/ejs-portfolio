@@ -1,10 +1,10 @@
-<div id="skill_modal" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50 justify-center items-center h-search w-screan flex justify-center items-center md:h-full md:inset-0">
+<div x-show="showSkills" id="skill_modal" aria-hidden="true"
+    class=" overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50 justify-center items-center h-search w-screan flex justify-center items-center md:h-full md:inset-0">
     <div class="relative px-4 w-full max-w-md h-full md:h-auto">
 
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex justify-end p-2">
-                <button type="button"
+                <button type="button" @click="showSkills=false"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                     data-modal-toggle="skill_modal">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
