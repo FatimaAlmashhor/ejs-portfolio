@@ -44,7 +44,7 @@ route.post('/register', validInfo, async (req, res) => {
                 //     formInfo: {}
                 // })
                 // res.end()
-                jwtToken = jwtGenerator(result._id);
+                // jwtToken = jwtGenerator(result._id);
                 console.log(jwtToken);
                 // res.json({ jwtToken, user: result });
             }

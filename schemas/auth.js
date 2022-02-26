@@ -6,11 +6,16 @@ const auth = new mongoose.Schema({
         required: true,
         unique: true
     },
+    fullname: {
+        type: String,
+        required: true,
+    },
     password: {
         type: String,
         required: true,
     },
     is_active: Boolean,
+    deleted: Boolean
 })
 
 const authModel = mongoose.model('auth', auth);
