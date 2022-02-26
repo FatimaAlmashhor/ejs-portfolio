@@ -20,7 +20,8 @@ route.post('/', async (req, res) => {
         await new Skills({
             skill_name: req.body.skill,
             skill_type: req.body.typeOfSkill,
-            is_active: true
+            is_active: true,
+            deleted: false
         }).save((err, result) => {
             if (err) {
                 console.log(err);
@@ -46,7 +47,7 @@ route.get('/delete/:skill_id', async (req, res) => {
             _id: req.params.skill_id.replace(/ /g, "")
         },
             {
-                is_active: false,
+                deleted: true,
             },
             (error, result) => {
                 if (error) console.log({ error });
@@ -86,13 +87,13 @@ route.get('/delete/:skill_id', async (req, res) => {
 });
 route.get('/toggle/:skill_id/', async (req, res) => {
     try {
-        console.log(req.body.is_active);
-        console.log(req.query.state);
+        let newState = (req.query.state) == true ? false : true;
+        console.log({ newState });
         await Skills.updateOne({
             _id: req.params.skill_id.replace(/ /g, "")
         },
             {
-                is_active: req.query.state ? false : true,
+                is_active: newState
             },
             (error, result) => {
                 if (error) console.log({ error });

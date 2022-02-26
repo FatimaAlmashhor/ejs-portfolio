@@ -10,54 +10,55 @@
 </div>
 <div class="w-full  flex flex-row flex-wrap">
     <% for( let index=0; index < data.length; index++ ) { %>
-        <div class="overlay flex p-0  relative m-2 ">
-            <!-- Overlay inner wrapper -->
-            <div class="overlay__inner  min-w-fit ">
-                <div x-data="{dropdownSkills: false}" class="relative w-full h-full inherit-rounded">
-                    <div class="w-full h-full flex justify-between inherit-rounded ">
-                        <!-- active toggle -->
-                        <div @click=" activeModel= true ; activeState='<%=data[index].is_active  %>'; skill_id = '<%=data[index].id  %>'"
-                            class=" inherit-rounded cursor-pointer mr-3  w-6 
-                        <% if (!(data[index].is_active)) { %>
-                            bg-red-300  hover:bg-red-200
-                           <% } else{%>
-                            bg-green-400  hover:bg-green-300
-                            <% } %> 
-                        ">
+        <% if (!(data[index].deleted)) { %>
+            <div class="overlay flex p-0  relative m-2 ">
+                <!-- Overlay inner wrapper -->
+                <div class="overlay__inner  min-w-fit ">
+                    <div x-data="{dropdownSkills: false}" class="relative w-full h-full inherit-rounded">
+                        <div class="w-full h-full flex justify-between inherit-rounded ">
+                            <!-- active toggle -->
+                            <div @click=" activeModel= true ; activeState='<%=data[index].is_active  %>'; skill_id = '<%=data[index].id  %>'"
+                                class=" inherit-rounded cursor-pointer mr-3  w-6 
+                            <% if (!(data[index].is_active)) { %>
+                                bg-red-300  hover:bg-red-200
+                               <% } else{%>
+                                bg-green-400  hover:bg-green-300
+                                <% } %> 
+                            ">
+                            </div>
+                            <div class=" p-4">
+                                <h3>
+                                    <%= data[index].skill_name %>
+                                </h3>
+                            </div>
+                            <div class="cursor-pointer p-4" @click="dropdownSkills = ! dropdownSkills">
+                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                            </div>
                         </div>
-                        <div class=" p-4">
-                            <h3>
-                                <%= data[index].skill_name %>
-                            </h3>
-                        </div>
-                        <div class="cursor-pointer p-4" @click="dropdownSkills = ! dropdownSkills">
-                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                        </div>
-                    </div>
 
-                    <!-- Dropdown list -->
-                    <div x-show="dropdownSkills"
-                        class="absolute z-50 left-4 py-2 mt-0 bg-white bg-gray-100 rounded-md shadow-xl w-44">
-                        <button @click=" skill_id = '<%=data[index].id  %>' ;  fetchSkill() "
-                            class="block px-4 py-2 w-full text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
-                            Edit
-                        </button>
-                        <a href="/dashboard/skills/delete/
-                        <%= data[index].id  %>
-                        " data-id-delete="
+                        <!-- Dropdown list -->
+                        <div x-show="dropdownSkills"
+                            class="absolute z-50 left-4 py-2 mt-0 bg-white bg-gray-100 rounded-md shadow-xl w-44">
+                            <button @click=" skill_id = '<%=data[index].id  %>' ;  fetchSkill() "
+                                class="block px-4 py-2 w-full text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
+                                Edit
+                            </button>
+                            <a href="/dashboard/skills/delete/
                             <%= data[index].id  %>
-                            "
-                            class="block px-4 py-2 text-sm text-red-600 text-gray-700 hover:bg-gray-400 hover:text-white">
-                            Delete
-                        </a>
+                            " data-id-delete="
+                                <%= data[index].id  %>
+                                "
+                                class="block px-4 py-2 text-sm text-red-600 text-gray-700 hover:bg-gray-400 hover:text-white">
+                                Delete
+                            </a>
+
+                        </div>
 
                     </div>
-
                 </div>
             </div>
-        </div>
-
-        <% } %>
+            <% } %>
+                <% } %>
 </div>
 
 <!-- toggle active confirm  -->
