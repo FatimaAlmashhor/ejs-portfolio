@@ -1,9 +1,10 @@
 const route = require('express').Router()
 const Skills = require('../schemas/skills')
-const ejs = require('ejs')
+const ejs = require('ejs');
+const verify = require('../middlewares/verifyToken')
 var allSkills = [];
 
-route.get('/', async (req, res) => {
+route.get('/', verify, async (req, res) => {
     var skills = await Skills.find().clone().catch(function (err) { console.log(err) });
     allSkills = skills;
     res.render('dashboard', {
@@ -14,7 +15,7 @@ route.get('/', async (req, res) => {
     console.log('here the skills');
 });
 
-route.post('/', async (req, res) => {
+route.post('/', verify, async (req, res) => {
     try {
         console.log(req.body);
         await new Skills({
@@ -41,7 +42,7 @@ route.post('/', async (req, res) => {
         console.log({ error });
     }
 });
-route.get('/delete/:skill_id', async (req, res) => {
+route.get('/delete/:skill_id', verify, async (req, res) => {
     try {
         await Skills.updateOne({
             _id: req.params.skill_id.replace(/ /g, "")
@@ -85,7 +86,7 @@ route.get('/delete/:skill_id', async (req, res) => {
         console.log({ error });
     }
 });
-route.get('/toggle/:skill_id/', async (req, res) => {
+route.get('/toggle/:skill_id/', verify, async (req, res) => {
     try {
         let newState = (req.query.state) == true ? false : true;
         console.log({ newState });
@@ -133,7 +134,7 @@ route.get('/toggle/:skill_id/', async (req, res) => {
 });
 
 // get one only 
-route.get('/:skill_id', async (req, res) => {
+route.get('/:skill_id', verify, async (req, res) => {
     try {
         await Skills.findById(req.params.skill_id.replace(/ /g, ""), (err, result) => {
             if (!err) {
@@ -160,7 +161,7 @@ route.get('/:skill_id', async (req, res) => {
         console.log(error);
     }
 });
-route.get('/edit/:skill_id/', async (req, res) => {
+route.get('/edit/:skill_id/', verify, async (req, res) => {
     try {
 
         console.log('[body]', req.query.skillName);
