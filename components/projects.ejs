@@ -1,7 +1,7 @@
 <!-- Title -->
 
 <div class="w-full flex justify-between ">
-    <h1 class="text-2xl">Services</h1>
+    <h1 class="text-2xl">projects</h1>
 
     <!-- Skill Section -->
     <div @click="showSkills=true ; newModel = true" class=" cursor-pointer" id='skill_modal_btn'>
@@ -28,10 +28,10 @@
                             </div>
                             <div class=" p-4">
                                 <h3 class="text-xl border-b-1 border-gray-200 mb-1">
-                                    <%= data[index].services_title %>
+                                    <%= data[index].title %>
                                 </h3>
                                 <p class="text-sm text-gray-400">
-                                    <%= data[index].services_description %>
+                                    <%= data[index].description %>
                                 </p>
                             </div>
                             <div class="cursor-pointer p-4" @click="dropdownSkills = ! dropdownSkills">
@@ -46,7 +46,7 @@
                                 class="block px-4 py-2 w-full text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
                                 Edit
                             </button>
-                            <a href="/dashboard/services/delete/
+                            <a href="/dashboard/projects/delete/
                             <%= data[index].id  %>
                             " data-id-delete="
                                 <%= data[index].id  %>
@@ -102,7 +102,7 @@
     })
     async function onClickDelete(e) {
         var id = e.getAttribute('data-id-delete').replace(/ /g, "");
-        await fetch(`http://localhost:3000/dashboard/services/delete/${id}`, {
+        await fetch(`http://localhost:3000/dashboard/projects/delete/${id}`, {
             method: 'DELETE',
 
         }).then(result => {
@@ -121,18 +121,21 @@
                 this.showSkills = true
                 this.is_loading = true;
                 this.newModel = false;
-                fetch(`/dashboard/services/${this.id}`)
+                fetch(`/dashboard/projects/${this.id}`)
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;
+                        this.value = data.formInfo.id;
                         this.value1 = data.formInfo.title;
                         this.value2 = data.formInfo.des;
+                        this.value3 = data.formInfo.position;
+                        this.value4 = data.formInfo.role;
                         console.log(data);
                     });
             },
             // 
             toggleActive() {
-                window.location.href = `/dashboard/services/toggle/${this.id}/?state=${this.activeState}`
+                window.location.href = `/dashboard/projects/toggle/${this.id}/?state=${this.activeState}`
             }
         }
     }

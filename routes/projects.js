@@ -1,11 +1,13 @@
 const route = require('express').Router()
-const projects = require('../schemas/projects')
+const Projects = require('../schemas/projects')
 const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
+const removeFile = require('../utils/js/removeFile')
+const upload = require('../utils/js/multer')
 var all = [];
 
 route.get('/', verify, async (req, res) => {
-    var projects = await projects.find().clone().catch(function (err) { console.log(err) });
+    var projects = await Projects.find().clone().catch(function (err) { console.log(err) });
     all = projects;
     res.render('dashboard', {
         currentPage: 'projects',
@@ -15,28 +17,27 @@ route.get('/', verify, async (req, res) => {
     console.log('here the projects');
 });
 
-route.post('/', async (req, res) => {
+route.post('/', verify, upload.single('project'), async (req, res) => {
     try {
-        console.log(req.body);
-        await new projects({
+
+        await new Projects({
             title: req.body.title,
             description: req.body.des,
-            position : req.body.position ,
-            role : req.body.role ,
+            position: req.body.position,
+            role: req.body.role,
+            image: req.file !== undefined ? req.file.filename : null,
+            links: [{ live: req.body.liveLink }],
             is_active: true,
             deleted: false
         }).save((err, result) => {
             if (err) {
                 console.log(err);
-                return res.redirect('/500page')
+                removeFile("./uploads/projects/" + req.file.filename)
+                return res.redirect('/500page');
             }
             else {
                 all.push(result)
-                res.render('dashboard', {
-                    currentPage: 'projects',
-                    data: all,
-                    formInfo: {}
-                })
+                res.redirect('/dashboard/projects')
                 res.end()
             }
         })
@@ -47,7 +48,7 @@ route.post('/', async (req, res) => {
 });
 route.get('/delete/:id', async (req, res) => {
     try {
-        await projects.updateOne({
+        await Projects.updateOne({
             _id: req.params.id.replace(/ /g, "")
         },
             {
@@ -70,7 +71,7 @@ route.get('/toggle/:id/', async (req, res) => {
     try {
         let newState = (req.query.state) == true ? false : true;
         console.log({ newState });
-        await projects.updateOne({
+        await Projects.updateOne({
             _id: req.params.id.replace(/ /g, "")
         },
             {
@@ -93,13 +94,16 @@ route.get('/toggle/:id/', async (req, res) => {
 // get one only 
 route.get('/:id', async (req, res) => {
     try {
-        await projects.findById(req.params.id.replace(/ /g, ""), (err, result) => {
+        await Projects.findById(req.params.id.replace(/ /g, ""), (err, result) => {
             if (!err) {
 
                 res.json({
                     formInfo: {
-                        title: result.projects_title,
-                        des: result.projects_description,
+                        id: result.id,
+                        title: result.title,
+                        des: result.description,
+                        position: result.position,
+                        role: result.role,
                     }
                 })
             }
@@ -110,16 +114,20 @@ route.get('/:id', async (req, res) => {
         console.log(error);
     }
 });
-route.get('/edit/:id/', async (req, res) => {
+route.post('/edit', verify, upload.single('project'), async (req, res) => {
     try {
 
-        console.log('[body]', req.query.skillName);
-        await projects.updateOne({
-            _id: req.params.id.replace(/ /g, "")
+        console.log('[body]', req.body);
+        await Projects.updateOne({
+            _id: req.body.id.replace(/ /g, "")
         },
             {
-                projects_title: req.query.title,
-                projects_description: req.query.des
+                title: req.body.title,
+                description: req.body.des,
+                position: req.body.position,
+                role: req.body.role,
+                image: req.file !== undefined ? req.file.filename : null,
+                links: [{ live: req.body.liveLink }],
             },
             (error, result) => {
                 if (error) console.log({ error });
