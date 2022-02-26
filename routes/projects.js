@@ -69,13 +69,13 @@ route.get('/delete/:id', async (req, res) => {
 });
 route.get('/toggle/:id/', async (req, res) => {
     try {
-        let newState = (req.query.state) == true ? false : true;
-        console.log({ newState });
+        const newLocal = req.query.state ? false : true
+        console.log(newLocal);
         await Projects.updateOne({
             _id: req.params.id.replace(/ /g, "")
         },
             {
-                is_active: newState
+                is_active: (newLocal)
             },
             (error, result) => {
                 if (error) console.log({ error });

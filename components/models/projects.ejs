@@ -114,5 +114,17 @@ post :'/dashboard/projects'
 <script>
     const dotenv = require('dotenv')
 
-  
+    function editme() {
+        return {
+            is_loading: false,
+
+            async editSkill() {
+                this.showSkills = true
+                this.is_loading = true;
+
+                window.location.href = `/dashboard/projects/edit/${this.id}/?title=${this.value1}&des=${this.value2}`
+
+            }
+        }
+    }
 </script>

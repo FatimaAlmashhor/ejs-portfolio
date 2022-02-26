@@ -7,6 +7,7 @@ app.set('view engine', 'ejs');
 app.use(cookieParser())
 // app.set('views', ['views', 'components'])
 app.use('/style', express.static('dist/css'))
+app.use('/uploads', express.static('uploads/'))
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
