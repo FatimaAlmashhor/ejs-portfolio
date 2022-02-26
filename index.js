@@ -24,7 +24,13 @@ app.get('/', (req, res) => {
 
 app.use('/dashboard', require('./routes/dashboard'))
 app.use('/auth', require('./routes/auth'))
+app.get('/500page', (req, res) => {
+    res.render('500page')
+})
 
+app.get('*', (req, res) => {
+    res.render('noFound')
+})
 main().catch(err => console.log(err));
 
 

@@ -26,6 +26,7 @@ route.post('/', async (req, res) => {
         }).save((err, result) => {
             if (err) {
                 console.log(err);
+                return res.redirect('/500page')
             }
             else {
                 all.push(result)

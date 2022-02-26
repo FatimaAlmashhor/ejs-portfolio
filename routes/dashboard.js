@@ -11,6 +11,7 @@ route.get('/', verfiyToken, (req, res) => {
     })
 })
 
+
 route.use('/skills', require('./skills'))
 route.use('/services', require('./services'))
 route.use('/educations', require('./educations'))
