@@ -4,13 +4,13 @@ const AuthModel = require('../schemas/auth')
 const jwtGenerator = require('../utils/js/jwtGenrate')
 const validInfo = require("../middlewares/validation");
 
-route.get('/login', validInfo, (req, res) => {
+route.get('/login', (req, res) => {
     res.render('login')
 })
-route.get('/register', validInfo, (req, res) => {
+route.get('/register', (req, res) => {
     res.render('register')
 })
-route.post('/register', async (req, res) => {
+route.post('/register', validInfo, async (req, res) => {
     try {
         // 1- destracture the req.body (name ,email , password) 
         const { fname, email, password } = req.body;

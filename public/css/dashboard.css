@@ -66,6 +66,11 @@
   
   .overlay__inner {
     /* padding: 2rem 3rem; */
+    border-radius: inherit;
+  }
+  .inherit-rounded{
+    border-top-left-radius:  inherit;
+    border-bottom-left-radius:  inherit;
   }
   
   .overlay__title {

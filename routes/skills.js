@@ -42,29 +42,89 @@ route.post('/', async (req, res) => {
 });
 route.get('/delete/:skill_id', async (req, res) => {
     try {
-        await Skills.deleteOne({
+        await Skills.updateOne({
             _id: req.params.skill_id.replace(/ /g, "")
-        }, (error) => {
-            if (error) console.log({ error });
-            else {
-                var newSkills = allSkills.filter(element => element._id !== req.params.skill_id.replace(/ /g, ""))
+        },
+            {
+                is_active: false,
+            },
+            (error, result) => {
+                if (error) console.log({ error });
+                else {
+                    console.log({ result });
+                    var newSkills = allSkills.map(element => {
+                        if (element._id == req.params.skill_id.replace(/ /g, "")) {
+                            element.is_active = false;
 
-                var html = ejs.render(
-                    'skills.ejs',
+                            return element
+                        }
+                        else return element
+                    })
 
-                    { data: newSkills }
-                );
-                // res.json({
-                //     currentPage: 'skills',
-                //     data: newSkills,
-                // })
+                    // res.render('dashboard', {
+                    //     currentPage: 'skills',
+                    //     data: newSkills,
+                    //     formInfo: {}
+                    // })
+                    res.redirect('/dashboard/skills')
+                    res.end()
+                }
+            }).clone()
+        // await Skills.deleteOne({
+        //     _id: req.params.skill_id.replace(/ /g, "")
+        // }, (error) => {
+        //     if (error) console.log({ error });
+        //     else {
+        //         res.redirect('/dashboard/skills')
+        //         res.end()
+        //     }
+        // }).clone()
 
-                res.redirect('/dashboard/skills')
+    } catch (error) {
+        console.log({ error });
+    }
+});
+route.get('/toggle/:skill_id/', async (req, res) => {
+    try {
+        console.log(req.body.is_active);
+        console.log(req.query.state);
+        await Skills.updateOne({
+            _id: req.params.skill_id.replace(/ /g, "")
+        },
+            {
+                is_active: req.query.state ? false : true,
+            },
+            (error, result) => {
+                if (error) console.log({ error });
+                else {
+                    console.log({ result });
+                    var newSkills = allSkills.map(element => {
+                        if (element._id == req.params.skill_id.replace(/ /g, "")) {
+                            element.is_active = false;
 
+                            return element
+                        }
+                        else return element
+                    })
 
-                res.end()
-            }
-        }).clone()
+                    // res.render('dashboard', {
+                    //     currentPage: 'skills',
+                    //     data: newSkills,
+                    //     formInfo: {}
+                    // })
+                    res.redirect('/dashboard/skills')
+                    res.end()
+                }
+            }).clone()
+        // await Skills.deleteOne({
+        //     _id: req.params.skill_id.replace(/ /g, "")
+        // }, (error) => {
+        //     if (error) console.log({ error });
+        //     else {
+        //         res.redirect('/dashboard/skills')
+        //         res.end()
+        //     }
+        // }).clone()
 
     } catch (error) {
         console.log({ error });
@@ -99,7 +159,7 @@ route.get('/:skill_id', async (req, res) => {
         console.log(error);
     }
 });
-route.put('/edit/:skill_id', async (req, res) => {
+route.post('/edit/:skill_id', async (req, res) => {
     try {
         console.log('[body]', req.body.skill_name);
         await Skills.updateOne({
@@ -112,10 +172,22 @@ route.put('/edit/:skill_id', async (req, res) => {
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    // var newSkills = allSkills.filter(element => element._id !== req.params.skill_id.replace(/ /g, ""))
-                    console.log('[result]', result);
-                    // res.redirect('/dashboard/skills')
-                    res.json({ m: 'd' })
+                    var newSkills = allSkills.map(element => {
+                        if (element._id == req.params.skill_id.replace(/ /g, "")) {
+                            element.skill_name = req.body.skill_name;
+                            element.skill_type = req.body.skill_type;
+
+                            return element
+                        }
+                        else return element
+                    })
+
+                    // res.render('dashboard', {
+                    //     currentPage: 'skills',
+                    //     data: newSkills,
+                    //     formInfo: {}
+                    // })
+                    res.redirect('/dashboard')
                     res.end()
                 }
             }).clone()

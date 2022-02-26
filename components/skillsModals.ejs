@@ -15,7 +15,6 @@
                 </button>
             </div>
             <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/skills" method="post">
-                </template>
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white">Create skill</h3>
                 <div>
                     <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">your
@@ -64,23 +63,17 @@
                 }
 
                 console.log('check me first ', data);
-                await fetch(`/dashboard/skills/edit/${this.skill_id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    mode: 'cors',
-                    cache: 'default',
-                    body: JSON.stringify(data),
-                })
-                    .then(res => res.json())
-                    .then(data => {
-
-                        console.log(data);
-                    }).catch((error) => {
-                        console.error('Error:', error);
-                    });;
+                $.post(`/dashboard/skills/edit/${this.skill_id}`, {
+                    'skill_name': this.skill_name,
+                    'skill_type': this.skill_type
+                },
+                    function (data, status) {
+                        this.showSkills = false
+                        this.is_loading = false
+                        if (status === "success") {
+                            console.log("Post successfully created!")
+                        }
+                    }, 'json')
             }
         }
     }
