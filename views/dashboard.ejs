@@ -7,22 +7,24 @@
   <body>
     <!-- Canvas -->
     <!-- <canvas class="orb-canvas"></canvas> -->
+    <div class="flex flex-row  w-full">
+      <div class="relative w-2/12">
+        <%- include('slidebar') %>
+      </div>
+      <div
+        x-data="{showSkills:false , value : '' , value1 : ''  , value2 : '' , value3 : '',  value4 : '', newModel : true , id : '' , activeModel:false , activeState :'' }"
+        class=" w-10/12">
+        <div x-data="showme()" class="w-full">
+          <div x-data="editme()" class="w-full">
+            <%- include('../components/'+currentPage) %>
+              <!-- Modal toggle -->
 
-    <!-- Overlay -->
-
-    <!-- skill scation -->
-    <div
-      x-data="{showSkills:false , value : '' , value1 : ''  , value2 : '' , value3 : '',  value4 : '', newModel : true , id : '' , activeModel:false , activeState :'' }"
-      class="skill_saction w-search ">
-      <div x-data="showme()" class="w-full">
-        <div x-data="editme()" class="w-full">
-          <%- include('../components/'+currentPage) %>
-            <!-- Modal toggle -->
-
-            <%- include('../components/models/'+currentPage) %>
+              <%- include('../components/models/'+currentPage) %>
+          </div>
         </div>
       </div>
     </div>
+
     <!-- Buttons -->
     <!-- <div class="overlay__btns">
 
