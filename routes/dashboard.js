@@ -6,6 +6,7 @@ app.use(express.static('/components/'))
 
 route.get('/', verfiyToken, (req, res) => {
     res.render('dashboard', {
+        userIfo: { name: 'fatima' },
         currentPage: 'infors'
     })
 })

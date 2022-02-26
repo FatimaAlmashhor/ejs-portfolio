@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
-
-app.set('view engine', 'ejs');
 const cookieParser = require('cookie-parser')
 
+app.set('view engine', 'ejs');
+app.use(cookieParser())
 // app.set('views', ['views', 'components'])
 app.use('/style', express.static('dist/css'))
 app.use(express.static('public'));

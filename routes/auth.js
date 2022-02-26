@@ -1,3 +1,6 @@
+// todo 
+// the redirect after register not working 
+
 const route = require('express').Router()
 const bcrypt = require('bcryptjs');
 const AuthModel = require('../schemas/auth')
