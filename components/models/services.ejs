@@ -14,35 +14,34 @@
                     </svg>
                 </button>
             </div>
-            <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/skills" method="post">
-                <h3 class="text-xl font-medium text-gray-900 dark:text-white">Create skill</h3>
+            <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/services" method="post">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white">Create Service</h3>
                 <div>
-                    <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">your
-                        skill</label>
+                    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                        Service title</label>
                     <template x-if="!newModel">
-                        <input type="skill" name="skill" id="skill" x-text="value1" x-model="value1"
+                        <input type="texts" name="title" id="title" x-text="value1" x-model="value1"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Java" required>
+                            placeholder="Web design" required>
                     </template>
                     <template x-if="newModel">
-                        <input type="skill" name="skill" id="skill"
+                        <input type="text" name="title" id="title"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Java" required>
+                            placeholder="Web design" required>
                     </template>
                 </div>
                 <div>
-                    <label for="typeOfSkill"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Type of
-                        skill</label>
+                    <label for="des" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Service Description</label>
                     <template x-if="!newModel">
-                        <input type="skill" name="skill" id="skill" x-text="value2" x-model="value2"
+                        <input type="text" name="des" id="des" x-text="value2" x-model="value2"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Java" required>
+                            placeholder="help you for create a modren website" required>
                     </template>
                     <template x-if="newModel">
-                        <input type="skill" name="skill" id="skill"
+                        <input type="text" name="des" id="des"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Java" required>
+                            placeholder="help you for create a modren website" required>
                     </template>
                 </div>
 
@@ -70,7 +69,7 @@
                 this.showSkills = true
                 this.is_loading = true;
 
-                window.location.href = `/dashboard/skills/edit/${this.id}/?skillName=${this.value1}&skillType=${this.value2}`
+                window.location.href = `/dashboard/services/edit/${this.id}/?title=${this.value1}&des=${this.value2}`
 
             }
         }

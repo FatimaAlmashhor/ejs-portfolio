@@ -2,25 +2,25 @@ const route = require('express').Router()
 const Services = require('../schemas/services')
 const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
-var allServices = [];
+var all = [];
 
 route.get('/', verify, async (req, res) => {
     var services = await Services.find().clone().catch(function (err) { console.log(err) });
-    allservices = services;
+    all = services;
     res.render('dashboard', {
         currentPage: 'services',
-        data: allservices,
+        data: all,
         formInfo: {}
     })
-    console.log('here the allservices');
+    console.log('here the all');
 });
 
 route.post('/', async (req, res) => {
     try {
         console.log(req.body);
         await new Services({
-            skill_name: req.body.skill,
-            skill_type: req.body.typeOfSkill,
+            services_title: req.body.title,
+            services_description: req.body.des,
             is_active: true,
             deleted: false
         }).save((err, result) => {
@@ -28,10 +28,10 @@ route.post('/', async (req, res) => {
                 console.log(err);
             }
             else {
-                allServices.push(result)
+                all.push(result)
                 res.render('dashboard', {
                     currentPage: 'services',
-                    data: allServices,
+                    data: all,
                     formInfo: {}
                 })
                 res.end()
@@ -53,34 +53,11 @@ route.get('/delete/:id', async (req, res) => {
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    console.log({ result });
-                    var newSkills = allServices.map(element => {
-                        if (element._id == req.params.id.replace(/ /g, "")) {
-                            element.is_active = false;
-
-                            return element
-                        }
-                        else return element
-                    })
-
-                    // res.render('dashboard', {
-                    //     currentPage: 'skills',
-                    //     data: newSkills,
-                    //     formInfo: {}
-                    // })
-                    res.redirect('/dashboard/skills')
+                    res.redirect('/dashboard/services')
                     res.end()
                 }
             }).clone()
-        // await Skills.deleteOne({
-        //     _id: req.params.id.replace(/ /g, "")
-        // }, (error) => {
-        //     if (error) console.log({ error });
-        //     else {
-        //         res.redirect('/dashboard/skills')
-        //         res.end()
-        //     }
-        // }).clone()
+
 
     } catch (error) {
         console.log({ error });
@@ -99,21 +76,7 @@ route.get('/toggle/:id/', async (req, res) => {
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    console.log({ result });
-                    var newSkills = allServices.map(element => {
-                        if (element._id == req.params.id.replace(/ /g, "")) {
-                            element.is_active = false;
 
-                            return element
-                        }
-                        else return element
-                    })
-
-                    // res.render('dashboard', {
-                    //     currentPage: 'skills',
-                    //     data: newSkills,
-                    //     formInfo: {}
-                    // })
                     res.redirect('/dashboard/services')
                     res.end()
                 }
@@ -127,19 +90,19 @@ route.get('/toggle/:id/', async (req, res) => {
 // get one only 
 route.get('/:id', async (req, res) => {
     try {
-        await Skills.findById(req.params.id.replace(/ /g, ""), (err, result) => {
+        await Services.findById(req.params.id.replace(/ /g, ""), (err, result) => {
             if (!err) {
 
                 res.json({
                     formInfo: {
-                        skill_name: result.skill_name,
-                        skill_type: result.skill_type,
+                        title: result.services_title,
+                        des: result.services_description,
                     }
                 })
             }
         }).clone()
 
-        // res.redirect('/dashboard/skills')
+
     } catch (error) {
         console.log(error);
     }
@@ -148,17 +111,17 @@ route.get('/edit/:id/', async (req, res) => {
     try {
 
         console.log('[body]', req.query.skillName);
-        await Skills.updateOne({
+        await Services.updateOne({
             _id: req.params.id.replace(/ /g, "")
         },
             {
-                skill_name: req.query.skillName,
-                skill_type: req.query.skillType
+                services_title: req.query.title,
+                services_description: req.query.des
             },
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    res.redirect('/dashboard/skills')
+                    res.redirect('/dashboard/services')
                     res.end()
                 }
             }).clone()

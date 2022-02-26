@@ -5,7 +5,7 @@ const services = new mongoose.Schema({
     services_title: {
         type: String,
         required: true,
-        unique: true
+        // unique: true
     },
     services_description: String,
     is_active: Boolean,

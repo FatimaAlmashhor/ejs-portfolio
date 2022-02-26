@@ -27,11 +27,11 @@
                             ">
                             </div>
                             <div class=" p-4">
-                                <h3>
-                                    <%= data[index].value1 %>
+                                <h3 class="text-xl border-b-1 border-gray-200 mb-1">
+                                    <%= data[index].services_title %>
                                 </h3>
-                                <p>
-                                    <%= data[index].value2 %>
+                                <p class="text-sm text-gray-400">
+                                    <%= data[index].services_description %>
                                 </p>
                             </div>
                             <div class="cursor-pointer p-4" @click="dropdownSkills = ! dropdownSkills">
@@ -46,7 +46,7 @@
                                 class="block px-4 py-2 w-full text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
                                 Edit
                             </button>
-                            <a href="/dashboard/skills/delete/
+                            <a href="/dashboard/services/delete/
                             <%= data[index].id  %>
                             " data-id-delete="
                                 <%= data[index].id  %>
@@ -85,7 +85,7 @@
             </div>
             <div class="flex flex-col">
                 <div class="p-3">
-                    <h2 class="text-white">Are you sure you want to toggle the state of this skill ?</h2>
+                    <h2 class="text-white">Are you sure you want to toggle the state of this service ?</h2>
                 </div>
                 <div class="flex">
                     <button @click="activeModel = false" class="bg-red-400 p-2 px-3 m-2 rounded-sm">No</button>
@@ -102,7 +102,7 @@
     })
     async function onClickDelete(e) {
         var id = e.getAttribute('data-id-delete').replace(/ /g, "");
-        await fetch(`http://localhost:3000/dashboard/skills/delete/${id}`, {
+        await fetch(`http://localhost:3000/dashboard/services/delete/${id}`, {
             method: 'DELETE',
 
         }).then(result => {
@@ -121,18 +121,18 @@
                 this.showSkills = true
                 this.is_loading = true;
                 this.newModel = false;
-                fetch(`/dashboard/skills/${this.id}`)
+                fetch(`/dashboard/services/${this.id}`)
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;
-                        this.value1 = data.formInfo.skill_name;
-                        this.value2 = data.formInfo.skill_type;
+                        this.value1 = data.formInfo.title;
+                        this.value2 = data.formInfo.des;
                         console.log(data);
                     });
             },
             // 
             toggleActive() {
-                window.location.href = `/dashboard/skills/toggle/${this.id}/?state=${this.activeState}`
+                window.location.href = `/dashboard/services/toggle/${this.id}/?state=${this.activeState}`
             }
         }
     }
