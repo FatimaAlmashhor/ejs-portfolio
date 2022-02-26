@@ -19,17 +19,31 @@
                 <div>
                     <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">your
                         skill</label>
-                    <input type="skill" name="skill" id="skill" x-text="skill_name" x-model="skill_name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="Java" required>
+                    <template x-if="!newModel">
+                        <input type="skill" name="skill" id="skill" x-text="skill_name" x-model="skill_name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Java" required>
+                    </template>
+                    <template x-if="newModel">
+                        <input type="skill" name="skill" id="skill"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Java" required>
+                    </template>
                 </div>
                 <div>
                     <label for="typeOfSkill"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Type of
                         skill</label>
-                    <input type="text" name="typeOfSkill" id="typeOfSkill" x-text="skill_type" x-model="skill_type"
-                        placeholder="programming"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                    <template x-if="!newModel">
+                        <input type="skill" name="skill" id="skill" x-text="skill_type" x-model="skill_type"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Java" required>
+                    </template>
+                    <template x-if="newModel">
+                        <input type="skill" name="skill" id="skill"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Java" required>
+                    </template>
                 </div>
 
                 <template x-if="!newModel">

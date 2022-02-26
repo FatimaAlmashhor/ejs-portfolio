@@ -4,11 +4,11 @@ const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
 var allSkills = [];
 
-route.get('/', async (req, res) => {
+route.get('/', verify, async (req, res) => {
     var skills = await Skills.find().clone().catch(function (err) { console.log(err) });
     allSkills = skills;
     res.render('dashboard', {
-        currentPage: 'skills',
+        currentPage: 'services',
         data: skills,
         formInfo: {}
     })
@@ -30,7 +30,7 @@ route.post('/', async (req, res) => {
             else {
                 allSkills.push(result)
                 res.render('dashboard', {
-                    currentPage: 'skills',
+                    currentPage: 'services',
                     data: allSkills,
                     formInfo: {}
                 })
@@ -129,7 +129,7 @@ route.get('/:service_id', async (req, res) => {
     try {
         await Skills.findById(req.params.service_id.replace(/ /g, ""), (err, result) => {
             if (!err) {
-               
+
                 res.json({
                     formInfo: {
                         skill_name: result.skill_name,

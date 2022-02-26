@@ -22,7 +22,7 @@ function jwtGenerator(user) {
 
     let key = process.env.jwtSecretAdmin
 
-    return jwt.sign(payload, key, { expiresIn: "100s" });
+    return jwt.sign(payload, key, { expiresIn: "3d" });
 }
 
 module.exports = jwtGenerator;
