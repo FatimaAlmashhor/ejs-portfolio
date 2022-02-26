@@ -1,8 +1,12 @@
-<h1 class="overlay__title">
-    Hey,
-    <span class="text-gradient">Fatima</span> Nice to back?
-</h1>
-<!-- Description -->
-<p class="overlay__description">
-    Start build up your portfolio.
-</p>
+<% if (userIfo !=undefined ) { %>
+    <h1 class="overlay__title">
+        Hey,
+        <span class="text-gradient">
+            <%= userIfo.name %>
+        </span> Nice to back?
+    </h1>
+    <!-- Description -->
+    <p class="overlay__description">
+        Start build up your portfolio.
+    </p>
+    <% } %>
