@@ -26,13 +26,9 @@ route.post('/login', validInfo, async (req, res) => {
         // 1- destracture the req.body (name ,email , password) 
         const { email, password } = req.body;
 
-
         let jwtToken;
-        let user = await find({
+        let user = await AuthModel.find({
             email: email,
-            password: bcryptPassword,
-            is_active: true,
-            deleted: false
         }, (err, result) => {
             if (err) {
                 console.log('[err login] ',);
@@ -40,13 +36,13 @@ route.post('/login', validInfo, async (req, res) => {
                     msg: { faild: true, body: "Invalid Credential" }
                 })
             }
-        }).clone()
+        }).clone().exec();
         if (user.length === 0) {
             return res.render('login', {
                 msg: { faild: true, body: "Invalid Credential" }
             })
         }
-        const newPassword = (password + process.env.jwtSecretAdmin)
+        let newPassword = (password + process.env.jwtSecretAdmin)
         console.log('[the new password is] ', newPassword);
         const vildPassword = await bcrypt.compare(
             newPassword,
@@ -58,10 +54,13 @@ route.post('/login', validInfo, async (req, res) => {
                 msg: { faild: true, body: "Invalid Credential" }
             })
         }
-        jwtToken = jwtGenerator(user[0])
-        console.log('[jwtToken]', jwtToken);
-        res.cookie('token', jwtToken)
-        res.redirect('/dashboard')
+        (async function () {
+            jwtToken = jwtGenerator(user[0])
+            console.log('[jwtToken]', jwtToken);
+            res.cookie('token', jwtToken).redirect('/dashboard')
+            res.end()
+        })()
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error')
@@ -85,7 +84,7 @@ route.post('/register', validInfo, async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const newPassword = (password + process.env.jwtSecretAdmin)
         const bcryptPassword = await bcrypt.hash(newPassword, salt);
-        console.log(bcryptPassword);
+        console.log({ bcryptPassword });
 
         let jwtToken;
         await new AuthModel({
