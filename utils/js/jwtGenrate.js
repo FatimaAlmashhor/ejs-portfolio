@@ -10,12 +10,7 @@ function jwtGenerator(user) {
             password: user.password
         }
     };
-    return new Promise(function (resolve, reject) {
-        var tokens = {};//generating acess token
-        let key = process.env.jwtSecretAdmin
-        tokens.accessToken = jwt.sign(payload, key, { expiresIn: '1h' });//generating refresh token
-        tokens.refreshToken = jwt.sign(payload, key, { expiresIn: '1h' }); resolve(tokens);
-    })
+
     //the code below was the code written from the tutorial
     //Look at file server/routes/dashboard.js to see the change code for this code
 
@@ -25,9 +20,9 @@ function jwtGenerator(user) {
     //   };
 
 
-    // key = process.env.jwtSecretAdmin
+    let key = process.env.jwtSecretAdmin
 
-    // return jwt.sign(payload, key, { expiresIn: "3d" });
+    return jwt.sign(payload, key, { expiresIn: "1h" });
 }
 
 module.exports = jwtGenerator;

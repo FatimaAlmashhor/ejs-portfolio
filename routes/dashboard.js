@@ -1,9 +1,10 @@
 const express = require('express')
 const route = express.Router()
 const app = express();
+const verfiyToken = require('../middlewares/verifyToken')
 app.use(express.static('/components/'))
 
-route.get('/', (req, res) => {
+route.get('/', verfiyToken, (req, res) => {
     res.render('dashboard', {
         currentPage: 'infors'
     })
