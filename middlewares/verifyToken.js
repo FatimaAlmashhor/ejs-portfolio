@@ -21,9 +21,11 @@ module.exports = async function (req, res, next) {
         //it is going to give use the user id (user:{id: user.id})
         const verify = jwt.verify(token.token, process.env.jwtSecretAdmin);
         req.user = verify.user;
-        
+
         next();
     } catch (err) {
-        res.status(401).json({ msg: "Token is not valid" });
+        return await res.render('login', {
+            msg: { faild: true, body: "Token is not valid" }
+        })
     }
 };

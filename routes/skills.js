@@ -160,35 +160,21 @@ route.get('/:skill_id', async (req, res) => {
         console.log(error);
     }
 });
-route.post('/edit/:skill_id', async (req, res) => {
+route.get('/edit/:skill_id/', async (req, res) => {
     try {
-        console.log('[body]', req.body.skill_name);
+
+        console.log('[body]', req.query.skillName);
         await Skills.updateOne({
             _id: req.params.skill_id.replace(/ /g, "")
         },
             {
-                skill_name: req.body.skill_name,
-                skill_type: req.body.skill_type
+                skill_name: req.query.skillName,
+                skill_type: req.query.skillType
             },
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    var newSkills = allSkills.map(element => {
-                        if (element._id == req.params.skill_id.replace(/ /g, "")) {
-                            element.skill_name = req.body.skill_name;
-                            element.skill_type = req.body.skill_type;
-
-                            return element
-                        }
-                        else return element
-                    })
-
-                    // res.render('dashboard', {
-                    //     currentPage: 'skills',
-                    //     data: newSkills,
-                    //     formInfo: {}
-                    // })
-                    res.redirect('/dashboard')
+                    res.redirect('/dashboard/skills')
                     res.end()
                 }
             }).clone()
@@ -202,45 +188,45 @@ route.post('/edit/:skill_id', async (req, res) => {
 
 
 // not working
-route.delete('/delete/:skill_id', async (req, res) => {
-    try {
-        await Skills.deleteOne({
-            _id: req.params.skill_id.replace(/ /g, "")
-        }, (error) => {
-            if (error) console.log({ error });
-            else {
-                var newSkills = allSkills.filter(element => element._id !== req.params.skill_id.replace(/ /g, ""))
-                if (req.xhr) { // request was AJAX (XHR)
-                    console.log(req.xhr);
-                    res.send({
-                        currentPage: 'skills',
-                        data: newSkills,
-                    });
-                } else { // render html template instead
-                    var html = ejs.render(
-                        'skills.ejs',
-                        { data: newSkills }
-                    );
-                    // res.json({
-                    //     currentPage: 'skills',
-                    //     data: newSkills,
-                    // })
-                    res.send({
-                        currentPage: 'skills',
-                        data: newSkills,
+// route.delete('/delete/:skill_id', async (req, res) => {
+//     try {
+//         await Skills.deleteOne({
+//             _id: req.params.skill_id.replace(/ /g, "")
+//         }, (error) => {
+//             if (error) console.log({ error });
+//             else {
+//                 var newSkills = allSkills.filter(element => element._id !== req.params.skill_id.replace(/ /g, ""))
+//                 if (req.xhr) { // request was AJAX (XHR)
+//                     console.log(req.xhr);
+//                     res.send({
+//                         currentPage: 'skills',
+//                         data: newSkills,
+//                     });
+//                 } else { // render html template instead
+//                     var html = ejs.render(
+//                         'skills.ejs',
+//                         { data: newSkills }
+//                     );
+//                     // res.json({
+//                     //     currentPage: 'skills',
+//                     //     data: newSkills,
+//                     // })
+//                     res.send({
+//                         currentPage: 'skills',
+//                         data: newSkills,
 
-                    })
-                }
+//                     })
+//                 }
 
 
-                res.end()
-            }
-        }).clone()
+//                 res.end()
+//             }
+//         }).clone()
 
-    } catch (error) {
-        console.log({ error });
-    }
-});
+//     } catch (error) {
+//         console.log({ error });
+//     }
+// });
 
 
 

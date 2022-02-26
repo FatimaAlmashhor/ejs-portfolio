@@ -118,7 +118,7 @@
                 this.showSkills = true
                 this.is_loading = true;
                 this.newModel = false;
-                fetch(`http://localhost:3000/dashboard/skills/${this.skill_id}`)
+                fetch(`/dashboard/skills/${this.skill_id}`)
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;

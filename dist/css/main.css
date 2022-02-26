@@ -1441,6 +1441,11 @@ footer.dark {
   box-shadow:0 0 0 2px rgba(0,0,0,0);
   }
   
+  #loading {
+    width : 100vw ; 
+    height: 100vh ;
+    background-color: #5CDCF8;
+  }
   @keyframes ff{
   10%{transform:translate(0%,0%) scale(1) rotate(0deg)}
   100%{transform:translate(var(--shiftX), var(--shiftY)) scale(0) rotate(360deg)}

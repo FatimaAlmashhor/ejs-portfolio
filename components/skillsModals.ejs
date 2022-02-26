@@ -57,23 +57,8 @@
                 this.showSkills = true
                 this.is_loading = true;
 
-                const data = {
-                    'skill_name': this.skill_name,
-                    'skill_type': this.skill_type
-                }
+                window.location.href = `/dashboard/skills/edit/${this.skill_id}/?skillName=${this.skill_name}&skillType=${this.skill_type}`
 
-                console.log('check me first ', data);
-                $.post(`/dashboard/skills/edit/${this.skill_id}`, {
-                    'skill_name': this.skill_name,
-                    'skill_type': this.skill_type
-                },
-                    function (data, status) {
-                        this.showSkills = false
-                        this.is_loading = false
-                        if (status === "success") {
-                            console.log("Post successfully created!")
-                        }
-                    }, 'json')
             }
         }
     }
