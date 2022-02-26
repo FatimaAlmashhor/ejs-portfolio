@@ -12,11 +12,64 @@ route.get('/login', (req, res) => {
         msg: { faild: false, body: '' }
     })
 })
+
+
 route.get('/register', (req, res) => {
     res.render('register', {
         msg: { faild: false, body: '' }
     })
 })
+
+
+route.post('/login', validInfo, async (req, res) => {
+    try {
+        // 1- destracture the req.body (name ,email , password) 
+        const { email, password } = req.body;
+
+
+        let jwtToken;
+        let user = await find({
+            email: email,
+            password: bcryptPassword,
+            is_active: true,
+            deleted: false
+        }, (err, result) => {
+            if (err) {
+                console.log('[err login] ',);
+                return res.render('login', {
+                    msg: { faild: true, body: "Invalid Credential" }
+                })
+            }
+        }).clone()
+        if (user.length === 0) {
+            return res.render('login', {
+                msg: { faild: true, body: "Invalid Credential" }
+            })
+        }
+        const newPassword = (password + process.env.jwtSecretAdmin)
+        console.log('[the new password is] ', newPassword);
+        const vildPassword = await bcrypt.compare(
+            newPassword,
+            user[0].password
+        )
+
+        if (!vildPassword) {
+            return res.render('login', {
+                msg: { faild: true, body: "Invalid Credential" }
+            })
+        }
+        jwtToken = jwtGenerator(user[0])
+        console.log('[jwtToken]', jwtToken);
+        res.cookie('token', jwtToken)
+        res.redirect('/dashboard')
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error')
+    }
+})
+
+
+
 route.post('/register', validInfo, async (req, res) => {
     try {
         // 1- destracture the req.body (name ,email , password) 
