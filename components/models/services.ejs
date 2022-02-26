@@ -20,12 +20,12 @@
                     <label for="skill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">your
                         skill</label>
                     <template x-if="!newModel">
-                        <input type="text" name="skill" id="skill" x-text="value1" x-model="value1"
+                        <input type="skill" name="skill" id="skill" x-text="value1" x-model="value1"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder="Java" required>
                     </template>
                     <template x-if="newModel">
-                        <input type="text" name="skill" id="skill"
+                        <input type="skill" name="skill" id="skill"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder="Java" required>
                     </template>
@@ -35,14 +35,14 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Type of
                         skill</label>
                     <template x-if="!newModel">
-                        <input type="text" name="typeOfSkill" id="typeOfSkill" x-text="value2" x-model="value2"
+                        <input type="skill" name="skill" id="skill" x-text="value2" x-model="value2"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Java">
+                            placeholder="Java" required>
                     </template>
                     <template x-if="newModel">
-                        <input type="text" name="typeOfSkill" id="typeOfSkill"
+                        <input type="skill" name="skill" id="skill"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Java">
+                            placeholder="Java" required>
                     </template>
                 </div>
 
@@ -65,8 +65,7 @@
     function editme() {
         return {
             is_loading: false,
-            value1: '',
-            value2: '',
+
             async editSkill() {
                 this.showSkills = true
                 this.is_loading = true;

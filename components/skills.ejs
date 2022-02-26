@@ -17,7 +17,7 @@
                     <div x-data="{dropdownSkills: false}" class="relative w-full h-full inherit-rounded">
                         <div class="w-full h-full flex justify-between inherit-rounded ">
                             <!-- active toggle -->
-                            <div @click=" activeModel= true ; activeState='<%=data[index].is_active  %>'; skill_id = '<%=data[index].id  %>'"
+                            <div @click=" activeModel= true ; activeState='<%=data[index].is_active  %>'; id = '<%=data[index].id  %>'"
                                 class=" inherit-rounded cursor-pointer mr-3  w-6 
                             <% if (!(data[index].is_active)) { %>
                                 bg-red-300  hover:bg-red-200
@@ -39,7 +39,7 @@
                         <!-- Dropdown list -->
                         <div x-show="dropdownSkills"
                             class="absolute z-50 left-4 py-2 mt-0 bg-white bg-gray-100 rounded-md shadow-xl w-44">
-                            <button @click=" skill_id = '<%=data[index].id  %>' ;  fetchSkill() "
+                            <button @click=" id = '<%=data[index].id  %>' ;  fetchSkill() "
                                 class="block px-4 py-2 w-full text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
                                 Edit
                             </button>
@@ -111,25 +111,25 @@
     function showme() {
         return {
             is_loading: false,
-            skill_name: '',
-            Skill_type: '',
+            value1: '',
+            value2: '',
             // fetch one skill
             fetchSkill() {
                 this.showSkills = true
                 this.is_loading = true;
                 this.newModel = false;
-                fetch(`/dashboard/skills/${this.skill_id}`)
+                fetch(`/dashboard/skills/${this.id}`)
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;
-                        this.skill_name = data.formInfo.skill_name;
+                        this.value1 = data.formInfo.skill_name;
                         this.skill_type = data.formInfo.skill_type;
                         console.log(data);
                     });
             },
             // 
             toggleActive() {
-                window.location.href = `/dashboard/skills/toggle/${this.skill_id}/?state=${this.activeState}`
+                window.location.href = `/dashboard/skills/toggle/${this.id}/?state=${this.activeState}`
             }
         }
     }
