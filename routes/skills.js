@@ -15,6 +15,7 @@ route.get('/', verify, async (req, res) => {
     console.log('here the skills');
 });
 
+// adding
 route.post('/', verify, async (req, res) => {
     try {
         console.log(req.body);
@@ -42,6 +43,7 @@ route.post('/', verify, async (req, res) => {
         console.log({ error });
     }
 });
+// delete
 route.get('/delete/:skill_id', verify, async (req, res) => {
     try {
         await Skills.updateOne({

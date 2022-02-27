@@ -2,64 +2,64 @@
 <html lang="en">
 
 <head>
-    <%- include('head') %> 
-    <style>
-        .more-projects-gallery .gallery_item [data-small-project="1"] {
-            background: url("images/image1.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+    <%- include('head') %>
+        <style>
+            .more-projects-gallery .gallery_item [data-small-project="1"] {
+                background: url("images/image1.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-        .more-projects-gallery .gallery_item [data-small-project='2'] {
-            background: url("images/image5.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+            .more-projects-gallery .gallery_item [data-small-project='2'] {
+                background: url("images/image5.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-        .more-projects-gallery .gallery_item [data-small-project='3'] {
-            background: url("images/image2.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+            .more-projects-gallery .gallery_item [data-small-project='3'] {
+                background: url("images/image2.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-        .more-projects-gallery .gallery_item [data-small-project='4'] {
-            background: url("images/image6.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+            .more-projects-gallery .gallery_item [data-small-project='4'] {
+                background: url("images/image6.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-        .more-projects-gallery .gallery_item [data-small-project='5'] {
-            background: url("images/image3.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+            .more-projects-gallery .gallery_item [data-small-project='5'] {
+                background: url("images/image3.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-        .more-projects-gallery .gallery_item [data-small-project='6'] {
-            background: url("images/image4.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+            .more-projects-gallery .gallery_item [data-small-project='6'] {
+                background: url("images/image4.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-        .project_img-view [data-project='Payoo'] {
-            background: url("images/payoo.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+            .project_img-view [data-project='Payoo'] {
+                background: url("images/payoo.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-        .project_img-view .exhale {
-            background: url("images/exhale.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-    </style>
+            .project_img-view .exhale {
+                background: url("images/exhale.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        </style>
 </head>
 
 <body class="protfolio ">
@@ -151,27 +151,15 @@
                     <div class="section_lang">
                         <div class="section_lang_warpper" data-scroll data-scroll-speed="-4" data-scroll-target="#about"
                             data-scroll-direction="horizontal">
-                            <div class="lang-items">
-                                <span class="stock-red">JavaScript</span>
-                            </div>
-                            <div class="lang-items">
-                                <span class="stock-blue">NodeJs</span>
-                            </div>
-                            <div class="lang-items">
-                                <span class="stock-yellow">Css</span>
-                            </div>
-                            <div class="lang-items">
-                                <span class="stock-blue">PHP</span>
-                            </div>
-                            <div class="lang-items">
-                                <span class="stock-pink">ReactJs</span>
-                            </div>
-                            <div class="lang-items">
-                                <span class="stock-red">VueJs</span>
-                            </div>
-                            <div class="lang-items">
-                                <span class="stock-blue">Docker</span>
-                            </div>
+                            <% for( let index=0; index < skills.length; index++ ) { %>
+                                <div class="lang-items">
+                                    <span class="stock-red">
+                                        <%= skills[index].skill_name %>
+                                    </span>
+                                </div>
+                                <% } %>
+
+
                         </div>
                     </div>
                     <div class="section_numberic__lower">O.2</div>
@@ -244,20 +232,20 @@
                         <!-- grid  -->
                         <div class="card-warpper">
                             <ul class="cards-list">
-                                <% for( let index = 0; index < service.length; index++ ) { %>
+                                <% for( let index=0; index < services.length; index++ ) { %>
                                     <li class="card">
                                         <!-- upper cover when hover  -->
                                         <div class="card_content">
                                             <h3 class="cord_content_text color-red">
-                                                <%= service[index].title%>
+                                                <%= services[index].services_title%>
                                             </h3>
                                             <p class="third-text">
-                                                <%= service[index].desciption%>
+                                                <%= services[index].services_description%>
                                             </p>
                                         </div>
                                     </li>
-                                <% } %>
-                                
+                                    <% } %>
+
                             </ul>
                         </div>
                     </div>
@@ -270,12 +258,11 @@
                     <div class="section_more-work">
                         <div class="section_more-work_warpper">
                             <ul class="more-projects-gallery">
-                                    <% for( let index = 1; index < 7; index++ ) { %>
-                                        <li class="gallery_item item-lg">
-                                            <div class="small-project small-project-1" data-small-project=
-                                            '<%= index  %>'
-                                            ></div>
-                                        </li>
+                                <% for( let index=1; index < 7; index++ ) { %>
+                                    <li class="gallery_item item-lg">
+                                        <div class="small-project small-project-1" data-small-project='<%= index  %>'>
+                                        </div>
+                                    </li>
                                     <% } %>
                             </ul>
                         </div>
