@@ -14,7 +14,7 @@ route.get('/', verify, async (req, res) => {
         data: all,
         formInfo: {}
     })
-    console.log('here the educations');
+    console.log('here the Educations');
 });
 
 route.post('/', verify, upload.single('project'), async (req, res) => {
@@ -23,16 +23,16 @@ route.post('/', verify, upload.single('project'), async (req, res) => {
         await new Educations({
             title: req.body.title,
             description: req.body.des,
-            position: req.body.position,
-            role: req.body.role,
-            image: req.file !== undefined ? req.file.filename : null,
-            links: [{ live: req.body.liveLink }],
+            start_year: req.body.start_year,
+            graduation_year: req.body.graduation_year,
+            unviersity_name: req.body.unviersity_name,
+
             is_active: true,
             deleted: false
         }).save((err, result) => {
             if (err) {
                 console.log(err);
-                removeFile("./uploads/educations/" + req.file.filename)
+                removeFile("./uploads/projects/" + req.file.filename)
                 return res.redirect('/500page');
             }
             else {
@@ -69,13 +69,18 @@ route.get('/delete/:id', async (req, res) => {
 });
 route.get('/toggle/:id/', async (req, res) => {
     try {
-        const newLocal = req.query.state ? false : true
-        console.log(newLocal);
-        await Educations.updateOne({
+        const filter = {
             _id: req.params.id.replace(/ /g, "")
-        },
+        }
+        let doc = await Educations.findOne(filter, (error) => {
+            if (error) return res.redirect('500page')
+        }).clone();
+        const newLocal = doc.is_active ? false : true
+        console.log(newLocal);
+
+        await Educations.updateOne(filter,
             {
-                is_active: (newLocal)
+                is_active: newLocal
             },
             (error, result) => {
                 if (error) console.log({ error });
@@ -96,14 +101,21 @@ route.get('/:id', async (req, res) => {
     try {
         await Educations.findById(req.params.id.replace(/ /g, ""), (err, result) => {
             if (!err) {
-
+                // start_year: Date,
+                // graduation_year: Date,
+                // title: String,
+                // description: String,
+                // unviersity_name: String,
+                // is_active: Boolean,
+                // deleted: Boolean
                 res.json({
                     formInfo: {
                         id: result.id,
                         title: result.title,
                         des: result.description,
-                        position: result.position,
-                        role: result.role,
+                        unviersity_name: result.unviersity_name,
+                        start_year: result.start_year,
+                        graduation_year: result.start_year,
                     }
                 })
             }

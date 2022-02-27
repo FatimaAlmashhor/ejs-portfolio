@@ -9,7 +9,6 @@ var all = [];
 route.get('/', verify, async (req, res) => {
     var experiences = await Experiences.find().clone().catch(function (err) { console.log(err) });
     all = experiences;
-    console.log(experiences);
     res.render('dashboard', {
         currentPage: 'experiences',
         data: all,
