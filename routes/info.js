@@ -137,8 +137,8 @@ route.post('/edit', verify, async (req, res) => {
     }
 });
 
-// esdi resume
-route.post('/edit/resume', upload.single('cv'), verify, async (req, res) => {
+// edit resume
+route.post('/edit/resume', verify, upload.single('cv'), async (req, res) => {
     try {
         console.log('[body]', req.body);
         const filter = { _id: req.body.id.replace(/ /g, "") };
@@ -162,18 +162,26 @@ route.post('/edit/resume', upload.single('cv'), verify, async (req, res) => {
         console.log({ error });
     }
 });
-route.post('/edit', verify, async (req, res) => {
+
+
+
+// add progress
+route.post('/progress', verify, async (req, res) => {
     try {
-
-
         console.log('[body]', req.body);
-        await Info.updateOne({
-            _id: req.body.id.replace(/ /g, "")
-        },
+        const filter = { _id: req.body.id.replace(/ /g, "") };
+
+        let doc = await Info.findOne(filter, (error) => {
+            if (error) return res.redirect('/500page')
+        }).clone();
+        let progresses = doc.progress;
+        progresses.push({
+            title: req.body.progress_title,
+            value: req.body.progress_value
+        })
+        await Info.updateOne(filter,
             {
-                bio: req.body.bio,
-                about: req.body.about,
-                // cv: req.file !== undefined ? req.file.filename : null,
+                progress: progresses,
             },
             (error, result) => {
                 if (error) console.log({ error });
@@ -188,6 +196,34 @@ route.post('/edit', verify, async (req, res) => {
     }
 });
 
+
+// delete progress
+route.get('/progress/delete/:id', verify, async (req, res) => {
+    try {
+        const filter = { _id: req.params.id.replace(/ /g, "") };
+
+        let doc = await Info.findOne(filter, (error) => {
+            if (error) return res.redirect('/500page')
+        }).clone();
+        let progresses = doc.progress;
+        progresses.splice(req.query.index, 1)
+        console.log('[delete ]', progresses);
+        await Info.updateOne(filter,
+            {
+                progress: progresses,
+            },
+            (error, result) => {
+                if (error) console.log({ error });
+                else {
+                    res.redirect('/dashboard/info')
+                    res.end()
+                }
+            }).clone()
+
+    } catch (error) {
+        console.log({ error });
+    }
+});
 
 
 
