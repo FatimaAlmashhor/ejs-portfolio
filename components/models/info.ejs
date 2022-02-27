@@ -1,5 +1,5 @@
 <div x-show="showSkills" x-data="{
-    post :'/dashboard/projects'
+    post :'/dashboard/info'
     }" id="skill_modal" aria-hidden="true"
     class=" overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50 justify-center items-center h-search w-screan flex justify-center items-center md:h-full md:inset-0">
     <div class="relative px-4 w-full max-w-md h-full md:h-auto">
@@ -18,7 +18,7 @@
             </div>
 
             <div class="">
-                <!-- <form class="px-3 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/projects/edit" -->
+                <!-- <form class="px-3 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/infos/edit" -->
                 <!-- method="post"> -->
                 <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" x-bind:action="post" method="post"
                     enctype='multipart/form-data'>
@@ -83,19 +83,19 @@
                     </div>
 
                     <div>
-                        <label for="project" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="info" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Upload your resume</label>
-                        <input type="file" name="project"
+                        <input type="file" name="info"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                             placeholder="https://">
                     </div>
 
                     <template x-if="!newModel">
-                        <button @click="post='/dashboard/projects/edit/'" type="submit"
+                        <button @click="post='/dashboard/Info/edit/'" type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</button>
                     </template>
                     <template x-if="newModel">
-                        <button @click="post='/dashboard/projects/'" type="submit"
+                        <button @click="post='/dashboard/Info/'" type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                     </template>
                 </form>
@@ -115,7 +115,7 @@
                 this.showSkills = true
                 this.is_loading = true;
 
-                window.location.href = `/dashboard/projects/edit/${this.id}/?title=${this.value1}&des=${this.value2}`
+                window.location.href = `/dashboard/Info/edit/${this.id}/?title=${this.value1}&des=${this.value2}`
 
             }
         }

@@ -6,8 +6,8 @@ const projects = new mongoose.Schema({
         required: true
     },
     desciption: String,
-    position :String ,
-    role : String ,
+    position: String,
+    role: String,
     links: Array,
     image: String,
     is_active: Boolean,

@@ -17,16 +17,13 @@ route.get('/', verify, async (req, res) => {
     console.log('here the info');
 });
 
-route.post('/', verify, async (req, res) => {
+route.post('/', verify, upload.single('cv'), async (req, res) => {
     try {
 
         await new Info({
-            title: req.body.title,
-            description: req.body.des,
-            position: req.body.position,
-            role: req.body.role,
-            image: req.file !== undefined ? req.file.filename : null,
-            links: [{ live: req.body.liveLink }],
+            bio: req.body.bio,
+            about: req.body.about,
+            cv: req.file !== undefined ? req.file.filename : null,
             is_active: true,
             deleted: false
         }).save((err, result) => {
@@ -114,6 +111,8 @@ route.get('/:id', async (req, res) => {
         console.log(error);
     }
 });
+
+// edit
 route.post('/edit', verify, upload.single('project'), async (req, res) => {
     try {
 

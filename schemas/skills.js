@@ -11,6 +11,9 @@ const skills = new mongoose.Schema({
     deleted: Boolean
 })
 
+
+skills.index({ skill_name: 1, deleted: 1 }, { unique: true })
+
 const skillsModel = mongoose.model('skills', skills);
 
 module.exports = skillsModel;

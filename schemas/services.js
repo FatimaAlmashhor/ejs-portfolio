@@ -12,6 +12,8 @@ const services = new mongoose.Schema({
     deleted: Boolean
 })
 
+services.index({ services_title: 1, deleted: 1 }, { unique: true })
+
 const servicesModel = mongoose.model('services', services);
 
 module.exports = servicesModel;

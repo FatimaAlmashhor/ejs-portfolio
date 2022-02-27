@@ -9,8 +9,8 @@ const info = new mongoose.Schema({
     },
     about: String,
     progress: Array,
-    is_active: Boolean,
-    deleted: Boolean
+    editTime: Date,
+    userEdit: String
 })
 
 const infoModel = mongoose.model('info', info);
