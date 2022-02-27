@@ -107,7 +107,9 @@
                             I'm Fatima <span class="color-red">A</span>lmashhor
                         </h1>
                     </h1>
-                    <h3 class="secondary-text">Sull stack developer / UI UX learner</h3>
+                    <h3 class="secondary-text">
+                        <%=info[0].bio %>
+                    </h3>
                     <button class="btn">Resume</button>
                     <div class="section_numberic__lower">O.1</div>
                 </header>
@@ -119,33 +121,19 @@
                     <div class="section_about">
                         <div class="section_about_text">
                             <p class="section_about_paragraph third-text">
-                                Hi , My name is Fatima from Yemen ,full stack developer , frontend passionateI started
-                                get
-                                interesting in the web development since I was in high school .
-                                I got into Information Technology in Engineering in my city ,
-                                Taiz and graduated on 6 , 2021 .
-                                I got my first remote job in the company I started in the beginning of 2021 . I am also
-                                doing some freelance projects .
-
-                                Love learning design. I am interested in 3D and do some skishing in my free time .
-                                building
-                                clear and cool apps is my hobby . I am learning UI/UX to boost my projects .
-
+                                <%= info[0].about %>
                             </p>
                         </div>
                         <div class="section_about_skills">
-                            <div class="skill progress-red">
-                                <div class="skill_title">Frontend</div>
-                            </div>
-                            <div class="skill progress-blue">
-                                <div class="skill_title">Backend</div>
-                            </div>
-                            <div class="skill progress-yellow">
-                                <div class="skill_title">UI / UX</div>
-                            </div>
-                            <div class="skill progress-pink">
-                                <div class="skill_title">Web Design</div>
-                            </div>
+                            <% for( let index=0; index < info[0].progress.length; index++ ) { %>
+                                <div class="skill progress-red">
+                                    <div class="skill_title">
+                                        <%= info[0].progress[index].title %>
+                                    </div>
+                                </div>
+                                <% } %>
+
+
                         </div>
                     </div>
                     <div class="section_lang">
@@ -258,9 +246,16 @@
                     <div class="section_more-work">
                         <div class="section_more-work_warpper">
                             <ul class="more-projects-gallery">
-                                <% for( let index=1; index < 7; index++ ) { %>
+                                <% for( let index=0; index < projects.length; index++ ) { %>
                                     <li class="gallery_item item-lg">
-                                        <div class="small-project small-project-1" data-small-project='<%= index  %>'>
+                                        <!-- <div class="small-project small-project-1" data-small-project='<%= index  %>'>
+                                        </div> -->
+                                        <div class="small-project small-project-1" style="
+                                        background-image: url('/uploads/projects/<%= projects[index].image %>');
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                        ">
                                         </div>
                                     </li>
                                     <% } %>

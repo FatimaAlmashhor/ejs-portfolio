@@ -11,7 +11,7 @@
 <div class="w-full  flex flex-row flex-wrap">
     <% for( let index=0; index < data.length; index++ ) { %>
         <% if (!(data[index].deleted)) { %>
-            <div class="overlay flex p-0  relative m-2 w-64 ">
+            <div class="overlay flex p-0  relative m-2 w-fit h-fit ">
                 <!-- Overlay inner wrapper -->
                 <div class="overlay__inner  min-w-fit ">
                     <div x-data="{dropdownSkills: false}" class="relative w-full h-full inherit-rounded">

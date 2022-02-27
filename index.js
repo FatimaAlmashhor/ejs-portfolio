@@ -5,7 +5,8 @@ const cookieParser = require('cookie-parser')
 
 const Skills = require('./schemas/skills');
 const Services = require('./schemas/services');
-const Perjects = require('./schemas/projects');
+const Projects = require('./schemas/projects');
+const Info = require('./schemas/info');
 
 app.set('view engine', 'ejs');
 app.use(cookieParser())
@@ -20,12 +21,13 @@ app.use(express.urlencoded({ extended: true }));
 app.get(['/', '/home'], async (req, res) => {
     var skills = await Skills.find({ is_active: true, deleted: false }).clone().catch(function (err) { console.log(err) });
     var service = await Services.find({ is_active: true, deleted: false }).clone().catch(function (err) { console.log(err) });
-    var perjects = await Perjects.find({ is_active: true, deleted: false }).clone().catch(function (err) { console.log(err) });
-    console.log(service);
+    var projects = await Projects.find({ is_active: true, deleted: false }).clone().catch(function (err) { console.log(err) });
+    var info = await Info.find().clone().catch(function (err) { console.log(err) });
     res.render('index', {
         services: service,
         skills: skills,
-        perjects: perjects
+        projects: projects,
+        info: info
     })
 })
 
