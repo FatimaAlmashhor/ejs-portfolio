@@ -6,14 +6,14 @@
 
   <body>
     <!-- Canvas -->
-    <canvas class="orb-canvas"></canvas>
+    <!-- <canvas class="orb-canvas"></canvas> -->
     <div class="flex flex-row  w-full">
       <div class="relative w-2/12">
         <%- include('slidebar') %>
       </div>
       <div
         x-data="{showSkills:false , value : '' , value1 : ''  , value2 : '' , value3 : '',  value4 : '', newModel : true , id : '' , activeModel:false , activeState :'' }"
-        class=" w-10/12">
+        class=" w-10/12 container pr-4">
         <div x-data="showme()" class="w-full">
           <div x-data="editme()" class="w-full">
             <%- include('../components/'+currentPage) %>
@@ -41,7 +41,7 @@
       </button>
     </div> -->
 
-    <script type="module" src="/js/gassyAnimation.js"></script>
+    <!-- <script type="module" src="/js/gassyAnimation.js"></script> -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
