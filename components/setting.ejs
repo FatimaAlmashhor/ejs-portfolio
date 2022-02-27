@@ -1,11 +1,11 @@
 <!-- Title -->
 
 <div class="w-full flex justify-between ">
-    <h1 class="text-2xl">projects</h1>
+    <h1 class="text-2xl">Your Info </h1>
 
     <!-- Skill Section -->
     <div @click="showSkills=true ; newModel = true" class=" cursor-pointer" id='skill_modal_btn'>
-        <ion-icon name="add-outline" class="text-2xl  text-gray-400 bg-gray-200 rounded-full p-2"></ion-icon>
+        <ion-icon name="add-outline" class="text-2xl  text-gray-400  mr-5 bg-white rounded-full p-2"></ion-icon>
     </div>
 </div>
 <div class="w-full  flex flex-row flex-wrap">
@@ -57,7 +57,7 @@
                                 class="block px-4 py-2 w-full text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
                                 Edit
                             </button>
-                            <a href="/dashboard/projects/delete/
+                            <a href="/dashboard/setting/delete/
                             <%= data[index].id  %>
                             " data-id-delete="
                                 <%= data[index].id  %>
@@ -113,7 +113,7 @@
     })
     async function onClickDelete(e) {
         var id = e.getAttribute('data-id-delete').replace(/ /g, "");
-        await fetch(`http://localhost:3000/dashboard/projects/delete/${id}`, {
+        await fetch(`http://localhost:3000/dashboard/setting/delete/${id}`, {
             method: 'DELETE',
 
         }).then(result => {
@@ -131,7 +131,7 @@
                 this.showSkills = true
                 this.is_loading = true;
                 this.newModel = false;
-                fetch(`/dashboard/projects/${this.id}`)
+                fetch(`/dashboard/setting/${this.id}`)
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;
@@ -147,7 +147,7 @@
             toggleActive() {
                 newstate = this.activeState ? false : true;
                 console.log({ newstate });
-                window.location.href = `/dashboard/projects/toggle/${this.id}/?state=${this.activeState}`
+                window.location.href = `/dashboard/setting/toggle/${this.id}/?state=${this.activeState}`
             }
         }
     }
