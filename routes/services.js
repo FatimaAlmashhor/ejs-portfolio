@@ -66,13 +66,18 @@ route.get('/delete/:id', async (req, res) => {
 });
 route.get('/toggle/:id/', async (req, res) => {
     try {
-        let newState = (req.query.state) == true ? false : true;
-        console.log({ newState });
-        await Services.updateOne({
+        const filter = {
             _id: req.params.id.replace(/ /g, "")
-        },
+        }
+        let doc = await Services.findOne(filter, (error) => {
+            if (error) return res.redirect('500page')
+        }).clone();
+        const newLocal = doc.is_active ? false : true
+        console.log(newLocal);
+
+        await Services.updateOne(filter,
             {
-                is_active: newState
+                is_active: newLocal
             },
             (error, result) => {
                 if (error) console.log({ error });
