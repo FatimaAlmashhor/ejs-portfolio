@@ -11,6 +11,11 @@ route.get('/', verfiyToken, (req, res) => {
     })
 })
 
+route.get('/logout', (req, res) => {
+    res.clearCookie();
+    res.cookie('token', null)
+    res.redirect('/auth/login')
+})
 
 route.use('/skills', require('./skills'))
 route.use('/setting', require('./setting'))
