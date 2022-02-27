@@ -90,46 +90,26 @@ route.get('/delete/:skill_id', verify, async (req, res) => {
 });
 route.get('/toggle/:skill_id/', verify, async (req, res) => {
     try {
-        let newState = (req.query.state) == true ? false : true;
-        console.log({ newState });
-        await Skills.updateOne({
+        const filter = {
             _id: req.params.skill_id.replace(/ /g, "")
-        },
+        }
+        let doc = await Skills.findOne(filter, (error) => {
+            if (error) return res.redirect('500page')
+        }).clone();
+        const newLocal = doc.is_active ? false : true
+
+        await Skills.updateOne(filter,
             {
-                is_active: newState
+                is_active: newLocal
             },
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    console.log({ result });
-                    var newSkills = allSkills.map(element => {
-                        if (element._id == req.params.skill_id.replace(/ /g, "")) {
-                            element.is_active = false;
 
-                            return element
-                        }
-                        else return element
-                    })
-
-                    // res.render('dashboard', {
-                    //     currentPage: 'skills',
-                    //     data: newSkills,
-                    //     formInfo: {}
-                    // })
                     res.redirect('/dashboard/skills')
                     res.end()
                 }
             }).clone()
-        // await Skills.deleteOne({
-        //     _id: req.params.skill_id.replace(/ /g, "")
-        // }, (error) => {
-        //     if (error) console.log({ error });
-        //     else {
-        //         res.redirect('/dashboard/skills')
-        //         res.end()
-        //     }
-        // }).clone()
-
     } catch (error) {
         console.log({ error });
     }
