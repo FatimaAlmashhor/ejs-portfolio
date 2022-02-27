@@ -7,7 +7,10 @@
   <body>
     <!-- Canvas -->
     <!-- <canvas class="orb-canvas"></canvas> -->
-    <div class="flex flex-row  w-full">
+    <div id="loading">
+      Loading ...
+    </div>
+    <div id="content" class=" flex flex-row  w-full">
       <div class="relative w-2/12">
         <%- include('slidebar') %>
       </div>
@@ -46,6 +49,17 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+      const load = document.querySelector('#loading')
+      const content = document.querySelector('#content')
+
+      window.addEventListener('load', (e) => {
+
+        console.log('ready to go');
+        load.style.display = 'none';
+        content.style.display = 'flex'
+      })
+    </script>
   </body>
 
 </html>

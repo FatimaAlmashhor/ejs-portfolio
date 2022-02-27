@@ -22,7 +22,7 @@ route.use('/setting', require('./setting'))
 route.use('/info', require('./info'))
 route.use('/services', require('./services'))
 route.use('/educations', require('./educations'))
-route.use('/expirences', require('./expirences'))
+route.use('/experiences', require('./experiences'))
 route.use('/projects', require('./projects'))
 
 module.exports = route

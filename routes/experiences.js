@@ -23,10 +23,10 @@ route.post('/', verify, upload.single('project'), async (req, res) => {
         await new Experiences({
             title: req.body.title,
             description: req.body.des,
-            position: req.body.position,
-            role: req.body.role,
-            image: req.file !== undefined ? req.file.filename : null,
-            links: [{ live: req.body.liveLink }],
+            start_year: req.body.start_year,
+            range_years: req.body.range_years,
+            company_name: req.body.company_name,
+            job_type: req.body.job_type,
             is_active: true,
             deleted: false
         }).save((err, result) => {

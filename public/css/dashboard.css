@@ -58,7 +58,19 @@
     border: 1px solid rgba(255, 255, 255, 0.125);
 
 }
-  
+  #content {
+    display: none;
+  } 
+  #loading{
+    width: 100vw;
+    height: 100vh;
+    background-color: #1d2939;
+    text-align: center;
+    color: white ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .overlay__inner {
     /* padding: 2rem 3rem; */
     border-radius: inherit;
