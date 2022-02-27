@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const expreinces = new mongoose.Schema({
     title: String,
     description: String,
-    start_year: Date,
     range_years: String,
     compeny_name: String,
     job_type: String,

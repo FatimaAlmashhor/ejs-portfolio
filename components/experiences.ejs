@@ -33,15 +33,7 @@
                                 <p class="text-sm text-gray-400">
                                     <%= data[index].description %>
                                 </p>
-                                <% if (data[index].image !=='' ) { %>
-                                    <img class='h-20 w-auto' src="/uploads/projects/<%= data[index].image %>" />
-                                    <% } %>
-                                        <h3>Position : <%= data[index].position %>
-                                        </h3>
-                                        <h3>role : <%= data[index].role %>
-                                        </h3>
-                                        <h3>Live : <%= data[index].links[0].liveLink %>
-                                        </h3>
+
                             </div>
                             <div class="cursor-pointer p-4 h-fit" @click="dropdownSkills = ! dropdownSkills">
                                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>
@@ -50,17 +42,16 @@
 
                         <!-- Dropdown list -->
                         <div x-show="dropdownSkills"
-                            class="absolute z-50 left-4 py-2 mt-0 bg-white bg-gray-100 rounded-md shadow-xl w-44">
+                            class="absolute z-50 left-4 py-2 mt-0  bg-gray-100 rounded-md shadow-xl w-44">
                             <button @click=" id = '<%=data[index].id  %>' ;  fetchSkill() "
-                                class="block px-4 py-2 w-full text-sm text-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white">
+                                class="block px-4 py-2 w-full text-sm  text-gray-700 hover:bg-gray-400 hover:text-white">
                                 Edit
                             </button>
-                            <a href="/dashboard/projects/delete/
+                            <a href="/dashboard/experiences/delete/
                             <%= data[index].id  %>
                             " data-id-delete="
                                 <%= data[index].id  %>
-                                "
-                                class="block px-4 py-2 text-sm text-red-600 text-gray-700 hover:bg-gray-400 hover:text-white">
+                                " class="block px-4 py-2 text-sm text-red-600  hover:bg-gray-400 hover:text-white">
                                 Delete
                             </a>
 
@@ -105,21 +96,7 @@
     </div>
 </div>
 <script>
-    const deleteBtn = document.querySelectorAll('[data-id-delete]')
-    deleteBtn.forEach(element => {
-        element.addEventListener('click', () => onClickDelete(element))
-    })
-    async function onClickDelete(e) {
-        var id = e.getAttribute('data-id-delete').replace(/ /g, "");
-        await fetch(`http://localhost:3000/dashboard/projects/delete/${id}`, {
-            method: 'DELETE',
-
-        }).then(result => {
-            return result.json();
-        }).then(re => {
-
-        });
-    }
+   
     function showme() {
         return {
             is_loading: false,
