@@ -97,10 +97,8 @@ route.get('/:id', async (req, res) => {
                 res.json({
                     formInfo: {
                         id: result.id,
-                        title: result.title,
-                        des: result.description,
-                        position: result.position,
-                        role: result.role,
+                        bio: result.bio,
+                        about: result.about,
                     }
                 })
             }
@@ -113,20 +111,69 @@ route.get('/:id', async (req, res) => {
 });
 
 // edit
-route.post('/edit', verify, upload.single('project'), async (req, res) => {
+route.post('/edit', verify, async (req, res) => {
     try {
+
 
         console.log('[body]', req.body);
         await Info.updateOne({
             _id: req.body.id.replace(/ /g, "")
         },
             {
-                title: req.body.title,
-                description: req.body.des,
-                position: req.body.position,
-                role: req.body.role,
-                image: req.file !== undefined ? req.file.filename : null,
-                links: [{ live: req.body.liveLink }],
+                bio: req.body.bio,
+                about: req.body.about,
+                // cv: req.file !== undefined ? req.file.filename : null,
+            },
+            (error, result) => {
+                if (error) console.log({ error });
+                else {
+                    res.redirect('/dashboard/info')
+                    res.end()
+                }
+            }).clone()
+
+    } catch (error) {
+        console.log({ error });
+    }
+});
+
+// esdi resume
+route.post('/edit/resume', upload.single('cv'), verify, async (req, res) => {
+    try {
+        console.log('[body]', req.body);
+        const filter = { _id: req.body.id.replace(/ /g, "") };
+
+        let doc = await Info.findOne(filter);
+        await Info.updateOne({
+            _id: req.body.id.replace(/ /g, "")
+        },
+            {
+                cv: req.file !== undefined ? req.file.filename : doc.cv,
+            },
+            (error, result) => {
+                if (error) console.log({ error });
+                else {
+                    res.redirect('/dashboard/info')
+                    res.end()
+                }
+            }).clone()
+
+    } catch (error) {
+        console.log({ error });
+    }
+});
+route.post('/edit', verify, async (req, res) => {
+    try {
+
+
+        console.log('[body]', req.body);
+        await Info.updateOne({
+            _id: req.body.id.replace(/ /g, "")
+        },
+            {
+                bio: req.body.bio,
+                about: req.body.about,
+                // cv: req.file !== undefined ? req.file.filename : null,
             },
             (error, result) => {
                 if (error) console.log({ error });

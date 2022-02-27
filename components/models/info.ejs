@@ -44,18 +44,19 @@
                         <label for="about" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             About me</label>
                         <template x-if="!newModel">
-                            <input type="text" name="about" id="about" x-text="value2" x-model="value2"
+                            <textarea type="text" name="about" id="about" x-text="value2" x-model="value2"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="I am Fatima live in Taiz">
+                                placeholder="I am Fatima live in Taiz"></textarea>
                         </template>
                         <template x-if="newModel">
-                            <input type="text" name="about" id="about"
+                            <textarea type="text" name="about" id="about"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="I am Fatima live in Taiz">
+                                placeholder="I am Fatima live in Taiz"></textarea>
+
                         </template>
                     </div>
                     <!-- progress bar -->
-                    <div>
+                    <!-- <div>
                         <label for="progress" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Progress in fileds </label>
                         <template x-if="!newModel">
@@ -80,15 +81,9 @@
                                     placeholder="Payoo campany">
                             </div>
                         </template>
-                    </div>
+                    </div> -->
 
-                    <div>
-                        <label for="info" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Upload your resume</label>
-                        <input type="file" name="info"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="https://">
-                    </div>
+                    
 
                     <template x-if="!newModel">
                         <button @click="post='/dashboard/Info/edit/'" type="submit"
@@ -115,7 +110,7 @@
                 this.showSkills = true
                 this.is_loading = true;
 
-                window.location.href = `/dashboard/Info/edit/${this.id}/?title=${this.value1}&des=${this.value2}`
+                // window.location.href = `/dashboard/Info/edit/${this.id}/?title=${this.value1}&des=${this.value2}`
 
             }
         }

@@ -1,17 +1,18 @@
-<!-- Title -->
-
-<div class="w-full flex justify-between ">
-    <h1 class="text-2xl">Your Info </h1>
-
-    <!-- Skill Section -->
-    <div @click="showSkills=true ; newModel = true" class=" cursor-pointer" id='skill_modal_btn'>
-        <ion-icon name="add-outline" class="text-2xl  text-gray-400  mr-5 bg-white rounded-full p-2"></ion-icon>
-    </div>
-</div>
-
-<div class="w-full  flex flex-row flex-wrap">
+<div x-data="{
+    showResume: false ,
+    showProgress: false ,
+}" class="w-full  flex flex-row flex-wrap">
     <% for( let index=0; index < data.length; index++ ) { %>
+        <!-- Title -->
 
+        <div class="w-full flex justify-between ">
+            <h1 class="text-2xl">Your Info </h1>
+
+            <!-- Skill Section -->
+            <div @click=" id = '<%=data[index].id  %>' ;  fetchSkill() " class=" cursor-pointer" id='skill_modal_btn'>
+                <ion-icon name="pencil-outline"></ion-icon>
+            </div>
+        </div>
         <% if (!(data[index].deleted)) { %>
             <!-- Bio -->
             <div class="overlay flex p-1  relative m-2 w-fit ">
@@ -20,15 +21,24 @@
                     <div x-data="{dropdownSkills: false}" class=" flex relative w-full h-full rounded-all ">
                         <div class="w-full h-full flex  justify-between rounded-all ">
                             <div class=" px-4 py-2">
-                                <% if (data[index].bio !==null ) { %>
-                                    <h2 class="border-b pb-4 border-gray-400">Bio </h2>
-                                    <p class="text-gray-400 pt-1">
-                                        <%= data[index].bio%>
-                                    </p>
-                                    <% } %>
-
-
+                                <div class="border-b pb-4 border-gray-400">
+                                    <% if (data[index].bio !==null ) { %>
+                                        <h2 class="">Bio </h2>
+                                        <p class="text-gray-400 pt-1">
+                                            <%= data[index].bio%>
+                                        </p>
+                                        <% } %>
+                                </div>
+                                <div class="mt-2 ">
+                                    <% if (data[index].about !==null ) { %>
+                                        <h2 class="">About </h2>
+                                        <p class="text-gray-400 pt-1">
+                                            <%= data[index].about%>
+                                        </p>
+                                        <% } %>
+                                </div>
                             </div>
+
                             <div class="cursor-pointer p-4 h-fit" @click="dropdownSkills = ! dropdownSkills">
                                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>
                             </div>
@@ -36,8 +46,8 @@
 
                         <!-- Dropdown list -->
                         <div x-show="dropdownSkills"
-                            class="absolute z-50 left-4 top-3 my-2 mt-6 bg-gray-100 rounded-md shadow-xl w-44">
-                            <button @click=" id = '<%=data[index].id  %>' ;  fetchSkill() "
+                            class="absolute z-50 left-0 top-3 my-2 mt-6 bg-gray-100 rounded-md shadow-xl w-44">
+                            <button @click=" id = '<%=data[index].id  %>' ; fetchSkill() "
                                 class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-400 hover:rounded  hover:text-white">
                                 Edit
                             </button>
@@ -47,39 +57,6 @@
                 </div>
             </div>
 
-            <!-- About -->
-            <div class="overlay flex p-1  relative m-2 w-fit ">
-                <!-- Overlay inner wrapper -->
-                <div class="overlay__inner  min-w-fit ">
-                    <div x-data="{dropdownSkills: false}" class=" flex relative w-full h-full rounded-all ">
-                        <div class="w-full h-full flex  justify-between rounded-all ">
-                            <div class=" px-4 py-2">
-                                <% if (data[index].about !==null ) { %>
-                                    <h2 class="border-b pb-4 border-gray-400">About </h2>
-                                    <p class="text-gray-400 pt-1">
-                                        <%= data[index].about%>
-                                    </p>
-                                    <% } %>
-
-
-                            </div>
-                            <div class="cursor-pointer p-4 h-fit" @click="dropdownSkills = ! dropdownSkills">
-                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                            </div>
-                        </div>
-
-                        <!-- Dropdown list -->
-                        <div x-show="dropdownSkills"
-                            class="absolute z-50 left-4 top-3 my-2 mt-6 bg-gray-100 rounded-md shadow-xl w-44">
-                            <button @click=" id = '<%=data[index].id  %>' ;  fetchSkill() "
-                                class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-400 hover:rounded  hover:text-white">
-                                Edit
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
             <!-- CV -->
             <div class="overlay flex p-1  relative m-2 w-fit ">
@@ -87,13 +64,12 @@
                 <div class="overlay__inner  min-w-fit ">
                     <div x-data="{dropdownSkills: false}" class=" flex relative w-full h-full rounded-all ">
                         <div class="w-full h-full flex  justify-between rounded-all ">
-
-                            <div class=" p-2">
-                                <h2 class="p-1">Resume</h2>
+                            <div class=" px-4 py-4">
+                                <h2 class="border-b pb-2 border-gray-400">Resume </h2>
                                 <% if (data[index].cv !==null ) { %>
-                                    <a class='h-20 w-auto' src="/uploads/files/<%= data[index].cv %>">Resume</a>
+                                    <a class='pb-2 w-auto text-sm text-gray-400'
+                                        href="/uploads/files/<%= data[index].cv %>">Link</a>
                                     <% } %>
-
 
                             </div>
                             <div class="cursor-pointer p-4 h-fit" @click="dropdownSkills = ! dropdownSkills">
@@ -104,12 +80,62 @@
                         <!-- Dropdown list -->
                         <div x-show="dropdownSkills"
                             class="absolute z-50 left-4 top-3 my-2 mt-6 bg-gray-100 rounded-md shadow-xl w-44">
-                            <button @click=" id = '<%=data[index].id  %>' ;  fetchSkill() "
+                            <button @click=" id = '<%=data[index].id  %>' ; showResume = true ;"
                                 class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-400 hover:rounded  hover:text-white">
                                 Edit
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Resume edit model  -->
+            <div x-show="showResume"
+                class=" overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50  h-search w-screan flex justify-center items-center md:h-full md:inset-0">
+
+                <div class="relative px-4 w-full max-w-md h-full md:h-auto">
+
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div class="flex justify-end p-2">
+                            <button type="button" @click="showResume = false"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                data-modal-toggle="skill_modal">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="p-3">
+                                <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
+                                    action="/dashboard/info/edit/resume" method="post" enctype='multipart/form-data'>
+                                    <input type="hidden" name="id" value="<%=data[index].id  %> "
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        placeholder="id">
+                                    <div>
+                                        <label for="info"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Upload your resume</label>
+                                        <input type="file" name="cv" x-text="value4" x-model="value4"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            placeholder="https://">
+                                    </div>
+                                    <button type="submit"
+                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                                </form>
+
+                            </div>
+                            <!-- <div class="flex">
+                             <button @click="activeModel = false"
+                                 class="bg-red-400 p-2 px-3 m-2 rounded-sm">No</button>
+                             <button @click="toggleActive()"
+                                 class="bg-blue-400 p-2 px-3 m-2 rounded-sm">Yes</button>
+                         </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -117,41 +143,7 @@
                 <% } %>
 
 
-                    <!-- toggle active confirm  -->
-                    <div x-show="activeModel"
-                        class=" overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50  h-search w-screan flex justify-center items-center md:h-full md:inset-0">
 
-                        <div class="relative px-4 w-full max-w-md h-full md:h-auto">
-
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                <div class="flex justify-end p-2">
-                                    <button type="button" @click="activeModel = false"
-                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                                        data-modal-toggle="skill_modal">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-
-                                </div>
-                                <div class="flex flex-col">
-                                    <div class="p-3">
-                                        <h2 class="text-white">Are you sure you want to toggle the state of this service
-                                            ?</h2>
-                                    </div>
-                                    <div class="flex">
-                                        <button @click="activeModel = false"
-                                            class="bg-red-400 p-2 px-3 m-2 rounded-sm">No</button>
-                                        <button @click="toggleActive()"
-                                            class="bg-blue-400 p-2 px-3 m-2 rounded-sm">Yes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 </div>
 <script>
     const deleteBtn = document.querySelectorAll('[data-id-delete]')
@@ -160,7 +152,7 @@
     })
     async function onClickDelete(e) {
         var id = e.getAttribute('data-id-delete').replace(/ /g, "");
-        await fetch(`http://localhost:3000/dashboard/setting/delete/${id}`, {
+        await fetch(`http://localhost:3000/dashboard/info/delete/${id}`, {
             method: 'DELETE',
 
         }).then(result => {
@@ -178,15 +170,13 @@
                 this.showSkills = true
                 this.is_loading = true;
                 this.newModel = false;
-                fetch(`/dashboard/setting/${this.id}`)
+                fetch(`/dashboard/info/${this.id}`)
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;
                         this.value = data.formInfo.id;
-                        this.value1 = data.formInfo.title;
-                        this.value2 = data.formInfo.des;
-                        this.value3 = data.formInfo.position;
-                        this.value4 = data.formInfo.role;
+                        this.value1 = data.formInfo.bio;
+                        this.value2 = data.formInfo.about;
                         console.log(data);
                     });
             },
@@ -194,7 +184,7 @@
             toggleActive() {
                 newstate = this.activeState ? false : true;
                 console.log({ newstate });
-                window.location.href = `/dashboard/setting/toggle/${this.id}/?state=${this.activeState}`
+                window.location.href = `/dashboard/info/toggle/${this.id}/?state=${this.activeState}`
             }
         }
     }
