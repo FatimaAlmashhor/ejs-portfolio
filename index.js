@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+
 const Skills = require('./schemas/skills');
 const Services = require('./schemas/services');
 const Perjects = require('./schemas/projects');
@@ -12,6 +13,7 @@ app.use(cookieParser())
 app.use('/style', express.static('dist/css'))
 app.use('/uploads', express.static('uploads/'))
 app.use(express.static('public'));
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -23,7 +25,7 @@ app.get(['/', '/home'], async (req, res) => {
     res.render('index', {
         services: service,
         skills: skills,
-        perjects :perjects 
+        perjects: perjects
     })
 })
 

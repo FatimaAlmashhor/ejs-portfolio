@@ -85,7 +85,7 @@
             </div>
             <div class="flex flex-col">
                 <div class="p-3">
-                    <h2 class="text-white">Are you sure you want to toggle the state of this service ?</h2>
+                    <h2 class="text-white">Are you sure you want to toggle the state of this experience ?</h2>
                 </div>
                 <div class="flex">
                     <button @click="activeModel = false" class="bg-red-400 p-2 px-3 m-2 rounded-sm">No</button>
@@ -96,7 +96,7 @@
     </div>
 </div>
 <script>
-   
+
     function showme() {
         return {
             is_loading: false,
@@ -122,7 +122,7 @@
             toggleActive() {
                 newstate = this.activeState ? false : true;
                 console.log({ newstate });
-                window.location.href = `/dashboard/projects/toggle/${this.id}/?state=${this.activeState}`
+                window.location.href = `/dashboard/experiences/toggle/${this.id}`
             }
         }
     }

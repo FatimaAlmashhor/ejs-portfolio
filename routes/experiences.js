@@ -37,7 +37,7 @@ route.post('/', verify, async (req, res) => {
         //     }
         //     else {
         //         all.push(result)
-        //         res.redirect('/dashboard/experiences')
+        res.redirect('/dashboard/experiences')
         //         res.end()
         //     }
         // })
@@ -69,13 +69,18 @@ route.get('/delete/:id', async (req, res) => {
 });
 route.get('/toggle/:id/', async (req, res) => {
     try {
-        const newLocal = req.query.state ? false : true
-        console.log(newLocal);
-        await Experiences.updateOne({
+        const filter = {
             _id: req.params.id.replace(/ /g, "")
-        },
+        }
+        let doc = await Experiences.findOne(filter, (error) => {
+            if (error) return res.redirect('500page')
+        }).clone();
+        const newLocal = doc.is_active ? false : true
+        console.log(newLocal);
+
+        await Experiences.updateOne(filter,
             {
-                is_active: (newLocal)
+                is_active: newLocal
             },
             (error, result) => {
                 if (error) console.log({ error });

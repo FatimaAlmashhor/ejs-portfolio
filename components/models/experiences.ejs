@@ -51,28 +51,29 @@
                         <template x-if="newModel">
                             <textarea type="text" name="des" id="des"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="working as .."></textarea>
+                                placeholder="working as .." required></textarea>
                         </template>
                     </div>
                     <div>
-                        <label for="position" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="range_years"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             experiences time line</label>
                         <template x-if="!newModel">
-                            <input type="text" name="range_years" id="des" x-text="value3" x-model="value3"
+                            <input type="text" name="range_years" id="range_years" x-text="value2" x-model="value2"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 placeholder="5 Years">
                         </template>
                         <template x-if="newModel">
-                            <input type="text" name="range_years" id="des"
+                            <input type="text" name="range_years" id="range_years"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 placeholder="5 Years">
                         </template>
                     </div>
                     <div>
-                        <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="job_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             experiences Job type </label>
                         <template x-if="!newModel">
-                            <input type="text" name="job_type" id="role" x-text="value4" x-model="value4"
+                            <input type="text" name="job_type" id="job_type" x-text="value3" x-model="value3"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 placeholder="Full time">
                         </template>
@@ -83,10 +84,11 @@
                         </template>
                     </div>
                     <div>
-                        <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="company_name"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             experiences campany name</label>
                         <template x-if="!newModel">
-                            <input type="text" name="company_name" id="role" x-text="value5" x-model="value5"
+                            <input type="text" name="company_name" id="company_name" x-text="value4" x-model="value4"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 placeholder="Payoo">
                         </template>
