@@ -6,15 +6,16 @@ const bcrypt = require('bcryptjs');
 const AuthModel = require('../schemas/auth')
 const jwtGenerator = require('../utils/js/jwtGenrate')
 const validInfo = require("../middlewares/validation");
+const verifyToken = require("../middlewares/verifyToken");
 
-route.get('/login', (req, res) => {
+route.get('/login', verifyToken, (req, res) => {
     res.render('login', {
         msg: { faild: false, body: '' }
     })
 })
 
 
-route.get('/register', (req, res) => {
+route.get('/register', verifyToken, (req, res) => {
     res.render('register', {
         msg: { faild: false, body: '' }
     })
