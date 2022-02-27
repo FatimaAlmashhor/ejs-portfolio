@@ -1,5 +1,5 @@
 const route = require('express').Router()
-const Setting = require('../schemas/setting')
+const Info = require('../schemas/info')
 const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
 const removeFile = require('../utils/js/removeFile')
@@ -7,20 +7,20 @@ const upload = require('../utils/js/multer')
 var all = [];
 
 route.get('/', verify, async (req, res) => {
-    var setting = await Setting.find().clone().catch(function (err) { console.log(err) });
-    all = setting;
+    var info = await Info.find().clone().catch(function (err) { console.log(err) });
+    all = info;
     res.render('dashboard', {
-        currentPage: 'setting',
+        currentPage: 'info',
         data: all,
         formInfo: {}
     })
-    console.log('here the setting');
+    console.log('here the info');
 });
 
 route.post('/', verify, async (req, res) => {
     try {
 
-        await new Setting({
+        await new Info({
             title: req.body.title,
             description: req.body.des,
             position: req.body.position,
@@ -32,12 +32,12 @@ route.post('/', verify, async (req, res) => {
         }).save((err, result) => {
             if (err) {
                 console.log(err);
-                removeFile("./uploads/setting/" + req.file.filename)
+                removeFile("./uploads/info/" + req.file.filename)
                 return res.redirect('/500page');
             }
             else {
                 all.push(result)
-                res.redirect('/dashboard/setting')
+                res.redirect('/dashboard/info')
                 res.end()
             }
         })
@@ -48,7 +48,7 @@ route.post('/', verify, async (req, res) => {
 });
 route.get('/delete/:id', async (req, res) => {
     try {
-        await Setting.updateOne({
+        await Info.updateOne({
             _id: req.params.id.replace(/ /g, "")
         },
             {
@@ -57,7 +57,7 @@ route.get('/delete/:id', async (req, res) => {
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    res.redirect('/dashboard/setting')
+                    res.redirect('/dashboard/info')
                     res.end()
                 }
             }).clone()
@@ -71,7 +71,7 @@ route.get('/toggle/:id/', async (req, res) => {
     try {
         const newLocal = req.query.state ? false : true
         console.log(newLocal);
-        await Setting.updateOne({
+        await Info.updateOne({
             _id: req.params.id.replace(/ /g, "")
         },
             {
@@ -81,7 +81,7 @@ route.get('/toggle/:id/', async (req, res) => {
                 if (error) console.log({ error });
                 else {
 
-                    res.redirect('/dashboard/setting')
+                    res.redirect('/dashboard/info')
                     res.end()
                 }
             }).clone()
@@ -91,10 +91,10 @@ route.get('/toggle/:id/', async (req, res) => {
     }
 });
 
-// get one only
+// get one only 
 route.get('/:id', async (req, res) => {
     try {
-        await Setting.findById(req.params.id.replace(/ /g, ""), (err, result) => {
+        await Info.findById(req.params.id.replace(/ /g, ""), (err, result) => {
             if (!err) {
 
                 res.json({
@@ -118,7 +118,7 @@ route.post('/edit', verify, upload.single('project'), async (req, res) => {
     try {
 
         console.log('[body]', req.body);
-        await Setting.updateOne({
+        await Info.updateOne({
             _id: req.body.id.replace(/ /g, "")
         },
             {
@@ -132,7 +132,7 @@ route.post('/edit', verify, upload.single('project'), async (req, res) => {
             (error, result) => {
                 if (error) console.log({ error });
                 else {
-                    res.redirect('/dashboard/setting')
+                    res.redirect('/dashboard/info')
                     res.end()
                 }
             }).clone()

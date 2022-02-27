@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// this is not right
 const setting = new mongoose.Schema({
     bio: {
         type: String,

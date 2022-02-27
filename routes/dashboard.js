@@ -7,7 +7,7 @@ app.use(express.static('/components/'))
 route.get('/', verfiyToken, (req, res) => {
     res.render('dashboard', {
         userInfo: { name: 'fatima' },
-        currentPage: 'infors'
+        currentPage: 'welcom'
     })
 })
 
@@ -19,6 +19,7 @@ route.get('/logout', (req, res) => {
 
 route.use('/skills', require('./skills'))
 route.use('/setting', require('./setting'))
+route.use('/info', require('./info'))
 route.use('/services', require('./services'))
 route.use('/educations', require('./educations'))
 route.use('/expirences', require('./expirences'))

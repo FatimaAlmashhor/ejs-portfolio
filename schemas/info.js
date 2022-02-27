@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 
 const info = new mongoose.Schema({
-    fullname: String,
-    email: String,
-    bio: String,
-    avatar: String,
-    social:[ mongoose.Types.ObjectId],
+    bio: {
+        type: String,
+    },
+    cv: {
+        type: String,
+    },
+    about: String,
+    progress: Array,
+    is_active: Boolean,
+    deleted: Boolean
 })
 
 const infoModel = mongoose.model('info', info);
