@@ -8,7 +8,7 @@ const { restart } = require('nodemon')
 var all = [];
 
 route.get('/', verify, async (req, res) => {
-    var info = await Info.find().clone().catch(function (err) { console.log(err) });
+    var info = await Info.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = info;
     res.render('dashboard', {
         currentPage: 'info',

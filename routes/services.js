@@ -5,7 +5,7 @@ const verify = require('../middlewares/verifyToken')
 var all = [];
 
 route.get('/', verify, async (req, res) => {
-    var services = await Services.find().clone().catch(function (err) { console.log(err) });
+    var services = await Services.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = services;
     res.render('dashboard', {
         currentPage: 'services',

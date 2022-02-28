@@ -7,7 +7,7 @@ const upload = require('../utils/js/multer')
 var all = [];
 
 route.get('/', verify, async (req, res) => {
-    var educations = await Educations.find().clone().catch(function (err) { console.log(err) });
+    var educations = await Educations.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = educations;
     res.render('dashboard', {
         currentPage: 'educations',

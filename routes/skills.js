@@ -5,7 +5,7 @@ const verify = require('../middlewares/verifyToken')
 var allSkills = [];
 
 route.get('/', verify, async (req, res) => {
-    var skills = await Skills.find().clone().catch(function (err) { console.log(err) });
+    var skills = await Skills.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     allSkills = skills;
     res.render('dashboard', {
         currentPage: 'skills',
