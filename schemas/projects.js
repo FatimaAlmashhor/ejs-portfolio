@@ -10,6 +10,7 @@ const projects = new mongoose.Schema({
     role: String,
     links: Array,
     image: String,
+    main: Boolean ,
     is_active: Boolean,
     deleted: Boolean
 })
