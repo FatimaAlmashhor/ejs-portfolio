@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser');
 
 const Skills = require('./schemas/skills');
 const Services = require('./schemas/services');
@@ -16,6 +17,8 @@ app.use('/uploads', express.static('uploads/'))
 app.use(express.static('public'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 app.get(['/', '/home'], async (req, res) => {

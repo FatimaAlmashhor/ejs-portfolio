@@ -3,16 +3,17 @@ const multer = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log('[filed]', file.fieldname);
-        if (file.fieldname == 'avatar') {
-            cb(null, './uploads/avatars')
+
+        if (file.mimetype == "image/jpeg" || file.mimetype == "image/png") {
+            if (file.fieldname == 'avatar')
+                cb(null, './uploads/avatars')
+            else if (file.fieldname == 'project') {
+                cb(null, './uploads/projects')
+            }
         }
-        else if (file.fieldname == 'project') {
-            cb(null, './uploads/projects')
-        }
-        else {
+        else if (file.mimetype == "application/pdf") {
             cb(null, './uploads/files')
         }
-
     },
     filename: function (req, file, cb) {
         let extact = file.originalname.split('.')[1];

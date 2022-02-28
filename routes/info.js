@@ -4,6 +4,7 @@ const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
 const removeFile = require('../utils/js/removeFile')
 const upload = require('../utils/js/multer')
+const { restart } = require('nodemon')
 var all = [];
 
 route.get('/', verify, async (req, res) => {
@@ -91,6 +92,7 @@ route.get('/toggle/:id/', async (req, res) => {
 // get one only 
 route.get('/:id', async (req, res) => {
     try {
+        console.log('[id]', req.params.id.replace(/ /g, ""));
         await Info.findById(req.params.id.replace(/ /g, ""), (err, result) => {
             if (!err) {
 
@@ -101,6 +103,10 @@ route.get('/:id', async (req, res) => {
                         about: result.about,
                     }
                 })
+            }
+            else {
+                console.log({ erro });
+                res.redirect('/500page')
             }
         }).clone()
 
@@ -113,8 +119,6 @@ route.get('/:id', async (req, res) => {
 // edit
 route.post('/edit', verify, async (req, res) => {
     try {
-
-
         console.log('[body]', req.body);
         await Info.updateOne({
             _id: req.body.id.replace(/ /g, "")
@@ -125,7 +129,10 @@ route.post('/edit', verify, async (req, res) => {
                 // cv: req.file !== undefined ? req.file.filename : null,
             },
             (error, result) => {
-                if (error) console.log({ error });
+                if (error) {
+                    console.log({ error });
+                    res.redirect('/500page')
+                }
                 else {
                     res.redirect('/dashboard/info')
                     res.end()
@@ -133,6 +140,7 @@ route.post('/edit', verify, async (req, res) => {
             }).clone()
 
     } catch (error) {
+        res.redirect('/500page')
         console.log({ error });
     }
 });

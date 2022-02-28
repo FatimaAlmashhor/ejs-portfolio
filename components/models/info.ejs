@@ -20,44 +20,28 @@
             <div class="">
                 <!-- <form class="px-3 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/infos/edit" -->
                 <!-- method="post"> -->
-                <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" x-bind:action="post" method="post"
-                    enctype='multipart/form-data'>
+                <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" x-bind:action="post" method="post">
                     <h3 class="text-xl  font-medium text-gray-900 dark:text-white">Write your info </h3>
-                    <input type="hidden" name="id" x-text="value" x-model="value"
+                    <input type="hidden" name="id" x-text="value" x-model="value" x-bind:value="value"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="id">
                     <div>
                         <label for="bio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
                             Bio</label>
-                        <template x-if="!newModel">
-                            <input type="text" name="bio" id="bio" x-text="value1" x-model="value1"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Frontend developer" required>
-                        </template>
-                        <template x-if="newModel">
-                            <input type="text" name="bio" id="bio"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Frontend developer" required>
-                        </template>
+                        <input type="text" name="bio" id="bio" x-text="value1" x-model="value1" x-bind:value="value1"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Frontend developer" required>
+
                     </div>
                     <div>
                         <label for="about" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             About me</label>
-                        <template x-if="!newModel">
-                            <textarea type="text" name="about" id="about" x-text="value2" x-model="value2"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="I am Fatima live in Taiz"></textarea>
-                        </template>
-                        <template x-if="newModel">
-                            <textarea type="text" name="about" id="about"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="I am Fatima live in Taiz"></textarea>
+                        <textarea type="text" name="about" id="about" x-text="value2" x-model="value2"
+                            x-bind:value="value2" x-bind:value="value2"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="I am Fatima live in Taiz"></textarea>
 
-                        </template>
                     </div>
-                   
-
-                    
 
                     <template x-if="!newModel">
                         <button @click="post='/dashboard/Info/edit/'" type="submit"

@@ -106,15 +106,16 @@
                 this.showSkills = true
                 this.is_loading = true;
                 this.newModel = false;
-                fetch(`/dashboard/projects/${this.id}`)
+                fetch(`/dashboard/experiences/${this.id}`)
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;
                         this.value = data.formInfo.id;
                         this.value1 = data.formInfo.title;
-                        this.value2 = data.formInfo.des;
-                        this.value3 = data.formInfo.position;
-                        this.value4 = data.formInfo.role;
+                        this.value2 = data.formInfo.description;
+                        this.value3 = data.formInfo.range_years;
+                        this.value4 = data.formInfo.job_type;
+                        this.value5 = data.formInfo.company_name;
                         console.log(data);
                     });
             },

@@ -15,9 +15,9 @@
         </div>
         <% if (!(data[index].deleted)) { %>
             <!-- Bio and bout-->
-            <div class="overlay flex p-1  relative m-2 w-fit ">
+            <div class="overlay flex p-1  relative m-2 w-fit h-fit">
                 <!-- Overlay inner wrapper -->
-                <div class="overlay__inner  min-w-fit ">
+                <div class="overlay__inner w-fit  h-fit">
                     <div x-data="{dropdownSkills: false}" class=" flex relative w-full h-full rounded-all ">
                         <div class="w-full h-full flex  justify-between rounded-all ">
                             <div class=" px-4 py-2">
@@ -61,7 +61,7 @@
             <!-- CV -->
             <div class="overlay flex p-1  relative m-2 w-fit  h-fit">
                 <!-- Overlay inner wrapper -->
-                <div class="overlay__inner  min-w-fit ">
+                <div class="overlay__inner  w-fit  h-fit">
                     <div x-data="{dropdownSkills: false}" class=" flex relative w-full h-full rounded-all ">
                         <div class="w-full h-full flex  justify-between rounded-all ">
                             <div class=" px-4 py-4">
@@ -335,11 +335,12 @@
                 fetch(`/dashboard/info/${this.id}`)
                     .then(res => res.json())
                     .then(data => {
+                        console.log(data);
+
                         this.isLoading = false;
                         this.value = data.formInfo.id;
                         this.value1 = data.formInfo.bio;
                         this.value2 = data.formInfo.about;
-                        console.log(data);
                     });
             },
             // 

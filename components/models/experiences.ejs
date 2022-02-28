@@ -20,83 +20,56 @@
             <div class="">
                 <!-- <form class="px-3 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/experiences/edit" -->
                 <!-- method="post"> -->
-                <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" x-bind:action="post" method="post"
-                    enctype='multipart/form-data'>
+                <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" x-bind:action="post" method="post">
                     <h3 class="text-xl  font-medium text-gray-900 dark:text-white">Create Project</h3>
-                    <input type="hidden" name="id" x-text="value" x-model="value"
+                    <input type="hidden" name="id" x-text="value" x-model="value" x-bind:value="value"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="id">
                     <div>
                         <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
                             experiences title</label>
-                        <template x-if="!newModel">
-                            <input type="text" name="title" id="title" x-text="value1" x-model="value1"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Frontend Developer" required>
-                        </template>
-                        <template x-if="newModel">
-                            <input type="text" name="title" id="title"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Frontend Developer" required>
-                        </template>
+                        <input type="text" name="title" id="title" x-text="value1" x-model="value1"
+                            x-bind:value="value1"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Frontend Developer" required>
+
                     </div>
                     <div>
                         <label for="des" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             experiences Description</label>
-                        <template x-if="!newModel">
-                            <textarea type="text" name="des" id="des" x-text="value2" x-model="value2"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="working as .."></textarea>
-                        </template>
-                        <template x-if="newModel">
-                            <textarea type="text" name="des" id="des"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="working as .." required></textarea>
-                        </template>
+                        <textarea type="text" name="des" id="des" x-text="value2" x-model="value2" x-bind:value="value2"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="working as .."></textarea>
+
                     </div>
                     <div>
                         <label for="range_years"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             experiences time line</label>
-                        <template x-if="!newModel">
-                            <input type="text" name="range_years" id="range_years" x-text="value2" x-model="value2"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="5 Years">
-                        </template>
-                        <template x-if="newModel">
-                            <input type="text" name="range_years" id="range_years"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="5 Years">
-                        </template>
+                        <input type="text" name="range_years" id="range_years" x-text="value3" x-model="value3"
+                            x-bind:value="value3"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="5 Years">
+
                     </div>
                     <div>
                         <label for="job_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             experiences Job type </label>
-                        <template x-if="!newModel">
-                            <input type="text" name="job_type" id="job_type" x-text="value3" x-model="value3"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Full time">
-                        </template>
-                        <template x-if="newModel">
-                            <input type="text" name="job_type"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Full time">
-                        </template>
+                        <input type="text" name="job_type" id="job_type" x-text="value4" x-model="value4"
+                            x-bind:value="value4"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Full time">
+
                     </div>
                     <div>
                         <label for="company_name"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             experiences campany name</label>
-                        <template x-if="!newModel">
-                            <input type="text" name="company_name" id="company_name" x-text="value4" x-model="value4"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Payoo">
-                        </template>
-                        <template x-if="newModel">
-                            <input type="text" name="company_name"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Payoo">
-                        </template>
+                        <input type="text" name="company_name" id="company_name" x-text="value5" x-model="value5"
+                            x-bind:value="value5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="Payoo">
+
                     </div>
 
                     <template x-if="!newModel">
@@ -104,7 +77,9 @@
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</button>
                     </template>
                     <template x-if="newModel">
-                        <button @click="post='/dashboard/experiences/'" type="submit"
+                        <button
+                            @click="post='/dashboard/experiences/' ; value='' ; value1='' ; value2='' ;value3='' ; value4='' ; value5='' "
+                            type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                     </template>
                 </form>

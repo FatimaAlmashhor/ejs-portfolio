@@ -20,26 +20,26 @@ route.get('/', verify, async (req, res) => {
 route.post('/', verify, async (req, res) => {
     try {
         console.log('[body]', req.body);
-        // await new Experiences({
-        //     title: req.body.title,
-        //     description: req.body.des,
-        //     range_years: req.body.range_years,
-        //     company_name: req.body.company_name,
-        //     job_type: req.body.job_type,
-        //     is_active: true,
-        //     deleted: false
-        // }).save((err, result) => {
-        //     if (err) {
-        //         console.log(err);
-        //         removeFile("./uploads/experiences/" + req.file.filename)
-        //         return res.redirect('/500page');
-        //     }
-        //     else {
-        //         all.push(result)
-        res.redirect('/dashboard/experiences')
-        //         res.end()
-        //     }
-        // })
+        await new Experiences({
+            title: req.body.title,
+            description: req.body.des,
+            range_years: req.body.range_years,
+            company_name: req.body.company_name,
+            job_type: req.body.job_type,
+            is_active: true,
+            deleted: false
+        }).save((err, result) => {
+            if (err) {
+                console.log(err);
+                removeFile("./uploads/experiences/" + req.file.filename)
+                return res.redirect('/500page');
+            }
+            else {
+                all.push(result)
+                res.redirect('/dashboard/experiences')
+                res.end()
+            }
+        })
 
     } catch (error) {
         console.log({ error });
@@ -102,12 +102,14 @@ route.get('/:id', async (req, res) => {
             if (!err) {
 
                 res.json({
+
                     formInfo: {
                         id: result.id,
                         title: result.title,
-                        des: result.description,
-                        position: result.position,
-                        role: result.role,
+                        description: result.description,
+                        company_name: result.company_name,
+                        job_type: result.job_type,
+                        range_years: result.range_years,
                     }
                 })
             }
