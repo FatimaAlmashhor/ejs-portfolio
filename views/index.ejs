@@ -99,196 +99,208 @@
             <!-- the main right section  -->
             <main data-scroll-container>
                 <!-- breif of me  -->
-                <header id='home' class="section">
-                    <div class="section_numberic__upper">O.1</div>
-                    <h1 class="color-red" data-scroll data-scroll-speed="2">
-                        Hi ,
-                        <h1 data-scroll data-scroll-speed="1" data-scroll-target="#home">
-                            I'm Fatima <span class="color-red">A</span>lmashhor
+                <% if (info[0] !==null || (typeof info[0].bio !='undefined' ) ) { %>
+
+
+                    <header id='home' class="section">
+                        <div class="section_numberic__upper">O.1</div>
+                        <h1 class="color-red" data-scroll data-scroll-speed="2">
+                            Hi ,
+                            <h1 data-scroll data-scroll-speed="1" data-scroll-target="#home">
+                                I'm Fatima <span class="color-red">A</span>lmashhor
+                            </h1>
                         </h1>
-                    </h1>
-                    <h3 class="secondary-text">
-                        <%=info[0].bio %>
-                    </h3>
-                    <button class="btn">Resume</button>
-                    <div class="section_numberic__lower">O.1</div>
-                </header>
-                <!-- about section -->
-                <section id="about" class="section mx">
-                    <div class="section_numberic__upper">O.2</div>
-                    <!-- flex columns -->
-                    <h2 class="peimary-text"><span class="color-red">A</span>bout me.</h2>
-                    <div class="section_about">
-                        <div class="section_about_text">
-                            <p class="section_about_paragraph third-text">
-                                <%= info[0].about %>
-                            </p>
-                        </div>
-                        <div class="section_about_skills">
-                            <% for( let index=0; index < info[0].progress.length; index++ ) { %>
-                                <div class="skill progress-red">
-                                    <div class="skill_title">
-                                        <%= info[0].progress[index].title %>
-                                    </div>
-                                </div>
-                                <% } %>
-
-
-                        </div>
-                    </div>
-                    <div class="section_lang">
-                        <div class="section_lang_warpper" data-scroll data-scroll-speed="-4" data-scroll-target="#about"
-                            data-scroll-direction="horizontal">
-                            <% for( let index=0; index < skills.length; index++ ) { %>
-                                <div class="lang-items">
-                                    <span class="stock-red">
-                                        <%= skills[index].skill_name %>
-                                    </span>
-                                </div>
-                                <% } %>
-
-
-                        </div>
-                    </div>
-                    <div class="section_numberic__lower">O.2</div>
-                </section>
-                <!-- work section -->
-                <section id="work" class="section mx">
-                    <div class="section_numberic__upper">O.3</div>
-                    <h2 class="peimary-text"><span class="color-red">M</span>y Work.</h2>
-                    <div class="section_work">
-                        <!-- flex column -->
-                        <div class="project">
-                            <div class="project_img-view ">
-                                <div class=" project_view exhale" data-project='Exhale'></div>
-                                <div class="project_name" data-project-name='exhale'>
-                                    Exhale
-                                </div>
+                        <h3 class="secondary-text">
+                            <%=info[0].bio %>
+                        </h3>
+                        <button class="btn">Resume</button>
+                        <div class="section_numberic__lower">O.1</div>
+                    </header>
+                    <!-- about section -->
+                    <section id="about" class="section mx">
+                        <div class="section_numberic__upper">O.2</div>
+                        <!-- flex columns -->
+                        <h2 class="peimary-text"><span class="color-red">A</span>bout me.</h2>
+                        <div class="section_about">
+                            <div class="section_about_text">
+                                <p class="section_about_paragraph third-text">
+                                    <%= info[0].about %>
+                                </p>
                             </div>
-                            <div class="project_details">
-                                <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React , Firebase ,
-                                        Tailwind.</span></p>
-                                <p><span class='hilght-text'>Pages</span> : <span class="third-text">5 pages
-                                        .</span></p>
-                                <p><span class='hilght-text'>Position</span> : <span class="third-text">frontend
-                                        deveoper and team lead </span></span></p>
-                                <p><span class='hilght-text'>Compony</span> :<span class="third-text"> Capston project
-                                        for Recoded bootcamp .</span></p>
-                                <p><span class='hilght-text'>Working with</span> : <span class="third-text">team of
-                                        five.</span></p>
-                                <div class="project_details_links flex-row ">
-                                    <button class="btn">Read More </button>
-                                    <a href="https://exhale-website.herokuapp.com/" class="live_link">Live</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- flex column -->
-                        <div class="project flex-reverse">
-                            <!-- the left section of the project -->
-                            <div class="project_img-view ">
-                                <div class=" project_view payoo" data-project='Payoo'></div>
-                                <div class="project_name" data-project-name='payoo'>
-                                    Payoo
-                                </div>
-                            </div>
-                            <div class="project_details text-left">
-                                <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React native ,
-                                        Stripe .</span></p>
-                                <p><span class='hilght-text'>Pages</span> : <span class="third-text">4 main screen
-                                        and 5 sub screen.</span></p>
-                                <p><span class='hilght-text'>Position</span> : <span class="third-text">part time
-                                        frontend developer.</span></span></p>
-                                <p><span class='hilght-text'>Compony</span> :<span class="third-text"> Payoo start up
-                                        .</span></p>
-                                <p><span class='hilght-text'>Working with</span> : <span class="third-text">team of
-                                        two.</span></p>
-                                <div class="project_details_links flex-row ">
-                                    <button class="btn">Read More </button>
-                                    <a href="https://play.google.com/store/apps/details?id=com.payoomobile"
-                                        class="live_link">Live</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="section_numberic__lower">O.3</div>
-                </section>
-                <!-- this is services  sections -->
-                <section class="mx section">
-                    <div class="section_numberic__upper">O.4</div>
-                    <div class="section_servcies">
-                        <h2 class="peimary-text"><span class="color-red">S</span>ervcies.</h2>
-                        <!-- grid  -->
-                        <div class="card-warpper">
-                            <ul class="cards-list">
-                                <% for( let index=0; index < services.length; index++ ) { %>
-                                    <li class="card">
-                                        <!-- upper cover when hover  -->
-                                        <div class="card_content">
-                                            <h3 class="cord_content_text color-red">
-                                                <%= services[index].services_title%>
-                                            </h3>
-                                            <p class="third-text">
-                                                <%= services[index].services_description%>
-                                            </p>
+                            <div class="section_about_skills">
+                                <% for( let index=0; index < info[0].progress.length; index++ ) { %>
+                                    <div class="skill progress-red">
+                                        <div class="skill_title">
+                                            <%= info[0].progress[index].title %>
                                         </div>
-                                    </li>
+                                    </div>
                                     <% } %>
 
-                            </ul>
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="section_numberic__lower">O.4</div>
-                </section>
-                <!-- here more projects -->
-                <section class="section mx mb">
-                    <div class="section_numberic__upper">O.5</div>
-                    <h2 class="peimary-text"><span class="color-red">M</span>ore ...</h2>
-                    <div class="section_more-work">
-                        <div class="section_more-work_warpper">
-                            <ul class="more-projects-gallery">
-                                <% for( let index=0; index < projects.length; index++ ) { %>
-                                    <li class="gallery_item item-lg">
-                                        <!-- <div class="small-project small-project-1" data-small-project='<%= index  %>'>
+                        <div class="section_lang">
+                            <div class="section_lang_warpper" data-scroll data-scroll-speed="-4"
+                                data-scroll-target="#about" data-scroll-direction="horizontal">
+                                <% for( let index=0; index < skills.length; index++ ) { %>
+                                    <div class="lang-items">
+                                        <span class="stock-red">
+                                            <%= skills[index].skill_name %>
+                                        </span>
+                                    </div>
+                                    <% } %>
+
+
+                            </div>
+                        </div>
+                        <div class="section_numberic__lower">O.2</div>
+                    </section>
+                    <% } %>
+                        <!-- work section -->
+                        <section id="work" class="section mx">
+                            <div class="section_numberic__upper">O.3</div>
+                            <h2 class="peimary-text"><span class="color-red">M</span>y Work.</h2>
+                            <div class="section_work">
+                                <!-- flex column -->
+                                <div class="project">
+                                    <div class="project_img-view ">
+                                        <div class=" project_view exhale" data-project='Exhale'></div>
+                                        <div class="project_name" data-project-name='exhale'>
+                                            Exhale
+                                        </div>
+                                    </div>
+                                    <div class="project_details">
+                                        <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React ,
+                                                Firebase ,
+                                                Tailwind.</span></p>
+                                        <p><span class='hilght-text'>Pages</span> : <span class="third-text">5 pages
+                                                .</span></p>
+                                        <p><span class='hilght-text'>Position</span> : <span class="third-text">frontend
+                                                deveoper and team lead </span></span></p>
+                                        <p><span class='hilght-text'>Compony</span> :<span class="third-text"> Capston
+                                                project
+                                                for Recoded bootcamp .</span></p>
+                                        <p><span class='hilght-text'>Working with</span> : <span class="third-text">team
+                                                of
+                                                five.</span></p>
+                                        <div class="project_details_links flex-row ">
+                                            <button class="btn">Read More </button>
+                                            <a href="https://exhale-website.herokuapp.com/" class="live_link">Live</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- flex column -->
+                                <div class="project flex-reverse">
+                                    <!-- the left section of the project -->
+                                    <div class="project_img-view ">
+                                        <div class=" project_view payoo" data-project='Payoo'></div>
+                                        <div class="project_name" data-project-name='payoo'>
+                                            Payoo
+                                        </div>
+                                    </div>
+                                    <div class="project_details text-left">
+                                        <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React
+                                                native ,
+                                                Stripe .</span></p>
+                                        <p><span class='hilght-text'>Pages</span> : <span class="third-text">4 main
+                                                screen
+                                                and 5 sub screen.</span></p>
+                                        <p><span class='hilght-text'>Position</span> : <span class="third-text">part
+                                                time
+                                                frontend developer.</span></span></p>
+                                        <p><span class='hilght-text'>Compony</span> :<span class="third-text"> Payoo
+                                                start up
+                                                .</span></p>
+                                        <p><span class='hilght-text'>Working with</span> : <span class="third-text">team
+                                                of
+                                                two.</span></p>
+                                        <div class="project_details_links flex-row ">
+                                            <button class="btn">Read More </button>
+                                            <a href="https://play.google.com/store/apps/details?id=com.payoomobile"
+                                                class="live_link">Live</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section_numberic__lower">O.3</div>
+                        </section>
+                        <!-- this is services  sections -->
+                        <section class="mx section">
+                            <div class="section_numberic__upper">O.4</div>
+                            <div class="section_servcies">
+                                <h2 class="peimary-text"><span class="color-red">S</span>ervcies.</h2>
+                                <!-- grid  -->
+                                <div class="card-warpper">
+                                    <ul class="cards-list">
+                                        <% for( let index=0; index < services.length; index++ ) { %>
+                                            <li class="card">
+                                                <!-- upper cover when hover  -->
+                                                <div class="card_content">
+                                                    <h3 class="cord_content_text color-red">
+                                                        <%= services[index].services_title%>
+                                                    </h3>
+                                                    <p class="third-text">
+                                                        <%= services[index].services_description%>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <% } %>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="section_numberic__lower">O.4</div>
+                        </section>
+                        <!-- here more projects -->
+                        <section class="section mx mb">
+                            <div class="section_numberic__upper">O.5</div>
+                            <h2 class="peimary-text"><span class="color-red">M</span>ore ...</h2>
+                            <div class="section_more-work">
+                                <div class="section_more-work_warpper">
+                                    <ul class="more-projects-gallery">
+                                        <% for( let index=0; index < projects.length; index++ ) { %>
+                                            <li class="gallery_item item-lg">
+                                                <!-- <div class="small-project small-project-1" data-small-project='<%= index  %>'>
                                         </div> -->
-                                        <div class="small-project small-project-1" style="
+                                                <div class="small-project small-project-1" style="
                                         background-image: url('/uploads/projects/<%= projects[index].image %>');
                                         background-size: cover;
                                         background-repeat: no-repeat;
                                         background-position: center;
                                         ">
-                                        </div>
-                                    </li>
-                                    <% } %>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="section_numberic__lower">O.5</div>
-                </section>
-                <!-- contanct me -->
-                <section id="contanct" class="section mx">
-                    <div class="section_numberic__upper">O.6</div>
-                    <h2 class="peimary-text"><span class="color-red">G</span>et In Touch</h2>
-                    <div class="section_contenct">
-                        <div class="contanct_form">
-                            <form id='form'>
-                                <input type='text' id='email' name='email' placeholder="Enter your email" />
+                                                </div>
+                                            </li>
+                                            <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="section_numberic__lower">O.5</div>
+                        </section>
+                        <!-- contanct me -->
+                        <section id="contanct" class="section mx">
+                            <div class="section_numberic__upper">O.6</div>
+                            <h2 class="peimary-text"><span class="color-red">G</span>et In Touch</h2>
+                            <div class="section_contenct">
+                                <div class="contanct_form">
+                                    <form id='form'>
+                                        <input type='text' id='email' name='email' placeholder="Enter your email" />
 
-                                <p class="third-text color-red" id='email-error'></p>
-                                <textarea rows="10" id='massage' name='email'
-                                    placeholder="Enter your massage"></textarea>
-                                <p class="third-text color-red" id='message-error'></p>
-                                <button type='submit' class="btn">Send</button>
-                            </form>
-                        </div>
-                        <div class="contanct_wellcoming">
-                            <h3 class="secondary-text">I will be very happy to connect with you
-                                <span>&#9995;</span>
-                            </h3>
+                                        <p class="third-text color-red" id='email-error'></p>
+                                        <textarea rows="10" id='massage' name='email'
+                                            placeholder="Enter your massage"></textarea>
+                                        <p class="third-text color-red" id='message-error'></p>
+                                        <button type='submit' class="btn">Send</button>
+                                    </form>
+                                </div>
+                                <div class="contanct_wellcoming">
+                                    <h3 class="secondary-text">I will be very happy to connect with you
+                                        <span>&#9995;</span>
+                                    </h3>
 
-                        </div>
-                    </div>
-                    <%- include('footer')%>
-                </section>
+                                </div>
+                            </div>
+                            <%- include('footer')%>
+                        </section>
             </main>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>

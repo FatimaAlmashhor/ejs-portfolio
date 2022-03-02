@@ -3,11 +3,15 @@ const app = express();
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
+require("dotenv").config();
+
 
 const Skills = require('./schemas/skills');
 const Services = require('./schemas/services');
 const Projects = require('./schemas/projects');
 const Info = require('./schemas/info');
+const Auth = require('./schemas/auth');
+const { render } = require('express/lib/response');
 
 app.set('view engine', 'ejs');
 app.use(cookieParser())
@@ -21,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
-app.get(['/', '/home'], async (req, res) => {
+app.get(['/', '/home'], checkOwner, async (req, res) => {
     var skills = await Skills.find({ is_active: true, deleted: false }).clone().catch(function (err) { console.log(err) });
     var service = await Services.find({ is_active: true, deleted: false }).clone().catch(function (err) { console.log(err) });
     var projects = await Projects.find({ is_active: true, deleted: false }).clone().catch(function (err) { console.log(err) });
@@ -34,6 +38,13 @@ app.get(['/', '/home'], async (req, res) => {
     })
 })
 
+async function checkOwner(req, res, next) {
+    var auth = await Auth.find().clone().catch(function (err) { console.log(err) });
+    console.log(auth);
+    if (auth.length == 0) {
+        res.render('initProject', { msg: {} })
+    }
+}
 
 app.use('/dashboard', require('./routes/dashboard'))
 app.use('/load', require('./routes/load'))
@@ -47,14 +58,20 @@ app.get('*', (req, res) => {
 })
 main().catch(err => console.log(err));
 
-
 async function main() {
-    await mongoose.connect('mongodb://localhost:27017/protfolioApp',
-        {
-            useUnifiedTopology: true,
-            useNewUrlParser: true,
-            // useCreateIndex: true, //make this true
-            autoIndex: true, //make this also true
-        });
+    try {
+        await mongoose.connect((process.env.mongodbUrl || 'mongdb://localhost:27017/portfolioApp'),
+            {
+                useUnifiedTopology: true,
+                useNewUrlParser: true,
+                // useCreateIndex: true, //make this true
+                autoIndex: true, //make this also true
+            });
+        await mongoose.connection.on('connected', () => {
+            console.log('Mongoose is connected')
+        })
+    } catch (error) {
+        console.log({ error });
+    }
 }
 app.listen(process.env.PORT || 3000);
