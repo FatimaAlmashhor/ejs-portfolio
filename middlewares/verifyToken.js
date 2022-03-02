@@ -7,6 +7,8 @@ module.exports = async function (req, res, next) {
     // Get token from header
     // const token = req.header("token");
     const token = await req.cookies;
+    const auth = await req.cookies;
+    console.log(auth.auth);
     // console.log('[verify token please]', token);
     // Check if not token
     if (!token.token) {
@@ -21,9 +23,15 @@ module.exports = async function (req, res, next) {
         //it is going to give use the user id (user:{id: user.id})
         const verify = jwt.verify(token.token, process.env.jwtSecretAdmin);
         req.user = verify.user;
-        if (req.path == '/login' || req.path == '/register') {
-            res.redirect('/dashboard')
+        if (auth.auth) {
+            if (auth.auth.auth_role === 1) {
+                if (req.path == '/login' || req.path == '/register') {
+                    return res.redirect('/dashboard')
+                }
+            }
+
         }
+
         next();
     } catch (err) {
         return await res.render('login', {

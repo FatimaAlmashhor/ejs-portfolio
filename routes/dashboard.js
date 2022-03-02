@@ -14,6 +14,7 @@ route.get('/', verfiyToken, (req, res) => {
 route.get('/logout', (req, res) => {
     res.clearCookie();
     res.cookie('token', null)
+    res.cookie('auth', null)
     res.redirect('/auth/login')
 })
 

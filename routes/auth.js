@@ -7,6 +7,7 @@ const AuthModel = require('../schemas/auth')
 const jwtGenerator = require('../utils/js/jwtGenrate')
 const validInfo = require("../middlewares/validation");
 const verifyToken = require("../middlewares/verifyToken");
+const isAdmin = require("../middlewares/isAdmin");
 
 route.get('/login', verifyToken, (req, res) => {
     res.render('login', {
@@ -36,6 +37,9 @@ route.post('/login', validInfo, async (req, res) => {
                 return res.render('login', {
                     msg: { faild: true, body: "Invalid Credential" }
                 })
+            }
+            else {
+                res.cookie('auth', result)
             }
         }).clone().exec();
         if (user.length === 0) {
@@ -70,7 +74,7 @@ route.post('/login', validInfo, async (req, res) => {
 
 
 
-route.post('/register', validInfo, async (req, res) => {
+route.post('/register', isAdmin, validInfo, async (req, res) => {
     try {
         // 1- destracture the req.body (name ,email , password) 
         const { fullname, email, password } = req.body;
@@ -102,7 +106,8 @@ route.post('/register', validInfo, async (req, res) => {
                 })
             }
             else {
-                console.log({ result });
+                console.log('[register result ]', result);
+                res.cookie('auth', result)
                 jwtToken = jwtGenerator(result);
                 console.log('[jwtToken]', jwtToken);
                 res.cookie('token', jwtToken)

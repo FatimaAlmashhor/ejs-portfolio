@@ -43,7 +43,8 @@ async function checkOwner(req, res, next) {
     console.log(auth);
     if (auth.length == 0) {
         res.render('initProject', { msg: {} })
-    }
+    } else
+        next()
 }
 
 app.use('/dashboard', require('./routes/dashboard'))
