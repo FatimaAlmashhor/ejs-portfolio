@@ -3,10 +3,11 @@ const Educations = require('../schemas/educations')
 const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
 const removeFile = require('../utils/js/removeFile')
+const checkActivationUser = require('../middlewares/checkActivationUser')
 const upload = require('../utils/js/multer')
 var all = [];
 
-route.get('/', verify, async (req, res) => {
+route.get('/', verify, checkActivationUser, async (req, res) => {
     var educations = await Educations.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = educations;
     res.render('dashboard', {

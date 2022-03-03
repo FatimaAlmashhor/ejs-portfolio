@@ -32,13 +32,12 @@ route.post('/login', validInfo, async (req, res) => {
             email: email,
         }, (err, result) => {
             if (err) {
-                console.log('[err login] ',);
                 return res.render('login', {
                     msg: { faild: true, body: "Invalid Credential" }
                 })
             }
             else {
-                res.cookie('auth', result)
+                return
             }
         }).clone().exec();
         if (user.length === 0) {
@@ -61,6 +60,7 @@ route.post('/login', validInfo, async (req, res) => {
         (async function () {
             jwtToken = jwtGenerator(user[0])
             console.log('[jwtToken]', jwtToken);
+            res.cookie('auth', user[0])
             res.cookie('token', jwtToken).redirect('/dashboard')
             res.end()
         })()
@@ -105,7 +105,7 @@ route.post('/register', validInfo, async (req, res) => {
             else {
                 rand = Math.floor((Math.random() * 100) + 54);
                 host = req.get('host');
-                link = "http://" + req.get('host') + "/auth/verify?id=" + rand;
+                link = "http://" + req.get('host') + "/auth/verify?id=" + result.id;
                 var smtpTransport = nodemailer.createTransport({
                     host: process.env.HOST_URL || 'http://localhost:3000',
                     service: "Gmail",
@@ -120,7 +120,8 @@ route.post('/register', validInfo, async (req, res) => {
                     form: 'Portfly App',
                     to: email,
                     subject: "Please confirm your Email account",
-                    html: "Hello, Please Click on the link to verify your email." + link + ">Click here to verify"
+                    html: "Hello, Please Click on the link to verify your email." + link + ">Click here to verify " +
+                        "<h3>your password is <strong>" + password + "</strong></h3>"
                 }
                 console.log(mailOptions);
                 smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -132,10 +133,10 @@ route.post('/register', validInfo, async (req, res) => {
                         res.end("sent");
                     }
                 });
-                res.cookie('auth', result)
-                jwtToken = jwtGenerator(result);
+                // res.cookie('auth', result)
+                // jwtToken = jwtGenerator(result);
                 // console.log('[jwtToken]', jwtToken);
-                res.cookie('token', jwtToken)
+                // res.cookie('token', jwtToken)
                 res.redirect('/dashboard')
                 // res.json({ jwtToken, user: result });
             }
@@ -147,8 +148,36 @@ route.post('/register', validInfo, async (req, res) => {
     }
 })
 
-route.get('/verify', verifyToken, (req, res) => {
-    
+route.get('/verify', verifyToken, async (req, res) => {
+    try {
+        console.log('req.query.id', req.query.id.replace(/ /g, ""));
+        let filter = { _id: req.query.id.replace(/ /g, "") }
+        let user = await AuthModel.findOne(filter, (err, result) => {
+            if (err) {
+                return console.log(err);
+            }
+            else {
+                AuthModel.updateOne(filter,
+                    {
+                        is_active: true,
+                    },
+                    (error, result) => {
+                        if (error) console.log({ error });
+                    }).clone();
+            }
+        }).clone();
+
+        console.log('[auther of verfy]', user);
+        jwtToken = jwtGenerator(user)
+        console.log('[jwtToken]', jwtToken);
+        res.cookie('auth', user)
+        res.cookie('token', jwtToken).redirect('/dashboard')
+
+
+    } catch (error) {
+        console.log({ error });
+        res.redirect('/500page')
+    }
 })
 route.post('/register/admin', validInfo, async (req, res) => {
     try {

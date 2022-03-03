@@ -2,19 +2,10 @@ const express = require('express')
 const route = express.Router()
 const app = express();
 const verfiyToken = require('../middlewares/verifyToken')
+const checkActivationUser = require('../middlewares/checkActivationUser')
 app.use(express.static('/components/'))
 
-function checkActivationUser(req, res, next) {
-    var auth = req.cookie
-    if (auth.auth) {
-        if (!auth.auth.is_active) {
-            return res.render('login', {
-                msg: { faild: true, body: "You need to confirm your email" }
-            })
-        }
-        else next()
-    }
-}
+
 route.get('/', checkActivationUser, verfiyToken, (req, res) => {
     res.render('dashboard', {
         userInfo: { name: 'fatima' },

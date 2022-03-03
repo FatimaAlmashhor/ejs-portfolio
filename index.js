@@ -61,15 +61,15 @@ main().catch(err => console.log(err));
 
 async function main() {
     try {
-        await mongoose.connect((process.env.mongodbUrl || 'mongdb://localhost:27017/portfolioApp'),
+        mongoose.connect((process.env.mongodbUrl || 'mongdb://localhost:27017/portfolioApp'),
             {
                 useUnifiedTopology: true,
                 useNewUrlParser: true,
-                // useCreateIndex: true, //make this true
+                // useCreateIndex: true, //makes this true
                 autoIndex: true, //make this also true
             });
-        await mongoose.connection.on('connected', () => {
-            console.log('Mongoose is connected')
+        mongoose.connection.on('connected', () => {
+            console.log('Mongoose is connected');
         })
     } catch (error) {
         console.log({ error });
