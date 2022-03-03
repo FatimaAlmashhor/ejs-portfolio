@@ -7,8 +7,9 @@ app.use(express.static('/components/'))
 
 
 route.get('/', checkActivationUser, verfiyToken, (req, res) => {
+    let user = req.cookies.auth;
     res.render('dashboard', {
-        userInfo: { name: 'fatima' },
+        userInfo: { name: user.fullname, role: user.auth_role },
         currentPage: 'welcom'
     })
 })
@@ -23,6 +24,7 @@ route.get('/logout', (req, res) => {
 
 route.use('/skills', require('./skills'))
 route.use('/setting', require('./setting'))
+route.use('/tracker', require('./tracker'))
 route.use('/info', require('./info'))
 route.use('/services', require('./services'))
 route.use('/educations', require('./educations'))

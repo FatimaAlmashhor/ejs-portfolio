@@ -9,10 +9,12 @@ var all = [];
 route.get('/', verify, async (req, res) => {
     var projects = await Projects.find().clone({ deleted: false }).catch(function (err) { console.log(err) });
     all = projects;
+    let user = req.cookies.auth;
     res.render('dashboard', {
         currentPage: 'projects',
         data: all,
-        formInfo: {}
+        formInfo: {},
+        userInfo: { name: user.fullname, role: user.auth_role }
     })
     console.log('here the projects');
 });

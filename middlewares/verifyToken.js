@@ -25,7 +25,7 @@ module.exports = async function (req, res, next) {
         req.user = verify.user;
         if (auth.auth) {
             if (auth.auth.auth_role === 1) {
-                if (req.path == '/login' || req.path == '/register') {
+                if (req.path == '/login' || req.path == '/register' || req.path == '/tracker/activities' || req.path == '/tracker/members') {
                     return await res.redirect('/dashboard')
                 }
             }

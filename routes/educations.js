@@ -10,10 +10,12 @@ var all = [];
 route.get('/', verify, checkActivationUser, async (req, res) => {
     var educations = await Educations.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = educations;
+    let user = req.cookies.auth;
     res.render('dashboard', {
         currentPage: 'educations',
         data: all,
-        formInfo: {}
+        formInfo:{},
+        userInfo: { name: user.fullname, role: user.auth_role }
     })
     console.log('here the Educations');
 });

@@ -7,10 +7,12 @@ var allSkills = [];
 route.get('/', verify, async (req, res) => {
     var skills = await Skills.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     allSkills = skills;
+    let user = req.cookies.auth;
     res.render('dashboard', {
         currentPage: 'skills',
         data: skills,
-        formInfo: {}
+        formInfo: {},
+        userInfo: { name: user.fullname, role: user.auth_role }
     })
     console.log('here the skills');
 });

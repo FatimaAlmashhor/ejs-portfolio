@@ -75,22 +75,35 @@
         </a>
       </li>
 
+      <% if (userInfo.role !=='undefined' && userInfo.role==0) { %>
+        <li class="nav__item">
+          <a href="#" class="nav__link">
+            <ion-icon name="folder-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name"> Tracker</span>
+            <ion-icon name="chevron-down-outline" class="toggle-icon"></ion-icon>
+          </a>
+
+          <ul class="nav__drop">
+            <div class="padding">
+              <li>
+                <a href="/dashboard/tracker"><a href="#">Activites</a>
+              </li>
+              <li>
+                <a href="/dashboard/tracker/members"><a href="#">Members</a>
+              </li>
+            </div>
+          </ul>
+        </li>
+
+        <% } %>
 
 
-      <li class="nav__item">
-        <a href="/dashboard/setting" class="nav__link">
-          <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-          <span class="nav__name">Setting</span>
-        </a>
-      </li>
-
-
-      <li class="nav__item">
-        <a href="/dashboard/logout" class="nav__link">
-          <ion-icon name="arrow-back-outline"></ion-icon>
-          <span class="nav__name">logout</span>
-        </a>
-      </li>
+          <li class="nav__item">
+            <a href="/dashboard/logout" class="nav__link">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+              <span class="nav__name">logout</span>
+            </a>
+          </li>
     </ul>
 
     <hr>

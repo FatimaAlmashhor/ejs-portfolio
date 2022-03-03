@@ -7,10 +7,12 @@ var all = [];
 route.get('/', verify, async (req, res) => {
     var services = await Services.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = services;
+    let user = req.cookies.auth;
     res.render('dashboard', {
         currentPage: 'services',
         data: all,
-        formInfo: {}
+        formInfo: {},
+        userInfo: { name: user.fullname, role: user.auth_role }
     })
     console.log('here the all');
 });
