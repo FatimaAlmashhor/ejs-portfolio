@@ -4,7 +4,7 @@
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="/css/dashboard.css">
 
-    <body x-data="{msgModel: true}">
+    <body x-data="{msgModel: true ,gpassword :''}">
         <!-- Canvas -->
         <canvas class="orb-canvas"></canvas>
         <!-- Title -->
@@ -38,15 +38,20 @@
                                 <label for="password"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-500">your
                                     password</label>
-                                <input type="password" name="password" id="password"
+                                <input type="password" name="password" id="password" x-bind:value="gpassword"
+                                    x-text="gpassword" x-model="gpassword"
                                     class="bg-transparent  border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2.5 dark:bg-transparent dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-500"
                                     placeholder="****" required>
+                                <small class="cursor-pointer text-red-600"
+                                    @click="gpassword= generatePassword()">Genrate
+                                    password </small>
                             </div>
                             <div>
                                 <label for="comfirmPassword"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-500">confirm
                                     password</label>
                                 <input type="password" name="comfirmPassword" id="comfirmPassword"
+                                    x-bind:value="gpassword" x-text="gpassword" x-model="gpassword"
                                     class="bg-transparent  border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2.5 dark:bg-transparent dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-500"
                                     placeholder="****" required>
                             </div>
@@ -119,6 +124,46 @@
               </button>
             </div> -->
                 <script type="module" src="/js/gassyAnimation.js"></script>
+                <script>
+                    function generatePassword() {
+                        // let randomPass = Math.random()                        // Generate random number, eg: 0.123456
+                        //     .toString(36)           // Convert  to base-36 : "0.4fzyo82mvyr"
+                        //     .slice(-10);// Cut off last 8 characters : "yo82mvyr"
+                        // console.log('test', randomPass);
+                        // this.gpassword = randomPass
+                        // return randomPass;
+                        let numLc = 4;
+                        let numUc = 4;
+                        let numDigits = 4;
+                        let numSpecial = 2;
+
+
+                        var lcLetters = 'abcdefghijklmnopqrstuvwxyz';
+                        var ucLetters = lcLetters.toUpperCase();
+                        var numbers = '0123456789';
+                        var special = '!?=#*$@+-.';
+
+                        var getRand = function (values) {
+                            return values.charAt(Math.floor(Math.random() * values.length));
+                        }
+
+                        //+ Jonas Raoni Soares Silva
+                        //@ http://jsfromhell.com/array/shuffle [v1.0]
+                        function shuffle(o) { //v1.0
+                            for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+                            return o;
+                        };
+
+                        var pass = [];
+                        for (var i = 0; i < numLc; ++i) { pass.push(getRand(lcLetters)) }
+                        for (var i = 0; i < numUc; ++i) { pass.push(getRand(ucLetters)) }
+                        for (var i = 0; i < numDigits; ++i) { pass.push(getRand(numbers)) }
+                        for (var i = 0; i < numSpecial; ++i) { pass.push(getRand(special)) }
+
+                        return shuffle(pass).join('');
+
+                    }
+                </script>
     </body>
 
 </html>

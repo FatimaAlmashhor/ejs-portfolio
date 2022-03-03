@@ -21,12 +21,12 @@ module.exports = async function (req, res, next) {
     // Verify token
     try {
         //it is going to give use the user id (user:{id: user.id})
-        const verify = jwt.verify(token.token, process.env.jwtSecretAdmin);
+        const verify = await jwt.verify(token.token, process.env.jwtSecretAdmin);
         req.user = verify.user;
         if (auth.auth) {
             if (auth.auth.auth_role === 1) {
                 if (req.path == '/login' || req.path == '/register') {
-                    return res.redirect('/dashboard')
+                    return await res.redirect('/dashboard')
                 }
             }
 

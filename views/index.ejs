@@ -97,7 +97,7 @@
         <!-- nav in the left of the page should take 3/12 -->
         <%- include('nav'); %>
             <!-- the main right section  -->
-            <main data-scroll-container>
+            <main>
                 <!-- breif of me  -->
                 <% if (typeof info[0] !=='undefined' ) { %>
 
@@ -226,56 +226,62 @@
                         </section>
                         <!-- this is services  sections -->
                         <section class="mx section">
-                            <div class="section_numberic__upper">O.4</div>
-                            <div class="section_servcies">
-                                <h2 class="peimary-text"><span class="color-red">S</span>ervcies.</h2>
-                                <!-- grid  -->
-                                <div class="card-warpper">
-                                    <ul class="cards-list">
-                                        <% for( let index=0; index < services.length; index++ ) { %>
-                                            <li class="card">
-                                                <!-- upper cover when hover  -->
-                                                <div class="card_content">
-                                                    <h3 class="cord_content_text color-red">
-                                                        <%= services[index].services_title%>
-                                                    </h3>
-                                                    <p class="third-text">
-                                                        <%= services[index].services_description%>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <% } %>
+                            <% if (services !=='undefined' ) { %>
+                                <div class="section_numberic__upper">O.4</div>
+                                <div class="section_servcies">
+                                    <h2 class="peimary-text"><span class="color-red">S</span>ervcies.</h2>
+                                    <!-- grid  -->
+                                    <div class="card-warpper">
+                                        <ul class="cards-list">
+                                            <% for( let index=0; index < services.length; index++ ) { %>
+                                                <li class="card">
+                                                    <!-- upper cover when hover  -->
+                                                    <div class="card_content">
+                                                        <h3 class="cord_content_text color-red">
+                                                            <%= services[index].services_title%>
+                                                        </h3>
+                                                        <p class="third-text">
+                                                            <%= services[index].services_description%>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <% } %>
 
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="section_numberic__lower">O.4</div>
+                                <div class="section_numberic__lower">O.4</div>
+                                <% } %>
                         </section>
                         <!-- here more projects -->
+
                         <section class="section mx mb">
-                            <div class="section_numberic__upper">O.5</div>
-                            <h2 class="peimary-text"><span class="color-red">M</span>ore ...</h2>
-                            <div class="section_more-work">
-                                <div class="section_more-work_warpper">
-                                    <ul class="more-projects-gallery">
-                                        <% for( let index=0; index < projects.length; index++ ) { %>
-                                            <li class="gallery_item item-lg">
-                                                <!-- <div class="small-project small-project-1" data-small-project='<%= index  %>'>
+                            <% if (projects !=='undefined' ) { %>
+                                <div class="section_numberic__upper">O.5</div>
+                                <h2 class="peimary-text"><span class="color-red">M</span>ore ...</h2>
+                                <div class="section_more-work">
+                                    <div class="section_more-work_warpper">
+                                        <ul class="more-projects-gallery">
+                                            <% for( let index=0; index < projects.length; index++ ) { %>
+                                                <li class="gallery_item item-lg">
+                                                    <!-- <div class="small-project small-project-1" data-small-project='<%= index  %>'>
                                         </div> -->
-                                                <div class="small-project small-project-1" style="
+                                                    <div class="small-project small-project-1" style="
                                         background-image: url('/uploads/projects/<%= projects[index].image %>');
                                         background-size: cover;
                                         background-repeat: no-repeat;
                                         background-position: center;
                                         ">
-                                                </div>
-                                            </li>
-                                            <% } %>
-                                    </ul>
+                                                    </div>
+                                                </li>
+                                                <% } %>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="section_numberic__lower">O.5</div>
+                                <div class="section_numberic__lower">O.5</div>
+                                <% } %>
                         </section>
+
                         <!-- contanct me -->
                         <section id="contanct" class="section mx">
                             <div class="section_numberic__upper">O.6</div>
