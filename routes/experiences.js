@@ -1,5 +1,7 @@
 const route = require('express').Router()
 const Experiences = require('../schemas/experiences')
+const Activities = require('../schemas/activities')
+const mongoose = require('mongoose')
 const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
 const removeFile = require('../utils/js/removeFile')
@@ -13,7 +15,7 @@ route.get('/', verify, async (req, res) => {
     res.render('dashboard', {
         currentPage: 'experiences',
         data: all,
-        formInfo:{} ,
+        formInfo: {},
         userInfo: { name: user.fullname, role: user.auth_role }
     })
     console.log('here the experiences');
@@ -37,6 +39,15 @@ route.post('/', verify, async (req, res) => {
                 return res.redirect('/500page');
             }
             else {
+                Activities({
+                    table_name: 'experiences',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 1,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
                 all.push(result)
                 res.redirect('/dashboard/experiences')
                 res.end()
@@ -49,19 +60,29 @@ route.post('/', verify, async (req, res) => {
 });
 route.get('/delete/:id', async (req, res) => {
     try {
-        await Experiences.updateOne({
+        await Experiences.findByIdAndUpdate({
             _id: req.params.id.replace(/ /g, "")
         },
             {
                 deleted: true,
-            },
-            (error, result) => {
-                if (error) console.log({ error });
-                else {
-                    res.redirect('/dashboard/experiences')
-                    res.end()
-                }
-            }).clone()
+            }).exec()
+            .then(result => {
+                Activities({
+                    table_name: 'experiences',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 3,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
+
+                res.redirect('/dashboard/experiences')
+                res.end()
+
+            }).catch(error => {
+                console.log({ error });
+            })
 
 
     } catch (error) {
@@ -73,8 +94,19 @@ route.get('/toggle/:id/', async (req, res) => {
         const filter = {
             _id: req.params.id.replace(/ /g, "")
         }
-        let doc = await Experiences.findOne(filter, (error) => {
-            if (error) return res.redirect('500page')
+        let doc = await Experiences.findOne(filter, (error, result) => {
+            if (error) return res.redirect('500page');
+            else {
+                Activities({
+                    table_name: 'experiences',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 2,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
+            }
         }).clone();
         const newLocal = doc.is_active ? false : true
         console.log(newLocal);
@@ -125,8 +157,7 @@ route.get('/:id', async (req, res) => {
 route.post('/edit', verify, upload.single('project'), async (req, res) => {
     try {
 
-        console.log('[body]', req.body);
-        await Experiences.updateOne({
+        await Experiences.findByIdAndUpdate({
             _id: req.body.id.replace(/ /g, "")
         },
             {
@@ -136,14 +167,24 @@ route.post('/edit', verify, upload.single('project'), async (req, res) => {
                 role: req.body.role,
                 image: req.file !== undefined ? req.file.filename : null,
                 links: [{ live: req.body.liveLink }],
-            },
-            (error, result) => {
-                if (error) console.log({ error });
-                else {
-                    res.redirect('/dashboard/experiences')
-                    res.end()
-                }
-            }).clone()
+            }).exec()
+            .then(result => {
+                Activities({
+                    table_name: 'experiences',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 2,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
+
+                res.redirect('/dashboard/experiences')
+                res.end()
+
+            }).catch(error => {
+                console.log({ error });
+            })
 
     } catch (error) {
         console.log({ error });
