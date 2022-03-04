@@ -9,8 +9,13 @@ module.exports = async function (req, res, next) {
                 })
             }
             else next()
+        } else {
+            return res.redirect('/login')
         }
     } catch (error) {
         console.log(error);
+        return res.render('login', {
+            msg: { faild: true, body: "Something went wrong" }
+        })
     }
 }

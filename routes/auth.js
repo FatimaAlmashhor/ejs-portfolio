@@ -120,7 +120,7 @@ route.post('/register', validInfo, async (req, res) => {
                     form: 'Portfly App',
                     to: email,
                     subject: "Please confirm your Email account",
-                    html: "Hello, Please Click on the link to verify your email." + link + ">Click here to verify " +
+                    html: "Hello, Please Click on the link to verify your email.<a href=" + link + ">Click here to verify</a> " +
                         "<h3>your password is <strong>" + password + "</strong></h3>"
                 }
                 console.log(mailOptions);
@@ -148,7 +148,7 @@ route.post('/register', validInfo, async (req, res) => {
     }
 })
 
-route.get('/verify', verifyToken, async (req, res) => {
+route.get('/verify', async (req, res) => {
     try {
         console.log('req.query.id', req.query.id.replace(/ /g, ""));
         let filter = { _id: req.query.id.replace(/ /g, "") }

@@ -40,7 +40,6 @@ app.get(['/', '/home'], checkOwner, async (req, res) => {
 
 async function checkOwner(req, res, next) {
     var auth = await Auth.find().clone().catch(function (err) { console.log(err) });
-    console.log(auth);
     if (auth.length == 0) {
         res.render('initProject', { msg: {} })
     } else

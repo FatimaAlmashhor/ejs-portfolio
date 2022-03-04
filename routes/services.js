@@ -8,6 +8,7 @@ route.get('/', verify, async (req, res) => {
     var services = await Services.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = services;
     let user = req.cookies.auth;
+    console.log('[user in servies]', user);
     res.render('dashboard', {
         currentPage: 'services',
         data: all,

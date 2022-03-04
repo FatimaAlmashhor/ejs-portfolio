@@ -6,11 +6,11 @@ const actions = new mongoose.Schema({
         required: true
     },
     row_id: {
-        type: String,
+        type: mongoose.Types.ObjectId,
         required: true
     },
     auth_id: {
-        type: String,
+        type: mongoose.Types.ObjectId,
         required: true
     },
     actions_type: {

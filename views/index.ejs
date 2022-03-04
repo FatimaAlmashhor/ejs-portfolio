@@ -158,71 +158,79 @@
                     <% } %>
                         <!-- work section -->
                         <section id="work" class="section mx">
-                            <div class="section_numberic__upper">O.3</div>
-                            <h2 class="peimary-text"><span class="color-red">M</span>y Work.</h2>
-                            <div class="section_work">
-                                <!-- flex column -->
-                                <div class="project">
-                                    <div class="project_img-view ">
-                                        <div class=" project_view exhale" data-project='Exhale'></div>
-                                        <div class="project_name" data-project-name='exhale'>
-                                            Exhale
+                            <% if (projects !=='undefined' ) { %>
+                                <div class="section_numberic__upper">O.3</div>
+                                <h2 class="peimary-text"><span class="color-red">M</span>y Work.</h2>
+                                <div class="section_work">
+                                    <!-- flex column -->
+                                    <div class="project">
+                                        <div class="project_img-view ">
+                                            <div class=" project_view exhale" data-project='Exhale'></div>
+                                            <div class="project_name" data-project-name='exhale'>
+                                                Exhale
+                                            </div>
+                                        </div>
+                                        <div class="project_details">
+                                            <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React
+                                                    ,
+                                                    Firebase ,
+                                                    Tailwind.</span></p>
+                                            <p><span class='hilght-text'>Pages</span> : <span class="third-text">5 pages
+                                                    .</span></p>
+                                            <p><span class='hilght-text'>Position</span> : <span
+                                                    class="third-text">frontend
+                                                    deveoper and team lead </span></span></p>
+                                            <p><span class='hilght-text'>Compony</span> :<span class="third-text">
+                                                    Capston
+                                                    project
+                                                    for Recoded bootcamp .</span></p>
+                                            <p><span class='hilght-text'>Working with</span> : <span
+                                                    class="third-text">team
+                                                    of
+                                                    five.</span></p>
+                                            <div class="project_details_links flex-row ">
+                                                <button class="btn">Read More </button>
+                                                <a href="https://exhale-website.herokuapp.com/"
+                                                    class="live_link">Live</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="project_details">
-                                        <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React ,
-                                                Firebase ,
-                                                Tailwind.</span></p>
-                                        <p><span class='hilght-text'>Pages</span> : <span class="third-text">5 pages
-                                                .</span></p>
-                                        <p><span class='hilght-text'>Position</span> : <span class="third-text">frontend
-                                                deveoper and team lead </span></span></p>
-                                        <p><span class='hilght-text'>Compony</span> :<span class="third-text"> Capston
-                                                project
-                                                for Recoded bootcamp .</span></p>
-                                        <p><span class='hilght-text'>Working with</span> : <span class="third-text">team
-                                                of
-                                                five.</span></p>
-                                        <div class="project_details_links flex-row ">
-                                            <button class="btn">Read More </button>
-                                            <a href="https://exhale-website.herokuapp.com/" class="live_link">Live</a>
+                                    <!-- flex column -->
+                                    <div class="project flex-reverse">
+                                        <!-- the left section of the project -->
+                                        <div class="project_img-view ">
+                                            <div class=" project_view payoo" data-project='Payoo'></div>
+                                            <div class="project_name" data-project-name='payoo'>
+                                                Payoo
+                                            </div>
+                                        </div>
+                                        <div class="project_details text-left">
+                                            <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React
+                                                    native ,
+                                                    Stripe .</span></p>
+                                            <p><span class='hilght-text'>Pages</span> : <span class="third-text">4 main
+                                                    screen
+                                                    and 5 sub screen.</span></p>
+                                            <p><span class='hilght-text'>Position</span> : <span class="third-text">part
+                                                    time
+                                                    frontend developer.</span></span></p>
+                                            <p><span class='hilght-text'>Compony</span> :<span class="third-text"> Payoo
+                                                    start up
+                                                    .</span></p>
+                                            <p><span class='hilght-text'>Working with</span> : <span
+                                                    class="third-text">team
+                                                    of
+                                                    two.</span></p>
+                                            <div class="project_details_links flex-row ">
+                                                <button class="btn">Read More </button>
+                                                <a href="https://play.google.com/store/apps/details?id=com.payoomobile"
+                                                    class="live_link">Live</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- flex column -->
-                                <div class="project flex-reverse">
-                                    <!-- the left section of the project -->
-                                    <div class="project_img-view ">
-                                        <div class=" project_view payoo" data-project='Payoo'></div>
-                                        <div class="project_name" data-project-name='payoo'>
-                                            Payoo
-                                        </div>
-                                    </div>
-                                    <div class="project_details text-left">
-                                        <p><span class='hilght-text '>Techs</span> :<span class="third-text"> React
-                                                native ,
-                                                Stripe .</span></p>
-                                        <p><span class='hilght-text'>Pages</span> : <span class="third-text">4 main
-                                                screen
-                                                and 5 sub screen.</span></p>
-                                        <p><span class='hilght-text'>Position</span> : <span class="third-text">part
-                                                time
-                                                frontend developer.</span></span></p>
-                                        <p><span class='hilght-text'>Compony</span> :<span class="third-text"> Payoo
-                                                start up
-                                                .</span></p>
-                                        <p><span class='hilght-text'>Working with</span> : <span class="third-text">team
-                                                of
-                                                two.</span></p>
-                                        <div class="project_details_links flex-row ">
-                                            <button class="btn">Read More </button>
-                                            <a href="https://play.google.com/store/apps/details?id=com.payoomobile"
-                                                class="live_link">Live</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="section_numberic__lower">O.3</div>
+                                <div class="section_numberic__lower">O.3</div>
+                                <% } %>
                         </section>
                         <!-- this is services  sections -->
                         <section class="mx section">

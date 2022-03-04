@@ -1,130 +1,65 @@
-<!-- Title -->
+<div>
+    <h1 class="text-4xl">Tracker</h1>
+    <div class="container">
+        <div class="overlay flex p-0  relative m-2 ">
+            <!-- Overlay inner wrapper -->
+            <div class="overlay__inner  w-full p-3 px-4">
+                <div class="flex w-full mb-2">
+                    <div class="w-3/12">
+                        <p class="font-bold">
+                            Table
+                        </p>
+                    </div>
+                    <div class="w-3/12">
+                        <p class="font-bold">
+                            Action type
+                        </p>
+                    </div>
+                    <div class="w-3/12">
+                        <p class="font-bold">
+                            Member
+                        </p>
+                    </div>
+                    <div class="w-3/12">
+                        <p class="font-bold">
+                            Time
+                        </p>
+                    </div>
 
-<div class="w-full flex justify-between ">
-    <h1 class="text-2xl">Experiences</h1>
-
-    <!-- Skill Section -->
-    <div @click="showSkills=true ; newModel = true" class=" cursor-pointer" id='skill_modal_btn'>
-        <ion-icon name="add-outline" class="text-2xl  text-gray-400 bg-gray-200 rounded-full p-2"></ion-icon>
-    </div>
-</div>
-<div class="w-full  flex flex-row flex-wrap">
-    <% for( let index=0; index < data.length; index++ ) { %>
-        <% if (!(data[index].deleted)) { %>
-            <div class="overlay flex p-0  relative m-2 w-64 ">
-                <!-- Overlay inner wrapper -->
-                <div class="overlay__inner  min-w-fit ">
-                    <div x-data="{dropdownSkills: false}" class="relative w-full h-full inherit-rounded">
-                        <div class="w-full h-full flex justify-between inherit-rounded ">
-                            <!-- active toggle -->
-                            <div @click=" activeModel= true ; activeState='<%=data[index].is_active  %>'; id = '<%=data[index].id  %>'"
-                                class=" inherit-rounded cursor-pointer mr-3  w-6 
-                            <% if (!(data[index].is_active)) { %>
-                                bg-red-300  hover:bg-red-200
-                               <% } else{%>
-                                bg-green-400  hover:bg-green-300
-                                <% } %> 
-                            ">
-                            </div>
-                            <div class=" p-4">
-                                <h3 class="text-xl border-b-1 border-gray-200 mb-1">
-                                    <%= data[index].title %>
-                                </h3>
-                                <p class="text-sm text-gray-400">
-                                    <%= data[index].description %>
-                                </p>
-
-                            </div>
-                            <div class="cursor-pointer p-4 h-fit" @click="dropdownSkills = ! dropdownSkills">
-                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                            </div>
+                </div>
+                <% for( let index=0; index < data.length; index++ ) { %>
+                    <div class="flex w-full border-b border-gray-100 py-1 cursor-pointer hover:bg-gray-50">
+                        <div class="w-3/12">
+                            <p class="">
+                                <%= data[index].table_name %>
+                            </p>
                         </div>
+                        <div class="w-3/12">
+                            <p class="">
+                                <% if (data[index].actions_type===1) { %>
+                                    Adding
+                                    <% } else if (data[index].actions_type===2) { %>
+                                        Editin
+                                        <% } else { %>
+                                            Deleting
+                                            <% } %>
 
-                        <!-- Dropdown list -->
-                        <div x-show="dropdownSkills"
-                            class="absolute z-50 left-4 py-2 mt-0  bg-gray-100 rounded-md shadow-xl w-44">
-                            <button @click=" id = '<%=data[index].id  %>' ;  fetchSkill() "
-                                class="block px-4 py-2 w-full text-sm  text-gray-700 hover:bg-gray-400 hover:text-white">
-                                Edit
-                            </button>
-                            <a href="/dashboard/experiences/delete/
-                            <%= data[index].id  %>
-                            " data-id-delete="
-                                <%= data[index].id  %>
-                                " class="block px-4 py-2 text-sm text-red-600  hover:bg-gray-400 hover:text-white">
-                                Delete
-                            </a>
-
+                            </p>
+                        </div>
+                        <div class="w-3/12">
+                            <p class="">
+                                
+                            </p>
+                        </div>
+                        <div class="w-3/12">
+                            <p class="">
+                                Time
+                            </p>
                         </div>
 
                     </div>
-                </div>
-            </div>
-            <% } %>
-                <% } %>
-</div>
-
-<!-- toggle active confirm  -->
-<div x-show="activeModel"
-    class=" overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50 justify-center items-center h-search w-screan flex justify-center items-center md:h-full md:inset-0">
-
-    <div class="relative px-4 w-full max-w-md h-full md:h-auto">
-
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div class="flex justify-end p-2">
-                <button type="button" @click="activeModel = false"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                    data-modal-toggle="skill_modal">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-
-            </div>
-            <div class="flex flex-col">
-                <div class="p-3">
-                    <h2 class="text-white">Are you sure you want to toggle the state of this experience ?</h2>
-                </div>
-                <div class="flex">
-                    <button @click="activeModel = false" class="bg-red-400 p-2 px-3 m-2 rounded-sm">No</button>
-                    <button @click="toggleActive()" class="bg-blue-400 p-2 px-3 m-2 rounded-sm">Yes</button>
-                </div>
+                    <% } %>
             </div>
         </div>
     </div>
 </div>
-<script>
-
-    function showme() {
-        return {
-            is_loading: false,
-            newstate: false,
-            // fetch one skill
-            fetchSkill() {
-                this.showSkills = true
-                this.is_loading = true;
-                this.newModel = false;
-                fetch(`/dashboard/experiences/${this.id}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        this.isLoading = false;
-                        this.value = data.formInfo.id;
-                        this.value1 = data.formInfo.title;
-                        this.value2 = data.formInfo.description;
-                        this.value3 = data.formInfo.range_years;
-                        this.value4 = data.formInfo.job_type;
-                        this.value5 = data.formInfo.company_name;
-                        console.log(data);
-                    });
-            },
-            // 
-            toggleActive() {
-                newstate = this.activeState ? false : true;
-                console.log({ newstate });
-                window.location.href = `/dashboard/experiences/toggle/${this.id}`
-            }
-        }
-    }
-</script>

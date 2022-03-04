@@ -75,7 +75,7 @@
         </a>
       </li>
 
-      <% if (userInfo.role !=='undefined' && userInfo.role==0) { %>
+      <% if (userInfo !=='undefined' && userInfo.role==0) { %>
         <li class="nav__item">
           <a href="#" class="nav__link">
             <ion-icon name="folder-outline" class="nav__icon"></ion-icon>
@@ -86,10 +86,10 @@
           <ul class="nav__drop">
             <div class="padding">
               <li>
-                <a href="/dashboard/tracker"><a href="#">Activites</a>
+                <a href="/dashboard/tracker">Activites</a>
               </li>
               <li>
-                <a href="/dashboard/tracker/members"><a href="#">Members</a>
+                <a href="/dashboard/tracker/members">Members</a>
               </li>
             </div>
           </ul>
