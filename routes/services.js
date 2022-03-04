@@ -10,7 +10,6 @@ route.get('/', verify, async (req, res) => {
     var services = await Services.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
     all = services;
     let user = req.cookies.auth;
-    console.log('[user in servies]', user);
     res.render('dashboard', {
         currentPage: 'services',
         data: all,
@@ -137,6 +136,7 @@ route.get('/:id', async (req, res) => {
 
                 res.json({
                     formInfo: {
+                        id: result._id,
                         title: result.services_title,
                         des: result.services_description,
                     }
@@ -149,19 +149,15 @@ route.get('/:id', async (req, res) => {
         console.log(error);
     }
 });
-route.get('/edit/:id/', async (req, res) => {
+route.post('/edit/', async (req, res) => {
     try {
-
+        console.log('[body]', req.body);
         await Services.findByIdAndUpdate({
             _id: req.body.id.replace(/ /g, "")
         },
             {
-                title: req.body.title,
-                description: req.body.des,
-                position: req.body.position,
-                role: req.body.role,
-                image: req.file !== undefined ? req.file.filename : null,
-                links: [{ live: req.body.liveLink }],
+                services_title: req.body.title,
+                services_description: req.body.des,
             }).exec()
             .then(result => {
                 Activities({

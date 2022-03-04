@@ -1,4 +1,4 @@
-<div x-show="showSkills" id="skill_modal" aria-hidden="true"
+<div x-data="{post:'/dashboard/services'}" x-show="showSkills" id="skill_modal" aria-hidden="true"
     class=" overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50 justify-center items-center h-search w-screan flex justify-center items-center md:h-full md:inset-0">
     <div class="relative px-4 w-full max-w-md h-full md:h-auto">
 
@@ -14,43 +14,34 @@
                     </svg>
                 </button>
             </div>
-            <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="/dashboard/services" method="post">
+            <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" x-bind:action="post" method="post">
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white">Create Service</h3>
+                <input type="hidden" name="id" x-text="value" x-model="value" x-bind:value="value"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    placeholder="id">
                 <div>
                     <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
                         Service title</label>
-                    <template x-if="!newModel">
-                        <input type="texts" name="title" id="title" x-text="value1" x-model="value1"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Web design" required>
-                    </template>
-                    <template x-if="newModel">
-                        <input type="text" name="title" id="title"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Web design" required>
-                    </template>
+                    <input type="texts" name="title" id="title" x-text="value1" x-model="value1" x-bind:value="value1"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Web design" required>
+
                 </div>
                 <div>
                     <label for="des" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         Service Description</label>
-                    <template x-if="!newModel">
-                        <input type="text" name="des" id="des" x-text="value2" x-model="value2"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="help you for create a modren website" required>
-                    </template>
-                    <template x-if="newModel">
-                        <input type="text" name="des" id="des"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="help you for create a modren website" required>
-                    </template>
+                    <input type="text" name="des" id="des" x-text="value2" x-model="value2" x-bind:value="value2"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="help you for create a modren website" required>
+
                 </div>
 
                 <template x-if="!newModel">
-                    <button type="button" @click="editSkill()"
+                    <button type="submit" @click="post = '/dashboard/services/edit'"
                         class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</button>
                 </template>
                 <template x-if="newModel">
-                    <button type="submit"
+                    <button type="button" @click="  value1='' ; value2='' ; value=''  ; post = '/dashboard/services/' "
                         class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                 </template>
             </form>

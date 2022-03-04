@@ -125,6 +125,7 @@
                     .then(res => res.json())
                     .then(data => {
                         this.isLoading = false;
+                        this.value = data.formInfo.id ;
                         this.value1 = data.formInfo.title;
                         this.value2 = data.formInfo.des;
                         console.log(data);

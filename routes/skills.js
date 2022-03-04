@@ -1,6 +1,8 @@
 const route = require('express').Router()
 const Skills = require('../schemas/skills')
 const ejs = require('ejs');
+const mongoose = require('mongoose')
+const Activities = require('../schemas/activities')
 const verify = require('../middlewares/verifyToken')
 var allSkills = [];
 
@@ -32,10 +34,21 @@ route.post('/', verify, async (req, res) => {
             }
             else {
                 allSkills.push(result)
+                Activities({
+                    table_name: 'skills',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 1,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
+                let user = req.cookies.auth;
                 res.render('dashboard', {
                     currentPage: 'skills',
                     data: allSkills,
-                    formInfo: {}
+                    formInfo: {},
+                    userInfo: { name: user.fullname, role: user.auth_role }
                 })
                 res.end()
             }
@@ -48,43 +61,29 @@ route.post('/', verify, async (req, res) => {
 // delete
 route.get('/delete/:skill_id', verify, async (req, res) => {
     try {
-        await Skills.updateOne({
+        await Skills.findByIdAndUpdate({
             _id: req.params.skill_id.replace(/ /g, "")
         },
             {
                 deleted: true,
-            },
-            (error, result) => {
-                if (error) console.log({ error });
-                else {
-                    console.log({ result });
-                    var newSkills = allSkills.map(element => {
-                        if (element._id == req.params.skill_id.replace(/ /g, "")) {
-                            element.is_active = false;
+            }).exec()
+            .then(result => {
+                Activities({
+                    table_name: 'skills',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 3,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
 
-                            return element
-                        }
-                        else return element
-                    })
+                res.redirect('/dashboard/skills')
+                res.end()
 
-                    // res.render('dashboard', {
-                    //     currentPage: 'skills',
-                    //     data: newSkills,
-                    //     formInfo: {}
-                    // })
-                    res.redirect('/dashboard/skills')
-                    res.end()
-                }
-            }).clone()
-        // await Skills.deleteOne({
-        //     _id: req.params.skill_id.replace(/ /g, "")
-        // }, (error) => {
-        //     if (error) console.log({ error });
-        //     else {
-        //         res.redirect('/dashboard/skills')
-        //         res.end()
-        //     }
-        // }).clone()
+            }).catch(error => {
+                console.log({ error });
+            })
 
     } catch (error) {
         console.log({ error });
@@ -95,10 +94,22 @@ route.get('/toggle/:skill_id/', verify, async (req, res) => {
         const filter = {
             _id: req.params.skill_id.replace(/ /g, "")
         }
-        let doc = await Skills.findOne(filter, (error) => {
-            if (error) return res.redirect('500page')
+        let doc = await Skills.findOne(filter, (error, result) => {
+            if (error) return res.redirect('500page');
+            else {
+                Activities({
+                    table_name: 'skills',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 2,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
+            }
         }).clone();
         const newLocal = doc.is_active ? false : true
+        console.log(newLocal);
 
         await Skills.updateOne(filter,
             {
@@ -149,21 +160,30 @@ route.get('/edit/:skill_id/', verify, async (req, res) => {
     try {
 
         console.log('[body]', req.query.skillName);
-        await Skills.updateOne({
+        await Skills.findByIdAndUpdate({
             _id: req.params.skill_id.replace(/ /g, "")
         },
             {
                 skill_name: req.query.skillName,
                 skill_type: req.query.skillType
-            },
-            (error, result) => {
-                if (error) console.log({ error });
-                else {
-                    res.redirect('/dashboard/skills')
-                    res.end()
-                }
-            }).clone()
+            }).exec()
+            .then(result => {
+                Activities({
+                    table_name: 'skills',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 2,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
 
+                res.redirect('/dashboard/skills')
+                res.end()
+
+            }).catch(error => {
+                console.log({ error });
+            })
     } catch (error) {
         console.log({ error });
     }
