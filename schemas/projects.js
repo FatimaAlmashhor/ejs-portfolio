@@ -5,12 +5,12 @@ const projects = new mongoose.Schema({
         type: String,
         required: true
     },
-    desciption: String,
+    description: String,
     position: String,
     role: String,
     links: Array,
     image: String,
-    main: Boolean ,
+    main: Boolean,
     is_active: Boolean,
     deleted: Boolean
 })
