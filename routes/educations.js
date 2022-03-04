@@ -2,6 +2,7 @@ const route = require('express').Router()
 const Educations = require('../schemas/educations')
 const Activities = require('../schemas/activities')
 const ejs = require('ejs')
+const mongoose = require('mongoose')
 const verify = require('../middlewares/verifyToken')
 const removeFile = require('../utils/js/removeFile')
 const checkActivationUser = require('../middlewares/checkActivationUser')
@@ -42,8 +43,8 @@ route.post('/', verify, upload.single('project'), async (req, res) => {
             else {
                 Activities({
                     table_name: 'education',
-                    row_id: result.id,
-                    auth_id: req.cookies.auth._id,
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
                     actions_type: 1,
                     actions_time: new Date()
                 }).save((err, result) => {
@@ -71,8 +72,8 @@ route.get('/delete/:id', async (req, res) => {
             .then(result => {
                 Activities({
                     table_name: 'education',
-                    row_id: result.id,
-                    auth_id: req.cookies.auth._id,
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
                     actions_type: 3,
                     actions_time: new Date()
                 }).save((err, result) => {
@@ -101,8 +102,8 @@ route.get('/toggle/:id/', async (req, res) => {
             else {
                 Activities({
                     table_name: 'education',
-                    row_id: result.id,
-                    auth_id: req.cookies.auth._id,
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
                     actions_type: 2,
                     actions_time: new Date()
                 }).save((err, result) => {
@@ -178,8 +179,8 @@ route.post('/edit', verify, upload.single('project'), async (req, res) => {
             .then(result => {
                 Activities({
                     table_name: 'education',
-                    row_id: result.id,
-                    auth_id: req.cookies.auth._id,
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
                     actions_type: 2,
                     actions_time: new Date()
                 }).save((err, result) => {

@@ -1,5 +1,7 @@
 const route = require('express').Router()
 const Services = require('../schemas/services')
+const Activities = require('../schemas/activities')
+const mongoose = require('mongoose')
 const ejs = require('ejs')
 const verify = require('../middlewares/verifyToken')
 var all = [];
@@ -32,11 +34,22 @@ route.post('/', async (req, res) => {
                 return res.redirect('/500page')
             }
             else {
+                Activities({
+                    table_name: 'services',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 1,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
                 all.push(result)
+                let user = req.cookies.auth;
                 res.render('dashboard', {
                     currentPage: 'services',
                     data: all,
-                    formInfo: {}
+                    formInfo: {},
+                    userInfo: { name: user.fullname, role: user.auth_role }
                 })
                 res.end()
             }
@@ -48,20 +61,29 @@ route.post('/', async (req, res) => {
 });
 route.get('/delete/:id', async (req, res) => {
     try {
-        await Services.updateOne({
+        await Services.findByIdAndUpdate({
             _id: req.params.id.replace(/ /g, "")
         },
             {
                 deleted: true,
-            },
-            (error, result) => {
-                if (error) console.log({ error });
-                else {
-                    res.redirect('/dashboard/services')
-                    res.end()
-                }
-            }).clone()
+            }).exec()
+            .then(result => {
+                Activities({
+                    table_name: 'services',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 3,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
 
+                res.redirect('/dashboard/services')
+                res.end()
+
+            }).catch(error => {
+                console.log({ error });
+            })
 
     } catch (error) {
         console.log({ error });
@@ -72,8 +94,19 @@ route.get('/toggle/:id/', async (req, res) => {
         const filter = {
             _id: req.params.id.replace(/ /g, "")
         }
-        let doc = await Services.findOne(filter, (error) => {
-            if (error) return res.redirect('500page')
+        let doc = await Services.findOne(filter, (error, result) => {
+            if (error) return res.redirect('500page');
+            else {
+                Activities({
+                    table_name: 'services',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 2,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
+            }
         }).clone();
         const newLocal = doc.is_active ? false : true
         console.log(newLocal);
@@ -119,21 +152,35 @@ route.get('/:id', async (req, res) => {
 route.get('/edit/:id/', async (req, res) => {
     try {
 
-        console.log('[body]', req.query.skillName);
-        await Services.updateOne({
-            _id: req.params.id.replace(/ /g, "")
+        await Services.findByIdAndUpdate({
+            _id: req.body.id.replace(/ /g, "")
         },
             {
-                services_title: req.query.title,
-                services_description: req.query.des
-            },
-            (error, result) => {
-                if (error) console.log({ error });
-                else {
-                    res.redirect('/dashboard/services')
-                    res.end()
-                }
-            }).clone()
+                title: req.body.title,
+                description: req.body.des,
+                position: req.body.position,
+                role: req.body.role,
+                image: req.file !== undefined ? req.file.filename : null,
+                links: [{ live: req.body.liveLink }],
+            }).exec()
+            .then(result => {
+                Activities({
+                    table_name: 'services',
+                    row_id: mongoose.Types.ObjectId(result.id),
+                    auth_id: mongoose.Types.ObjectId(req.cookies.auth._id),
+                    actions_type: 2,
+                    actions_time: new Date()
+                }).save((err, result) => {
+                    if (err) return res.redirect('/500page');
+                })
+
+                res.redirect('/dashboard/services')
+                res.end()
+
+            }).catch(error => {
+                console.log({ error });
+            })
+
 
     } catch (error) {
         console.log({ error });
