@@ -1,18 +1,22 @@
 <div x-data="{
     showResume: false ,
     showProgress: false ,
+    showSocial: false ,
     progressIndex:0,
     confirmDelete : false ,
 }" class="w-full  flex flex-row flex-wrap">
+    <div class="w-full flex justify-between ">
+        <h1 class="text-2xl">Your Info </h1>
+        <!-- Skill Section -->
+        <% if (data.length===0) { %>
+            <div @click="showSkills=true ; newModel = true" class=" cursor-pointer" id='skill_modal_btn'>
+                <ion-icon name="add-outline" class="text-2xl  text-gray-400 bg-gray-200 rounded-full p-2"></ion-icon>
+            </div>
+            <% } %>
+
+    </div>
     <% for( let index=0; index < data.length; index++ ) { %>
-        <!-- Title -->
 
-        <div class="w-full flex justify-between ">
-            <h1 class="text-2xl">Your Info </h1>
-
-            <!-- Skill Section -->
-
-        </div>
         <% if (!(data[index].deleted)) { %>
             <!-- Bio and bout-->
             <div class="overlay flex p-1  relative m-2 w-fit h-fit">
@@ -91,7 +95,7 @@
 
 
             <!-- progress -->
-            <div class="overlay  flex-col p-1  text-left  relative m-2 w-fit ">
+            <div class="overlay  flex-col p-1  text-left  relative m-2 w-fit h-fit ">
                 <div class="flex justify-between items-center p-3">
                     <h2 class="border-b pb-2 border-gray-400">Progress</h2>
                     <div @click=" id = '<%=data[index].id  %>' ;  showProgress= true " class=" cursor-pointer mx-4"
@@ -114,7 +118,9 @@
                                             <%= data[0].progress[pindex].title %> :
                                         </p>
                                         <p>
+                                            <progress value="
                                             <%= data[0].progress[pindex].value %>
+                                            " max="100"></progress>
                                         </p>
 
                                     </div>
@@ -131,6 +137,57 @@
                                 class="absolute z-50 left-4 top-3 my-2 mt-6 bg-gray-100 rounded-md shadow-xl w-44">
                                 <button
                                     @click=" id = '<%=data[index].id  %>' ; progressIndex = '<%= pindex  %> ';  confirmDelete = true"
+                                    class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-400 hover:rounded  hover:text-white">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+
+
+            <!-- social -->
+            <div class="overlay  flex-col p-1  text-left  relative m-2 w-fit h-fit">
+                <div class="flex justify-between items-center p-3">
+                    <h2 class="border-b pb-2 border-gray-400">Social</h2>
+                    <div @click=" id = '<%=data[index].id  %>' ;  showSocial= true " class=" cursor-pointer mx-4"
+                        id='skill_modal_btn'>
+                        <ion-icon name="add-outline" class="text-2xl  text-gray-400 bg-gray-200 rounded-full p-2">
+                        </ion-icon>
+
+                    </div>
+                </div>
+
+                <% for( let index=0; index < social.length; index++ ) { %>
+
+                    <!-- Overlay inner wrapper -->
+                    <div class="overlay__inner flex min-w-fit justify-between items-start ">
+                        <div x-data="{dropdownSkills: false}" class=" flex relative w-full h-full rounded-all ">
+                            <div class="w-full h-full flex  justify-between rounded-all ">
+                                <div class=" px-4 py-4">
+
+                                    <div class="flex justify-around">
+                                        <p>
+                                            <%= social[index].social_title %> :
+                                        </p>
+                                        <p>
+                                            <%= social[index].social_link %>
+                                        </p>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="cursor-pointer p-4 h-fit" @click="dropdownSkills = ! dropdownSkills">
+                                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                </div>
+                            </div>
+
+                            <!-- Dropdown list -->
+                            <div x-show="dropdownSkills"
+                                class="absolute z-50 left-4 top-3 my-2 mt-6 bg-gray-100 rounded-md shadow-xl w-44">
+                                <button @click="   confirmDelete = true"
                                     class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-400 hover:rounded  hover:text-white">
                                     Delete
                                 </button>
@@ -240,6 +297,88 @@
                                                 class="bg-gray-50 border w-4/6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                                 placeholder="Payoo campany">
                                         </div>
+                                        <!-- </template> -->
+                                        <!-- <template x-if="newModel">
+                                            <div
+                                                class="flex flex-row relative w-full border border-gray-500 p-3 rounded-md border-solid">
+                                                <input type="text" name="progress_title" id="progress"
+                                                    class="bg-gray-50 border w-2/6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                    placeholder="Frontend">
+                                                <input type="range" name="progress_value" id="des"
+                                                    class="bg-gray-50 w-4/6 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                    placeholder="Payoo campany">
+                                            </div>
+                                        </template> -->
+                                    </div>
+                                    <button type="submit"
+                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                                </form>
+
+                            </div>
+                            <!-- <div class="flex">
+                             <button @click="activeModel = false"
+                                 class="bg-red-400 p-2 px-3 m-2 rounded-sm">No</button>
+                             <button @click="toggleActive()"
+                                 class="bg-blue-400 p-2 px-3 m-2 rounded-sm">Yes</button>
+                         </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Social edit model  -->
+            <div x-show="showSocial"
+                class=" overflow-y-auto overflow-x-hidden fixed right-4 left-0 top-4 z-50  h-search w-screan flex justify-center items-center md:h-full md:inset-0">
+
+                <div class="relative px-4 w-full max-w-md h-full md:h-auto">
+
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div class="flex justify-end p-2">
+                            <button type="button" @click="showSocial = false"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                data-modal-toggle="skill_modal">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="p-3">
+                                <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
+                                    action="/dashboard/info/social" method="post">
+                                    <input type="hidden" name="id" value="<%= data[index].id  %> "
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        placeholder="id">
+                                    <!-- progress bar -->
+                                    <div>
+                                        <label for="progress"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Social media</label>
+                                        <!-- <template x-if="!newModel"> -->
+                                        <div
+                                            class="flex flex-row relative w-full border border-gray-500  p-3 rounded-md border-solid">
+                                            <input type=" text" name="social_title" id="social_title" x-text="value3"
+                                                x-model="value3"
+                                                class="bg-gray-50 border w-2/6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                placeholder="Social title" required>
+
+                                            <input type="text" name="social_link" id="social_link" x-text="value4"
+                                                x-model="value4"
+                                                class="bg-gray-50 border w-4/6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                                placeholder="Social link">
+                                        </div>
+                                        <label for="progress"
+                                            class="block mb-2 text-sm mt-2 font-medium text-gray-900 dark:text-gray-300">
+                                            Social Icon </label>
+                                        <input type="text" name="social_icon" id="social_icon" x-text="value5"
+                                            x-model="value5"
+                                            class="bg-gray-50 border w-4/6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            placeholder="Social icon">
                                         <!-- </template> -->
                                         <!-- <template x-if="newModel">
                                             <div
