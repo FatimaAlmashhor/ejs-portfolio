@@ -31,14 +31,14 @@
                     <div class="flex w-full border-b border-gray-100 py-1 cursor-pointer hover:bg-gray-50">
                         <div class="w-3/12">
                             <p class="">
-                                <%= data[index].table_name %>
+                                <%= data[index].data.table_name %>
                             </p>
                         </div>
                         <div class="w-3/12">
                             <p class="">
-                                <% if (data[index].actions_type===1) { %>
+                                <% if (data[index].data.actions_type===1) { %>
                                     Adding
-                                    <% } else if (data[index].actions_type===2) { %>
+                                    <% } else if (data[index].data.actions_type===2) { %>
                                         Editin
                                         <% } else { %>
                                             Deleting
@@ -48,12 +48,12 @@
                         </div>
                         <div class="w-3/12">
                             <p class="">
-                                
+                                <%= data[index].auth.email %>
                             </p>
                         </div>
                         <div class="w-3/12">
                             <p class="">
-                                Time
+                                <%= data[index].data.actions_time.toLocaleString('en-US') %>
                             </p>
                         </div>
 

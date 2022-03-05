@@ -9,8 +9,37 @@ var all = [];
 
 route.get('/', verify, async (req, res) => {
     var activities = await Activities.find({ deleted: false }).clone().catch(function (err) { console.log(err) });
-    var auth = await Auth.find()
-    all = activities;
+    let newActivationObject = await activities.map(element => {
+        let result = Auth.findOne({ _id: element.auth_id })
+            .exec()
+            .then(result => {
+                let finalResult = {
+                    data: element,
+                    auth: result
+                }
+                return new Promise(resolve => resolve(finalResult));
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('500page')
+            })
+        return result
+    })
+    let givemetry = Promise.all(newActivationObject);
+
+    givemetry.then(r => {
+        all = r
+    })
+    // let activities = Activities.
+    //     find({}).
+    //     populate('auths').
+    //     exec(function (err, story) {
+    //         if (err) return handleError(err);
+    //         console.log('The author is %s', story.author.name);
+    //         // prints "The author is Ian Fleming"
+    //     });
+    // console.log({ activities });
+    // all = activities;
     let user = req.cookies.auth;
     res.render('dashboard', {
         currentPage: 'tracker',
