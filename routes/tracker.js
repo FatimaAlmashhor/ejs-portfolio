@@ -30,20 +30,25 @@ route.get('/', verify, async (req, res) => {
     givemetry.then(r => {
         all = r
     })
-    // let activities = Activities.
-    //     find({}).
-    //     populate('auths').
-    //     exec(function (err, story) {
-    //         if (err) return handleError(err);
-    //         console.log('The author is %s', story.author.name);
-    //         // prints "The author is Ian Fleming"
-    //     });
-    // console.log({ activities });
-    // all = activities;
+
     let user = req.cookies.auth;
     res.render('dashboard', {
         currentPage: 'tracker',
+        activities: true,
         data: all,
+        formInfo: {},
+        userInfo: { name: user.fullname, role: user.auth_role }
+    })
+    console.log('here the activities');
+});
+route.get('/members', verify, async (req, res) => {
+    var auths = await Auth.find({ auth_role: 1 }).clone().catch(function (err) { console.log(err) });
+
+    let user = req.cookies.auth;
+    res.render('dashboard', {
+        currentPage: 'tracker',
+        activities: false,
+        data: auths,
         formInfo: {},
         userInfo: { name: user.fullname, role: user.auth_role }
     })

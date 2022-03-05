@@ -4,62 +4,119 @@
         <div class="overlay flex p-0  relative m-2 ">
             <!-- Overlay inner wrapper -->
             <div class="overlay__inner  w-full p-3 px-4">
-                <div class="flex w-full mb-2">
-                    <div class="w-3/12">
-                        <p class="font-bold">
-                            Table
-                        </p>
-                    </div>
-                    <div class="w-3/12">
-                        <p class="font-bold">
-                            Action type
-                        </p>
-                    </div>
-                    <div class="w-3/12">
-                        <p class="font-bold">
-                            Member
-                        </p>
-                    </div>
-                    <div class="w-3/12">
-                        <p class="font-bold">
-                            Time
-                        </p>
-                    </div>
 
-                </div>
-                <% for( let index=0; index < data.length; index++ ) { %>
-                    <div class="flex w-full border-b border-gray-100 py-1 cursor-pointer hover:bg-gray-50">
+                <% if (activities) { %>
+                    <div class="flex w-full mb-2">
                         <div class="w-3/12">
-                            <p class="">
-                                <%= data[index].data.table_name %>
+                            <p class="font-bold">
+                                Table
                             </p>
                         </div>
                         <div class="w-3/12">
-                            <p class="">
-                                <% if (data[index].data.actions_type===1) { %>
-                                    Adding
-                                    <% } else if (data[index].data.actions_type===2) { %>
-                                        Editin
-                                        <% } else { %>
-                                            Deleting
+                            <p class="font-bold">
+                                Action type
+                            </p>
+                        </div>
+                        <div class="w-3/12">
+                            <p class="font-bold">
+                                Member
+                            </p>
+                        </div>
+                        <div class="w-3/12">
+                            <p class="font-bold">
+                                Time
+                            </p>
+                        </div>
+
+                    </div>
+                    <% for( let index=0; index < data.length; index++ ) { %>
+                        <div class="flex w-full border-b border-gray-100 py-1 cursor-pointer hover:bg-gray-50">
+                            <div class="w-3/12">
+                                <p class="">
+                                    <%= data[index].data.table_name %>
+                                </p>
+                            </div>
+                            <div class="w-3/12">
+                                <p class="">
+                                    <% if (data[index].data.actions_type===1) { %>
+                                        Adding
+                                        <% } else if (data[index].data.actions_type===2) { %>
+                                            Editin
+                                            <% } else { %>
+                                                Deleting
+                                                <% } %>
+
+                                </p>
+                            </div>
+                            <div class="w-3/12">
+                                <p class="">
+                                    <%= data[index].auth.email %>
+                                </p>
+                            </div>
+                            <div class="w-3/12">
+                                <p class="">
+                                    <%= data[index].data.actions_time.toLocaleString('en-US') %>
+                                </p>
+                            </div>
+
+                        </div>
+                        <% } %>
+                            <% }else{ %>
+                                <div class="flex w-full mb-2">
+                                    <div class="w-3/12">
+                                        <p class="font-bold">
+                                            Full Name
+                                        </p>
+                                    </div>
+                                    <div class="w-5/12">
+                                        <p class="font-bold">
+                                            Email
+                                        </p>
+                                    </div>
+                                    <div class="w-2/12">
+                                        <p class="font-bold">
+                                            Active
+                                        </p>
+                                    </div>
+                                    <div class="w-2/12">
+                                        <p class="font-bold">
+                                            Deleted
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div class="overlay  p-0  relative m-2 ">
+                                    <div class="overlay__inner flex flex-col  w-full p-3 px-4">
+                                        <% for( let index=0; index < data.length; index++ ) { %>
+                                            <!-- Overlay inner wrapper -->
+                                            <div class="flex w-full mb-2">
+                                                <div class="w-3/12">
+                                                    <p class="font-normal">
+                                                        <%= data[index].fullname %>
+                                                    </p>
+                                                </div>
+                                                <div class="w-5/12">
+                                                    <p class="font-normal">
+                                                        <%= data[index].email %>
+                                                    </p>
+                                                </div>
+                                                <div class="w-2/12">
+                                                    <p class="font-normal">
+                                                        <%= data[index].is_active %>
+                                                    </p>
+                                                </div>
+                                                <div class="w-2/12">
+                                                    <p class="font-normal">
+                                                        <%= data[index].deleted %>
+                                                    </p>
+                                                </div>
+                                            </div>
                                             <% } %>
+                                    </div>
+                                </div>
+                                <% } %>
 
-                            </p>
-                        </div>
-                        <div class="w-3/12">
-                            <p class="">
-                                <%= data[index].auth.email %>
-                            </p>
-                        </div>
-                        <div class="w-3/12">
-                            <p class="">
-                                <%= data[index].data.actions_time.toLocaleString('en-US') %>
-                            </p>
-                        </div>
 
-                    </div>
-                    <% } %>
             </div>
         </div>
     </div>
-</div>
