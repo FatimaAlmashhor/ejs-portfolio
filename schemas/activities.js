@@ -11,6 +11,7 @@ const actions = new mongoose.Schema({
     },
     auth_id: {
         type: mongoose.Types.ObjectId,
+        ref: 'auths',
         required: true
     },
     actions_type: {
