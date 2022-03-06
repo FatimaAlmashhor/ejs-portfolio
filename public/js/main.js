@@ -44,10 +44,10 @@ function drop() {
 }
 
 // --------- Toggle Side Nav --------
-const menuBtn = document.querySelector("#nav-toggle");
+// const menuBtn = document.querySelector("#nav-toggle");
 const sideNav = document.querySelector("#side-nav");
 
-menuBtn.addEventListener("click", toggleSideNav);
+// menuBtn.addEventListener("click", toggleSideNav);
 
 function toggleSideNav() {
     if (sideNav.style.width == "5.6rem" || sideNav.style.width == "") {

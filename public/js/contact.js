@@ -4,11 +4,11 @@ let email = document.getElementById('email');
 let email_error = document.getElementById('email-error');
 let message_error = document.getElementById('message-error');
 let form = document.getElementById('form');
-
+// import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js'
 window.onload = function () {
     (function () {
         // https://dashboard.emailjs.com/admin/integration
-        emailjs.init(email_user_id);
+        emailjs.init();
     })();
 }
 
